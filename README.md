@@ -26,6 +26,13 @@ sampled from the file, three layouts (blue title / white section divider /
 white content), uppercase heavy headings with a short rule under them, no
 accent colour anywhere, and the fixed AU footer on every slide.
 
+Also exported as PDF, for AV systems that won't take a .pptx and for printing:
+
+- `docs/multimodal-actuator-workshop.pdf` — slides only (19 pages)
+- `docs/multimodal-actuator-workshop-with-notes.pdf` — each slide with its
+  speaker notes underneath (38 pages). This is the one to print and run the
+  session from.
+
 Rebuild it with:
 
 ```bash
