@@ -376,9 +376,9 @@ td.part{font-family:var(--mono);font-size:12px;color:var(--ink-2)}
   </div>
   <p class="standfirst">You can read a datasheet. You have never held one of these. This session is about putting a vibration motor against your own wrist, deciding it feels cheap, and picking something else. Better now than in week 46, with the demo three days out.</p>
   <dl class="facts">
-    <div class="fact"><dt>Format</dt><dd>6 benches, rotating</dd></div>
+    <div class="fact"><dt>Format</dt><dd>5 tasks, self-paced</dd></div>
     <div class="fact"><dt>Board</dt><dd>Arduino Uno</dd></div>
-    <div class="fact"><dt>Group size</dt><dd>3–4</dd></div>
+    <div class="fact"><dt>Work in</dt><dd>Pairs</dd></div>
     <div class="fact"><dt>Prerequisite</dt><dd>None</dd></div>
     <div class="fact"><dt>Output</dt><dd>One working signal</dd></div>
   </dl>
@@ -390,11 +390,11 @@ td.part{font-family:var(--mono);font-size:12px;color:var(--ink-2)}
     <h4>TLDR;</h4>
     <p>This is how you spend two hours finding out what actuators actually feel like, and leave able to drive one from your own code.</p>
     <ol>
-      <li>⚡ <b>Get a board and run task 01.</b> Something spins.</li>
-      <li>🔁 <b>Change two numbers, upload again.</b> That loop is the whole workshop.</li>
-      <li>🖐️ <b>Pick up the actuators you are not using.</b> They are on the benches around you.</li>
-      <li>🔌 <b>Work through as many of the five tasks as you get to.</b> Nobody finishes all five.</li>
-      <li>✅ <b>Build one signal someone else can read without looking.</b></li>
+      <li><b>Get a board and run task 01.</b> Something spins.</li>
+      <li><b>Change two numbers, upload again.</b> That loop is the whole workshop.</li>
+      <li><b>Pick up the actuators you are not driving.</b> They are on the tables around you.</li>
+      <li><b>Work through as many of the five tasks as you get to.</b> Nobody finishes all five.</li>
+      <li><b>Build one signal someone else can read without looking.</b></li>
     </ol>
   </div>
 </section>
@@ -404,14 +404,14 @@ td.part{font-family:var(--mono);font-size:12px;color:var(--ink-2)}
   <div class="premise">
     <div>
       <p>Every year, projects arrive at the pitch built entirely on the screen and the speaker, because those are the two output devices a computer scientist already owns. Touch gets designed on paper and then quietly dropped. Not because it was the wrong choice, but because nobody knew that a coin motor costs 12 kr and takes two wires.</p>
-      <p>So this is deliberately not a tutorial. There is no circuit to copy correctly. There are six benches, each with an actuator already wired and already running, and your job is to touch all of them and form an opinion about what each one is <em>good at</em>.</p>
+      <p>So this is deliberately not a tutorial. There is no circuit to copy correctly. Everything is wired already. Your job is to drive it, change the numbers, and form an opinion about what each actuator is <em>good at</em>.</p>
       <div class="pull">A coin motor and a solenoid can both signal “message received.” They are not interchangeable. One is a nudge and one is a knock, and that difference is a design decision, not a component decision.</div>
       <p>You leave with a shopping list you actually believe in, and a rough sense of what the lab can lend you for the project weeks.</p>
     </div>
     <aside class="tie">
       <h4>What this needs you to know first</h4>
       <ul>
-        <li><code>none</code><span>Nothing. This runs early on purpose, so no bench assumes a lecture you have already had.</span></li>
+        <li><code>none</code><span>Nothing. This runs early on purpose, so nothing here assumes a lecture you have already had.</span></li>
         <li><code>after</code><span>The vocabulary arrives later: actuator types, auditory feedback, and how to design feedback across several senses at once.</span></li>
         <li><code>today</code><span>What you get here is the physical reference those lectures will point back to. Much easier to follow a slide about vibration when your wrist remembers it.</span></li>
         <li><code>project</code><span>And a shopping list you actually believe in, plus a sense of what the lab can lend you.</span></li>
@@ -422,7 +422,7 @@ td.part{font-family:var(--mono);font-size:12px;color:var(--ink-2)}
 
 <section class="sec">
   <div class="sec-head"><h2>Run sheet</h2><div class="eyebrow">120 minutes</div></div>
-  <p class="lede">Times are offsets from the start. The rotation is the spine of the session, so keep it moving. Groups will want to linger at bench 3 and it will wreck the schedule.</p>
+  <p class="lede">Times are offsets from the start. The only hard checkpoint is 0:25, when everyone should have task 01 running.</p>
   <div class="run">
     <div class="leg">
       <div class="clock">0:00<span>10 min</span></div>
@@ -483,7 +483,7 @@ td.part{font-family:var(--mono);font-size:12px;color:var(--ink-2)}
   </div>
 
   <div class="note note--go">
-    <b>Freestyle is encouraged.</b> You do not have to do the tasks in order, and you do not have to finish them. Getting task 01 working and then properly playing with task 02 beats rushing through all five. If you want to drive something that is not on your bench, go and get it.
+    <b>Freestyle is encouraged.</b> You do not have to do the tasks in order, and you do not have to finish them. Getting task 01 working and then properly playing with task 02 beats rushing through all five. If you want to drive something that is not in front of you, go and get it.
   </div>
 
   <div class="note note--warn">
@@ -493,7 +493,7 @@ td.part{font-family:var(--mono);font-size:12px;color:var(--ink-2)}
 
 <section class="sec">
   <div class="sec-head"><h2>Inputs worth knowing about</h2><div class="eyebrow">Ten-minute mention</div></div>
-  <p class="lede">Not a rotation. These sit on one table with a sign, for the projects that need to sense a person rather than signal to one. Mention them at the framing and let people wander over during the build.</p>
+  <p class="lede">One table with a sign, for the projects that need to sense a person rather than signal to one. Wander over between tasks.</p>
   <div class="sensors">
     <div class="sen">
       <h4>Heart rate / PPG</h4><div class="pin">MAX30102 &middot; I²C</div>
@@ -505,11 +505,11 @@ td.part{font-family:var(--mono);font-size:12px;color:var(--ink-2)}
     </div>
     <div class="sen">
       <h4>Flex / bend</h4><div class="pin">2.2" flex &middot; A2 + 10k</div>
-      <p>A resistive strip that changes value as it bends. The cheap route to a data glove, and the obvious pairing with force feedback on bench 4.</p>
+      <p>A resistive strip that changes value as it bends. The cheap route to a data glove, and the obvious thing to pair with an actuator.</p>
     </div>
     <div class="sen">
       <h4>Capacitive touch</h4><div class="pin">ADCTouch &middot; any analogue pin</div>
-      <p>The cheapest input on the table: a wire behind foil, cardboard or fabric, no breakout board. Costs one library and a rolling baseline. See bench 4; it is genuinely this easy.</p>
+      <p>The cheapest input on the table: a wire behind foil, cardboard or fabric, no breakout board. Costs one library and a rolling baseline. That is task 04, and it is genuinely this easy.</p>
     </div>
     <div class="sen">
       <h4>Pressure / force</h4><div class="pin">FSR &middot; analogue + divider</div>
@@ -554,16 +554,16 @@ td.part{font-family:var(--mono);font-size:12px;color:var(--ink-2)}
   <div class="brief">
     <h3>Encode three messages in one actuator</h3>
     <ol>
-      <li>Pick one actuator from the rotation. Any of the six.</li>
+      <li>Pick one actuator. Any of them.</li>
       <li>Choose three messages a real interface would need to send. Suggested set: <strong>message arrived</strong>, <strong>something is wrong</strong>, <strong>task finished</strong>.</li>
       <li>Encode each one by varying two things only: the <em>rhythm</em> of the pulses, and how <em>strong</em> they are. No changing actuators between messages.</li>
-      <li>Hand the device to another group with the display turned away. They receive all three in a random order and name them.</li>
+      <li>Hand the device to another group with the screen turned away. They receive all three in a random order and name them.</li>
       <li>Write down the confusion: which two got mixed up, and what parameter would have separated them.</li>
     </ol>
     <p class="constraint">Constraint that makes it interesting: the recipient cannot look at the device. If your design only works when someone is watching a screen, you built a visual interface with a motor glued to it.</p>
   </div>
 
-  <div class="code"><span class="c">// Bench 1: signal skeleton. Rhythm is yours to change.</span>
+  <div class="code"><span class="c">// Task 01 signal skeleton. Rhythm is yours to change.</span>
 <span class="c">// Strength = PWM depth. Rhythm = the on/off pattern below.</span>
 
 <span class="k">const int</span> MOTOR = 9;
@@ -598,16 +598,16 @@ td.part{font-family:var(--mono);font-size:12px;color:var(--ink-2)}
   <div class="sec-head"><h2>What you actually learn</h2><div class="eyebrow">Why it is worth two hours</div></div>
   <p class="lede">Five small tasks give you three things you cannot get from a datasheet.</p>
   <div class="learn">
-    <div><h4>⚡ What things feel like</h4><p>A motor is a nudge. A solenoid is a knock. A Peltier is slow. You now know that in your hands rather than in theory.</p></div>
-    <div><h4>🔧 How to drive one</h4><p>PWM, direction, debouncing, and why the motor never goes straight to a pin. Enough to add an actuator to a project without starting from zero.</p></div>
-    <div><h4>🎯 What to pick</h4><p>Choosing the actuator before designing the interaction, rather than discovering in week 46 that the one you picked cannot do it.</p></div>
+    <div><h4>What things feel like</h4><p>A motor is a nudge. A solenoid is a knock. A Peltier is slow. You now know that in your hands rather than in theory.</p></div>
+    <div><h4>How to drive one</h4><p>PWM, direction, debouncing, and why the motor never goes straight to a pin. Enough to add an actuator to a project without starting from zero.</p></div>
+    <div><h4>What to pick</h4><p>Choosing the actuator before designing the interaction, rather than discovering in week 46 that the one you picked cannot do it.</p></div>
   </div>
   <p style="margin-top:22px;max-width:66ch;color:var(--ink-2)">The important bit is not that your signal is elegant, or that you finish all five tasks. It is that you leave having actually driven something, and with an opinion about what it was good for.</p>
 </section>
 
 <section class="sec">
   <div class="sec-head"><h2>Still missing from this guide</h2><div class="eyebrow">Honest list</div></div>
-  <p class="lede">A few things get locked once the benches have been built and tested for real.</p>
+  <p class="lede">A few things get locked once the hardware has been built and tested for real.</p>
   <div class="sensors">
     <div class="sen"><h4>Final wiring diagrams per task</h4><div class="pin">photo or Fritzing</div></div>
     <div class="sen"><h4>Confirmed pin numbers</h4><div class="pin">currently provisional</div></div>
@@ -617,18 +617,18 @@ td.part{font-family:var(--mono);font-size:12px;color:var(--ink-2)}
 </section>
 
 <section class="sec">
-  <div class="sec-head"><h2>Kit list</h2><div class="eyebrow">Per bench &middot; 6 benches</div></div>
-  <p class="lede">Quantities are for one bench. Order spares of anything that gets handled: coin motors shear their leads and flex sensors crack at the base.</p>
+  <div class="sec-head"><h2>Kit list</h2><div class="eyebrow">Per working set</div></div>
+  <p class="lede">Quantities are for one working set. Order spares of anything that gets handled: coin motors shear their leads and flex sensors crack at the base.</p>
   <div class="tblwrap">
     <table>
       <thead>
-        <tr><th>Bench</th><th>Item</th><th>Part</th><th>Qty</th></tr>
+        <tr><th>Task</th><th>Item</th><th>Part</th><th>Qty</th></tr>
       </thead>
       <tbody>
         <tr><td>All</td><td>Arduino Uno R3 + USB cable</td><td class="part">A000066</td><td class="qty">1</td></tr>
         <tr><td>All</td><td>Breadboard, jumpers, 10k pot</td><td class="part">–</td><td class="qty">1 set</td></tr>
         <tr><td>01</td><td>Coin ERM 10mm 3V</td><td class="part">–</td><td class="qty">4 (spares)</td></tr>
-        <tr><td>01, 03</td><td>2N2222 transistor + 1N4148 diode</td><td class="part">–</td><td class="qty">6 ea</td></tr>
+        <tr><td>01, 02</td><td>2N2222 transistor + 1N4148 diode</td><td class="part">–</td><td class="qty">6 ea</td></tr>
         <tr><td>02</td><td>LRA 10mm + 27mm piezo disc</td><td class="part">–</td><td class="qty">2 + 2</td></tr>
         <tr><td>02</td><td>Haptic driver breakout</td><td class="part">DRV2605L</td><td class="qty">1</td></tr>
         <tr><td>03</td><td>Push-pull solenoid 5V</td><td class="part">JF-0530B</td><td class="qty">2</td></tr>
@@ -640,13 +640,13 @@ td.part{font-family:var(--mono);font-size:12px;color:var(--ink-2)}
         <tr><td>05</td><td>Bench PSU, 5V 5A</td><td class="part">–</td><td class="qty">1</td></tr>
         <tr><td>06</td><td>Bone-conduction exciter + class-D amp</td><td class="part">PAM8403</td><td class="qty">1 + 1</td></tr>
         <tr><td>06</td><td>Ear defenders</td><td class="part">–</td><td class="qty">2</td></tr>
-        <tr><td>Sensors</td><td>PPG, GSR, flex ×2</td><td class="part">MAX30102 / Grove GSR</td><td class="qty">1 ea</td></tr>
-        <tr><td>Sensors</td><td>Force-sensitive resistor + 10k</td><td class="part">FSR 402</td><td class="qty">2</td></tr>
+        <tr><td>Extra</td><td>PPG, GSR, flex ×2</td><td class="part">MAX30102 / Grove GSR</td><td class="qty">1 ea</td></tr>
+        <tr><td>Extra</td><td>Force-sensitive resistor + 10k</td><td class="part">FSR 402</td><td class="qty">2</td></tr>
         <tr><td>Optional</td><td>ESP32 dev board, for wireless demos</td><td class="part">ESP32-WROOM-32</td><td class="qty">2</td></tr>
       </tbody>
     </table>
   </div>
-  <p class="foot">Prep time is roughly a half day: every bench must be wired, flashed and left running before students arrive. If a bench needs debugging during the session, pull it. Five working benches beat six with a mystery. Bench 3 and bench 5 are the two that draw real current; put them nearest the bench supplies and check the heatsink paste the morning of.</p>
+  <p class="foot">Prep is roughly a half day: build one working set per task, flash it, and confirm it runs before students arrive. Run the sketches in <code>bench_tests/</code> the morning of; each one proves a single component and nothing more. The solenoid and the Peltier are the two that draw real current, so put them nearest the bench supplies and check the heatsink paste before anyone touches it.</p>
 </section>
 
 </div>

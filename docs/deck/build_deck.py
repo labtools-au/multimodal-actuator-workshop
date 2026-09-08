@@ -212,6 +212,18 @@ def build():
                 "Hands-on prototyping with actuators  ·  2 hours")
 
     content_slide(
+        prs, "TLDR",
+        lead="Two hours finding out what actuators feel like, and leaving able to "
+             "drive one from your own code.",
+        body=[
+            ("Get a board and run task 01. Something spins.", 0, False),
+            ("Change two numbers, upload again. That loop is the workshop.", 0, False),
+            ("Pick up the actuators you are not driving.", 0, False),
+            ("Work through as many of the five tasks as you get to.", 0, False),
+            ("Build one signal someone else can read without looking.", 0, False),
+        ])
+
+    content_slide(
         prs, "Why we are here",
         lead="You can read a datasheet. You have never held one of these.",
         body=[
@@ -230,7 +242,7 @@ def build():
             ("Upload, change two numbers, upload again", 1, False),
             ("You wire nothing today", 1, False),
             ("", 0, False),
-            ("Actuators are on the benches around you", 0, True),
+            ("Actuators are on the tables around you", 0, True),
             ("Go and feel the ones your task does not use", 1, False),
             ("", 0, False),
             ("Finish by building one signal", 0, True),
@@ -274,6 +286,32 @@ def build():
             ("The last one is usually the interesting one", 1, False),
             ("", 0, False),
             ("github.com/gust1527/multimodal-actuator-workshop", 0, True),
+        ])
+
+    content_slide(
+        prs, "Freestyle is encouraged",
+        body=[
+            ("You do not have to do the tasks in order.", 0, True),
+            ("You do not have to finish them.", 0, True),
+            ("", 0, False),
+            ("Getting task 01 working and then properly playing with task 02 "
+             "beats rushing through all five.", 0, False),
+            ("", 0, False),
+            ("If you want to drive something that is not in front of you, "
+             "go and get it.", 0, False),
+        ])
+
+    content_slide(
+        prs, "Before you power anything",
+        body=[
+            ("The solenoid and the Peltier both pull real current.", 0, True),
+            ("They need their own supply. Ask before you rewire either.", 1, False),
+            ("", 0, False),
+            ("The Peltier needs its heatsink on. Every time.", 0, True),
+            ("Without it the tile cooks itself in about a minute.", 1, False),
+            ("", 0, False),
+            ("Never drive a motor straight from a pin.", 0, True),
+            ("40 mA limit. The motor wants nearly twice that.", 1, False),
         ])
 
     content_slide(
@@ -341,6 +379,33 @@ def build():
             ("", 0, False),
             ("If it only works while someone watches a screen,", 0, False),
             ("you built a visual interface with a motor glued to it.", 0, False),
+        ])
+
+    content_slide(
+        prs, "Test it",
+        lead="Hand your device to another group with the screen turned away.",
+        body=[
+            ("They can tell all three messages apart.", 1, False),
+            ("It does not fire continuously when held.", 1, False),
+            ("You know which two got confused, and what would have separated "
+             "them.", 1, False),
+            ("It still works when they are not looking at it.", 1, False),
+        ])
+
+    content_slide(
+        prs, "What you actually learn",
+        lead="Three things you cannot get from a datasheet.",
+        body=[
+            ("What things feel like", 0, True),
+            ("A motor is a nudge. A solenoid is a knock. A Peltier is slow.", 1, False),
+            ("", 0, False),
+            ("How to drive one", 0, True),
+            ("PWM, direction, debouncing, and why a motor never goes straight "
+             "to a pin.", 1, False),
+            ("", 0, False),
+            ("What to pick", 0, True),
+            ("Choosing the actuator before designing the interaction, not in "
+             "week 46.", 1, False),
         ])
 
     title_slide(prs, "Go and touch things",

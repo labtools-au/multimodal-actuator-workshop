@@ -18,7 +18,13 @@ Buzz a phone-style notification on the motor. Then send the same message on the
 solenoid. Ask which felt more urgent. Let them answer. Nobody needs theory for
 that, and it is the argument for the whole session.""",
 
-    # 1: why we are here
+    # 1: tldr
+    """Fifteen seconds. It is a map, not a talk.
+
+Useful because half the room arrives expecting a lecture and needs to be told
+immediately that this is not one.""",
+
+    # 2: why we are here
     """Say the full version out loud, the slide only carries the skeleton:
 
 "You can read a datasheet. You have never held one of these. Today you put a
@@ -35,10 +41,9 @@ lectured at.
 A board each. Five tasks. Everything pre-wired. They upload, change numbers,
 upload again.
 
-The actuators they are NOT using sit on the benches around the room. Tell them
-explicitly to go and feel those between tasks. That is the comparison that used
-to be a guided tour; it now happens on their own initiative, which works better
-anyway.""",
+The actuators they are NOT driving sit on tables around the room. Tell them
+explicitly to go and pick those up between tasks. The comparison still happens,
+just on their own initiative rather than on a timer.""",
 
     # 3: run sheet
     """Show it, do not narrate it. Fifteen seconds.
@@ -68,7 +73,7 @@ then properly playing with 02 beats rushing all of them.
 Task 05's last experiment IS the closing brief, so the work carries over.""",
 
     # 6: how the sketches work
-    """Say the format once here rather than at every bench.
+    """Say the format once here rather than repeating it per task.
 
 CHANGE ME at the top: two or three numbers, already set to something that
 works. THINGS TO TRY at the bottom: four experiments, easy to hard, and the
@@ -77,14 +82,35 @@ last one usually asks for a rewrite rather than a tweak.
 Upload problems, in the order they will hit you:
   * wrong board or port under Tools
   * ADCTouch not installed (tasks 04 and 05)
-  * solenoid task: board resets on fire means the bench supply is off
+  * solenoid task: board resets when it fires means its supply is off
 
 Write the repo URL on the whiteboard now. It gets asked for six times.
 
 If a task's hardware fails, utils/ has the diagnostics: pin_sweep, i2c_scanner,
 analog_monitor.""",
 
-    # 7: the one that surprises people
+    # 8: freestyle
+    """Say this out loud, do not just show it. Some students will not believe
+they are allowed to skip ahead or stop early unless you tell them.
+
+The failure mode is a pair rushing all five tasks badly instead of doing two
+properly. Name that explicitly.""",
+
+    # 9: before you power anything
+    """The only slide where you should sound firm.
+
+Three real hazards:
+  * solenoid and Peltier on their own supply, not USB
+  * Peltier heatsink on before it is switched on, no exceptions
+  * no motor straight from a pin
+
+Say the numbers: a pin gives 40 mA, the motor wants about 75. It is not a rule
+they have to take on faith.
+
+Also mention that a board resetting when the solenoid fires is a POWER problem,
+not a code bug. It will save someone twenty minutes.""",
+
+    # 10: the one that surprises people
     """Slow down here. This is the single idea most worth stealing from today, and
 it is worth interrupting the room for once most people have reached task 04.
 
@@ -159,7 +185,21 @@ Run the test: swap groups, receiver looks away, guess all three.
 Then have each group name which two got confused and what would have separated
 them. That confusion is the actual learning, not the successful ones.""",
 
-    # 14: closing
+    # 17: test it
+    """Put this up while the blind tests are running so groups can check
+themselves without asking you.
+
+The second line matters most: a device that fires continuously when held is
+the single most common bug, and it is a debounce problem.""",
+
+    # 18: what you actually learn
+    """The closing argument. Thirty seconds.
+
+If they leave with only one thing, it should be the third: pick the actuator
+before designing the interaction. Discovering in week 46 that the chosen one
+cannot do the job is the expensive mistake this session exists to prevent.""",
+
+    # 19: closing
     """Point them at the repo. Every task sketch is commented for them, and the
 bench test sketches are there too if they want to see the minimal version.
 
