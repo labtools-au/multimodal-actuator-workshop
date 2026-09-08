@@ -70,5 +70,10 @@ void loop() {
 //    to press hard. There is no correct value, only one that suits your pad,
 //    your room and the day. Which is why it is relative and not a fixed number.
 //
+//    For what it is worth, the rig this came from went through the same thing.
+//    An earlier version used 1.008 with a 50-sample baseline; the final one
+//    uses 1.01 with 25, and the commit message says "reduced for
+//    responsiveness". Expect to tune these. Everyone does.
+//
 // 4. Swap the foil for a banana, a plant, a door handle. Anything conductive
 //    is an input.

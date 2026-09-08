@@ -4,11 +4,13 @@
 // skin actually is.
 //
 // A Peltier moves heat from one face to the other. Reverse the current and it
-// reverses. That is what the H-bridge is for: two pins decide direction, one
-// PWM pin decides how hard.
+// reverses. An H-bridge is what lets you flip that current from code.
+//
 //
 // WIRING (bench 05)
-//   D3  -> ENA (speed)      D4, D5 -> IN1, IN2 (direction)
+//   Two PWM pins per channel: one "low", one "high". Drive one and hold the
+//   other at 0 to pick a direction. This is the same pattern the lab's other
+//   actuator rigs use, so it will look familiar if you read that code.
 //   Tile on a bench supply, heatsink glued to the hot face.
 //
 // SAFETY, NOT OPTIONAL
@@ -17,7 +19,7 @@
 //     rig. Do not raise it.
 //   * Never leave it running unattended.
 
-const int ENA = 3, IN1 = 4, IN2 = 5;
+const int tileLow = 3, tileHigh = 5;   // both must be PWM pins
 
 // ---- CHANGE ME ------------------------------------------------------------
 int level    = 180;       // 0-255. LEAVE AT OR BELOW MAX_LEVEL.
@@ -27,19 +29,22 @@ int holdMs   = 8000;      // how long to hold each direction
 const int MAX_LEVEL = 200;   // do not raise. Thermal limit, not a style choice.
 
 void warm(int lvl) {
-  digitalWrite(IN1, HIGH); digitalWrite(IN2, LOW);
-  analogWrite(ENA, min(lvl, MAX_LEVEL));
+  analogWrite(tileLow, min(lvl, MAX_LEVEL));
+  analogWrite(tileHigh, 0);
 }
 
 void cool(int lvl) {
-  digitalWrite(IN1, LOW); digitalWrite(IN2, HIGH);
-  analogWrite(ENA, min(lvl, MAX_LEVEL));
+  analogWrite(tileLow, 0);
+  analogWrite(tileHigh, min(lvl, MAX_LEVEL));
 }
 
-void off() { analogWrite(ENA, 0); }
+void off() {
+  analogWrite(tileLow, 0);
+  analogWrite(tileHigh, 0);   // both off, or the tile keeps working
+}
 
 void setup() {
-  pinMode(ENA, OUTPUT); pinMode(IN1, OUTPUT); pinMode(IN2, OUTPUT);
+  pinMode(tileLow, OUTPUT); pinMode(tileHigh, OUTPUT);
   off();
   Serial.begin(9600);
   Serial.println("Finger on the tile. Say out loud when you are SURE.");

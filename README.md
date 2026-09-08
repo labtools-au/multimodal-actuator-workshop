@@ -163,6 +163,14 @@ request per sample.
 > ⚠️ That repo has a hardcoded Wi-Fi SSID/password and a live PocketBase URL with
 > patient and session IDs. Scrub it before showing it to a room.
 
+### `ktane` (Physical Computing 2023, gitlab.au.dk/exploronauterne)
+Keep Talking And Nobody Explodes, built physically. Not multimodal, but its
+`Test of components and features/` directory is a good model for this workshop:
+one tiny sketch per component, each provably working before anything is
+combined. Also a useful reminder of what CS students actually get stuck on at
+this level, which is I2C between boards, `millis()` timing instead of `delay()`,
+and debouncing.
+
 ### `remoteCollab`: spatial audio, **not yet added**
 The audio/speaker exemplar for bench 6. Not on this machine or either GitHub
 account, and likely on AU GitLab under a group member's namespace. Once located, the
