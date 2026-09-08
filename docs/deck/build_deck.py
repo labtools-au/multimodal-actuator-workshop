@@ -373,6 +373,23 @@ def build():
             ("github.com/gust1527/multimodal-actuator-workshop", 0, True),
         ])
 
+    content_slide(
+        prs, "What you get in the base kit",
+        lead="One set per pair. Collect it before you start task 01.",
+        body=[
+            ("Board, breadboard, jumper wires, USB cable", 0, True),
+            ("Assorted resistors and a few transistors", 1, False),
+            ("", 0, False),
+            ("Breadboard power supply, drawer 8A", 0, True),
+            ("42 in stock. Use it for anything that is not just an LED.", 1, False),
+            ("", 0, False),
+            ("L9110S H-bridge, drawer 2C", 0, True),
+            ("24 in stock. Needed for the Peltier and for reversing a motor.", 1, False),
+            ("", 0, False),
+            ("PAM8403 amplifier, drawer 11F", 0, True),
+            ("25 in stock. Needed to drive a transducer.", 1, False),
+        ])
+
     section_slide(prs, "What is on the tables")
 
     actuator_slide(
@@ -419,7 +436,31 @@ def build():
         "and another is heard, from the same part.",
         "Feels like: more certain, rather than louder.",
         "Noisy or bright environments, and accessibility.",
-        "Drawer 7F  |  12 large, 13 medium  |  needs an amp")
+        "Drawer 7F  |  12 large, 13 medium, 23 bone  |  needs an amp")
+
+    actuator_slide(
+        prs, "Servo", "servo",
+        "A motor that holds a position instead of spinning freely. Tell it an "
+        "angle and it goes there.",
+        "Feels like: something deliberate moving, with force behind it.",
+        "Anything that points, pushes, opens or resists a hand.",
+        "Drawer 2F  |  80 in stock  |  Servo.h  |  needs its own 5V")
+
+    actuator_slide(
+        prs, "Stepper motor", "stepper",
+        "Moves in fixed steps rather than continuously, so you always know "
+        "where it is without a sensor.",
+        "Feels like: precise, and audibly clicky.",
+        "Slow accurate motion. Dials, sliders, anything positioned.",
+        "Drawer 2A  |  44 in stock  |  needs a ULN2003 driver")
+
+    actuator_slide(
+        prs, "Electromagnet", "electromagnet",
+        "Grabs and releases ferrous metal on command. No moving parts of its "
+        "own.",
+        "Feels like: a grip that appears and vanishes.",
+        "Latches, holds, and anything that should let go on cue.",
+        "Drawer 3D  |  17 mini, 11 standard  |  needs a MOSFET")
 
     content_slide(
         prs, "Freestyle is encouraged",

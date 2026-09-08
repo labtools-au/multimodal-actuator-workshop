@@ -470,6 +470,26 @@ td.part{font-family:var(--mono);font-size:12px;color:var(--ink-2)}
 </section>
 
 
+
+<section class="sec">
+  <div class="sec-head"><h2>The base kit</h2><div class="eyebrow">One set per pair</div></div>
+  <p class="lede">Collect this before you start task 01. Drawer numbers are from the Labtools component database, so you can go straight there.</p>
+  <div class="sensors">
+    <div class="sen"><h4>Board, breadboard, jumper wires</h4><div class="pin">on the tables</div>
+      <p>Plus a USB cable, assorted resistors and a few transistors. Not tracked in the database, so grab what you need.</p></div>
+    <div class="sen"><h4>Breadboard power supply</h4><div class="pin">8A &middot; 42 in stock</div>
+      <p>YwRobot. Use one for anything beyond an LED. The USB port alone will not carry a solenoid or a Peltier.</p></div>
+    <div class="sen"><h4>H-bridge</h4><div class="pin">2C &middot; 24 in stock</div>
+      <p>L9110S dual driver. Needed to reverse a motor, and to run the Peltier in both directions. L298 and MX1508 are next to it.</p></div>
+    <div class="sen"><h4>Audio amplifier</h4><div class="pin">11F &middot; 25 in stock</div>
+      <p>PAM8403, 2x3W. A transducer will not run off a pin. This is what sits between them.</p></div>
+    <div class="sen"><h4>Stepper driver</h4><div class="pin">2A &middot; 27 in stock</div>
+      <p>ULN2003, the board that comes with the 28BYJ-48 steppers. Only needed if you go that way.</p></div>
+    <div class="sen"><h4>Bench supply</h4><div class="pin">ask Labtools</div>
+      <p>For anything drawing over an amp. The Peltier wants 2 to 4 A, which is more than a breadboard supply will give you.</p></div>
+  </div>
+</section>
+
 <section class="sec">
   <div class="sec-head"><h2>The five tasks</h2><div class="eyebrow">Upload, tweak, upload</div></div>
   <p class="lede">Every sketch runs the moment you upload it. Nothing to wire. Each one has a <b>CHANGE ME</b> block at the top with two or three numbers, and a <b>THINGS TO TRY</b> list at the bottom with four experiments.</p>
@@ -496,15 +516,15 @@ td.part{font-family:var(--mono);font-size:12px;color:var(--ink-2)}
   <p class="lede">One table with a sign, for the projects that need to sense a person rather than signal to one. Wander over between tasks.</p>
   <div class="sensors">
     <div class="sen">
-      <h4>Heart rate / PPG</h4><div class="pin">MAX30102 &middot; I²C</div>
+      <h4>Pulse sensor</h4><div class="pin">drawer 9D &middot; 9 in stock</div>
       <p>Optical pulse from a fingertip. Honest warning: it is stable at rest and garbage the moment the hand moves, so design around a seated user.</p>
     </div>
     <div class="sen">
-      <h4>GSR / skin conductance</h4><div class="pin">Grove GSR &middot; A1</div>
-      <p>Two finger electrodes reading arousal. Drifts constantly, so it is usable as a relative change over seconds, never as an absolute number.</p>
+      <h4>GSR / skin conductance</h4><div class="pin">drawer 0C5 &middot; only 1</div>
+      <p>Only one in the whole lab, so ask before you take it. Two finger electrodes reading arousal. Drifts constantly, so it is usable as a relative change over seconds, never as an absolute number.</p>
     </div>
     <div class="sen">
-      <h4>Flex / bend</h4><div class="pin">2.2" flex &middot; A2 + 10k</div>
+      <h4>Flex / bend</h4><div class="pin">drawer 4B &middot; 8 short, 1 long</div>
       <p>A resistive strip that changes value as it bends. The cheap route to a data glove, and the obvious thing to pair with an actuator.</p>
     </div>
     <div class="sen">
@@ -512,7 +532,7 @@ td.part{font-family:var(--mono);font-size:12px;color:var(--ink-2)}
       <p>The cheapest input on the table: a wire behind foil, cardboard or fabric, no breakout board. Costs one library and a rolling baseline. That is task 04, and it is genuinely this easy.</p>
     </div>
     <div class="sen">
-      <h4>Pressure / force</h4><div class="pin">FSR &middot; analogue + divider</div>
+      <h4>Pressure / force</h4><div class="pin">drawer 4A &middot; 46 tiny, 33 square</div>
       <p>A resistive pad that reads how hard, not just whether. Needs a two-point calibration per pad. They vary enough that one constant across six pads will not do.</p>
     </div>
     <div class="sen">
@@ -617,32 +637,31 @@ td.part{font-family:var(--mono);font-size:12px;color:var(--ink-2)}
 </section>
 
 <section class="sec">
-  <div class="sec-head"><h2>Kit list</h2><div class="eyebrow">Per working set</div></div>
-  <p class="lede">Quantities are for one working set. Order spares of anything that gets handled: coin motors shear their leads and flex sensors crack at the base.</p>
+  <div class="sec-head"><h2>Kit list</h2><div class="eyebrow">Real drawers, real counts</div></div>
+  <p class="lede">Drawer numbers and counts come from the Labtools component database, read on 8 September 2026. They will drift, so re-check anything you are depending on.</p>
   <div class="tblwrap">
     <table>
       <thead>
-        <tr><th>Task</th><th>Item</th><th>Part</th><th>Qty</th></tr>
+        <tr><th>What</th><th>Drawer</th><th>In stock</th><th>Notes</th></tr>
       </thead>
       <tbody>
-        <tr><td>All</td><td>Arduino Uno R3 + USB cable</td><td class="part">A000066</td><td class="qty">1</td></tr>
-        <tr><td>All</td><td>Breadboard, jumpers, 10k pot</td><td class="part">–</td><td class="qty">1 set</td></tr>
-        <tr><td>01</td><td>Coin ERM 10mm 3V</td><td class="part">–</td><td class="qty">4 (spares)</td></tr>
-        <tr><td>01, 02</td><td>2N2222 transistor + 1N4148 diode</td><td class="part">–</td><td class="qty">6 ea</td></tr>
-        <tr><td>02</td><td>LRA 10mm + 27mm piezo disc</td><td class="part">–</td><td class="qty">2 + 2</td></tr>
-        <tr><td>02</td><td>Haptic driver breakout</td><td class="part">DRV2605L</td><td class="qty">1</td></tr>
-        <tr><td>03</td><td>Push-pull solenoid 5V</td><td class="part">JF-0530B</td><td class="qty">2</td></tr>
-        <tr><td>03</td><td>Logic-level MOSFET</td><td class="part">IRLZ44N</td><td class="qty">3</td></tr>
-        <tr><td>04</td><td>Micro servo</td><td class="part">SG90</td><td class="qty">2</td></tr>
-        <tr><td>04</td><td>Foil touch plate + hookup wire</td><td class="part">ADCTouch lib</td><td class="qty">1</td></tr>
-        <tr><td>05</td><td>Peltier module + heatsink + paste</td><td class="part">TEC1-12706</td><td class="qty">1</td></tr>
-        <tr><td>05</td><td>H-bridge module</td><td class="part">L298N</td><td class="qty">1</td></tr>
-        <tr><td>05</td><td>Bench PSU, 5V 5A</td><td class="part">–</td><td class="qty">1</td></tr>
-        <tr><td>06</td><td>Bone-conduction exciter + class-D amp</td><td class="part">PAM8403</td><td class="qty">1 + 1</td></tr>
-        <tr><td>06</td><td>Ear defenders</td><td class="part">–</td><td class="qty">2</td></tr>
-        <tr><td>Extra</td><td>PPG, GSR, flex ×2</td><td class="part">MAX30102 / Grove GSR</td><td class="qty">1 ea</td></tr>
-        <tr><td>Extra</td><td>Force-sensitive resistor + 10k</td><td class="part">FSR 402</td><td class="qty">2</td></tr>
-        <tr><td>Optional</td><td>ESP32 dev board, for wireless demos</td><td class="part">ESP32-WROOM-32</td><td class="qty">2</td></tr>
+        <tr><td>Vibrating Mini Motor Disc</td><td class="part">1E</td><td class="qty">117</td><td>2.5-3.8 V, any PWM pin</td></tr>
+        <tr><td>Piezo Element</td><td class="part">6F</td><td class="qty">69</td><td>Sharp and shallow, near-zero power</td></tr>
+        <tr><td>Mini Push-Pull Solenoid 5V</td><td class="part">3E</td><td class="qty">24</td><td>Needs a MOSFET and its own supply</td></tr>
+        <tr><td>Peltier element / Cooling Pad</td><td class="part">4C</td><td class="qty">25 + 35</td><td>Small and big. Heatsink required</td></tr>
+        <tr><td>Surface Transducer Large</td><td class="part">7F</td><td class="qty">12</td><td>13 medium, 23 bone conductor beside it</td></tr>
+        <tr><td>Servo Tower Pro SG-5010</td><td class="part">2F</td><td class="qty">80</td><td>Plus MG90S and micro servos in 2D</td></tr>
+        <tr><td>Stepper motor 28BYJ-48</td><td class="part">2A</td><td class="qty">44</td><td>ULN2003 driver in the same drawer</td></tr>
+        <tr><td>Mini electromagnet</td><td class="part">3D</td><td class="qty">17</td><td>11 standard, 3 at 12 V beside it</td></tr>
+        <tr><td>Breadboard power supply</td><td class="part">8A</td><td class="qty">42</td><td>YwRobot. Not enough for the Peltier</td></tr>
+        <tr><td>L9110S H-bridge</td><td class="part">2C</td><td class="qty">24</td><td>L298 (18) and MX1508 (13) alongside</td></tr>
+        <tr><td>PAM8403 amplifier</td><td class="part">11F</td><td class="qty">25</td><td>2x3W. Needed for any transducer</td></tr>
+        <tr><td>ULN2003 stepper driver</td><td class="part">2A</td><td class="qty">27</td><td>Only if you use the stepper</td></tr>
+        <tr><td>Force sensor (FSR)</td><td class="part">4A</td><td class="qty">46 + 33</td><td>Tiny and square. Calibrate each one</td></tr>
+        <tr><td>Flex sensor</td><td class="part">4B</td><td class="qty">8</td><td>Only 1 long one. Share them</td></tr>
+        <tr><td>Pulse sensor</td><td class="part">9D</td><td class="qty">9</td><td>Optical, seated users only</td></tr>
+        <tr><td>GSR sensor</td><td class="part">0C5</td><td class="qty">1</td><td>Exactly one in the lab. Ask first</td></tr>
+        <tr><td>Breadboard, jumpers, resistors</td><td class="part">tables</td><td class="qty">–</td><td>Not tracked. Check stock beforehand</td></tr>
       </tbody>
     </table>
   </div>

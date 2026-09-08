@@ -89,7 +89,18 @@ Write the repo URL on the whiteboard now. It gets asked for six times.
 If a task's hardware fails, utils/ has the diagnostics: pin_sweep, i2c_scanner,
 analog_monitor.""",
 
-    # 8: section, what is on the tables
+    # 8: base kit
+    """Hand this out before anything else, or you will spend the session
+fetching parts one at a time.
+
+One set per pair. The three drawer numbers are the ones people actually come
+back and ask for: 8A breadboard supply, 2C H-bridge, 11F amplifier.
+
+Jumper wires, breadboards and resistors are not tracked in the component
+database, so make sure there are enough on the tables before students
+arrive.""",
+
+    # 9: section, what is on the tables
     """Two minutes total for this whole run of slides. It is a menu, not a
 lecture: they are choosing what to go and pick up later.
 
@@ -104,11 +115,11 @@ The point worth making: speed and strength are welded together. That single
 constraint is why the other five exist.""",
 
     # 10: LRA and piezo
-    """Both solve the coin motor's problem, differently. LRA is what a modern
-phone keyboard uses. Piezo is sharp but shallow.
+    """The escape from the coin motor's compromise. A crystal that flexes when
+you put current across it: near-instant, almost no power, but shallow.
 
-If someone is designing anything that needs to feel responsive rather than
-just present, point them here.""",
+A tick, not a thump. Point anyone here who needs something to feel responsive
+rather than just present. 69 in the drawer, so nobody has to share.""",
 
     # 11: solenoid
     """Pass this one around if you can. It is the one people remember, because a
@@ -137,7 +148,25 @@ hear.
 Together is not louder, it is more certain. Cheapest reliability a project can
 buy, and it is also the accessibility answer.""",
 
-    # 15: freestyle
+    # 16: servo
+    """Worth showing even though it is not in a task. Most projects that need
+something to physically move end up here rather than on a vibration motor.
+
+80 in stock, so nobody has to share.""",
+
+    # 17: stepper
+    """The precision option. Moves in known steps, so you can position it
+without any feedback sensor at all.
+
+Needs a ULN2003 driver board, drawer 2A, 27 of them.""",
+
+    # 18: electromagnet
+    """The one people forget exists. It grabs and lets go, with nothing moving.
+
+Good answer for anything that should hold and then release: a latch, a door, a
+thing that falls when the event happens.""",
+
+    # 19: freestyle
     """Say this out loud, do not just show it. Some students will not believe
 they are allowed to skip ahead or stop early unless you tell them.
 
