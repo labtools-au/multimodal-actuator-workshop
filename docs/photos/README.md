@@ -1,21 +1,27 @@
 # Photos
 
-Drop actuator photos here and re-run the deck build. Empty slots render as a
-dashed **PHOTO** frame on the slide, so it stays obvious what is still missing.
+Real product photos, pulled from the Labtools component database (the Algolia
+`components` index behind the Chomskylab app, which serves images from Firebase
+Storage). These are the actual parts in the drawers, not stand-ins.
 
-| Filename | Slide | What to shoot |
-|---|---|---|
-| `erm` | Coin motor | The coin motor next to a 1 kr coin for scale |
-| `lra_piezo` | LRA and piezo disc | Both parts side by side, with the DRV2605L breakout |
-| `solenoid` | Solenoid | The solenoid with its plunger visible, ideally mid-throw |
-| `captouch` | Capacitive pad | A wire taped behind foil. Make it look as cheap as it is |
-| `peltier` | Peltier tile | The tile with its heatsink attached |
-| `transducer` | Transducer | The exciter pressed against its plate |
+| File | Part | Drawer | In stock |
+|---|---|---|---|
+| `erm.jpg` | Vibrating Mini Motor Disc | 1E | 117 |
+| `solenoid.jpg` | Mini Push-Pull Solenoid 5V | 3E | 24 |
+| `piezo.png` | Piezo Element | 6F | 69 |
+| `peltier.jpg` | Peltier element / Cooling Pad | 4C | 25 small, 35 big |
+| `transducer.jpg` | Surface Transducer Large | 7F | 12 |
 
-Any of `.jpg`, `.jpeg` or `.png`. The build scales to fit the frame and keeps
-the aspect ratio, so exact dimensions do not matter. Landscape, roughly 4:3,
-works best. Shoot on a plain background.
+No photo for the capacitive pad, because there is no part to photograph. It is
+a wire and a piece of foil, which is the point.
+
+To refresh or add one, query the index and download the `image` field, or drop
+a file in named after the slot. Anything missing renders as a dashed PHOTO
+frame, so gaps stay visible.
 
 ```bash
 cd ../deck && python3 build_deck.py && python3 add_notes.py
 ```
+
+Stock counts were read on 8 September 2026 and will drift. Re-check before the
+session if the numbers matter.

@@ -376,49 +376,50 @@ def build():
     section_slide(prs, "What is on the tables")
 
     actuator_slide(
-        prs, "Coin motor (ERM)", "erm",
-        "An off-centre weight on a motor shaft. The same part as in your phone.",
+        prs, "Vibrating mini motor disc", "erm",
+        "An off-centre weight on a motor shaft, sealed in a disc. The same part "
+        "as in your phone.",
         "Feels like: a buzz you cannot make gentle and fast at once.",
         "Phone notifications, controller rumble, anything worn under clothing.",
-        "10mm 3V  |  D9 PWM  |  ~75 mA  |  ~12 kr")
+        "Drawer 1E  |  117 in stock  |  2.5-3.8 V  |  PWM pin")
 
     actuator_slide(
-        prs, "LRA and piezo disc", "lra_piezo",
-        "Two ways out of the coin motor's compromise. The LRA hits resonance in "
-        "about 5 ms and stops just as fast.",
-        "Feels like: a crisp click. The phone-keyboard feel.",
-        "Keyboard clicks, watch taps, anything where lag would feel broken.",
-        "DRV2605L I2C  |  A4/A5  |  123 effects  |  ~90 kr")
+        prs, "Piezo element", "piezo",
+        "A crystal that flexes when you put current across it. Near-instant, "
+        "almost no power, but shallow.",
+        "Feels like: a tick, not a thump.",
+        "Clicks and confirmations. Anything where lag would feel broken.",
+        "Drawer 6F  |  69 in stock  |  any digital pin")
 
     actuator_slide(
-        prs, "Solenoid", "solenoid",
+        prs, "Mini push-pull solenoid", "solenoid",
         "A coil that yanks a metal rod when you energise it. No half a tap: it "
         "fires or it does not.",
         "Feels like: a person tapping you, not a machine signalling.",
         "Navigation cues on the body, braille cells, alerts in noise.",
-        "5V push-pull  |  D6 + MOSFET  |  ~1.1 A peak  |  ~45 kr")
+        "Drawer 3E  |  24 in stock  |  5V  |  needs a MOSFET")
 
     actuator_slide(
         prs, "Capacitive pad", "captouch",
         "A wire taped behind foil, card or fabric. No sensor, no breakout board.",
         "Feels like: nothing. That is the point. The surface stays plain.",
         "Invisible controls in wood or fabric, waterproof panels.",
-        "ADCTouch  |  A0  |  ~0 kr, a wire")
+        "No part number. A wire, on any analogue pin")
 
     actuator_slide(
         prs, "Peltier tile", "peltier",
         "Heats one face and cools the other. Flip the current and it reverses.",
         "Feels like: slow. Several seconds before you are sure which way.",
         "Slow ambient state. Never an alert.",
-        "TEC1-12706  |  D3 + D5  |  2-4 A  |  ~70 kr")
+        "Drawer 4C  |  25 small, 35 big  |  needs an H bridge")
 
     actuator_slide(
-        prs, "Transducer", "transducer",
-        "Drives a plate so one frequency is felt and another is heard, from the "
-        "same driver.",
+        prs, "Surface transducer", "transducer",
+        "Turns any surface into a speaker. Drive it so one frequency is felt "
+        "and another is heard, from the same part.",
         "Feels like: more certain, rather than louder.",
         "Noisy or bright environments, and accessibility.",
-        "Bone-conduction  |  D11 + PAM8403  |  ~110 kr")
+        "Drawer 7F  |  12 large, 13 medium  |  needs an amp")
 
     content_slide(
         prs, "Freestyle is encouraged",
