@@ -14,6 +14,24 @@ Nobody wires anything during the rotation. They touch things and form opinions.
 
 📄 **[Full session plan, run sheet and kit list](https://claude.ai/code/artifact/1e577f62-4cae-4ec5-a407-69494dc85f7e)**
 
+## Slides
+
+`docs/multimodal-actuator-workshop.pptx` — 19 slides in the AU Department of
+Computer Science house style, **with speaker notes on every slide** (timings,
+what to say, what goes wrong at each bench).
+
+The layout was reverse-engineered from Eve Hoggan's `MultimodalInteraction_2b_
+Visual` deck rather than guessed: 959.76 × 540 pt canvas, AU blue `#002546`
+sampled from the file, three layouts (blue title / white section divider /
+white content), uppercase heavy headings with a short rule under them, no
+accent colour anywhere, and the fixed AU footer on every slide.
+
+Rebuild it with:
+
+```bash
+cd docs/deck && python3 build_deck.py && python3 add_notes.py
+```
+
 ## Run sheet
 
 | Offset | Duration | What |
