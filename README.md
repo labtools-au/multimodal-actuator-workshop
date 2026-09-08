@@ -17,6 +17,21 @@ grab a board and make things actually happen from their own code.
 
 📄 **[Full session plan, run sheet and kit list](https://claude.ai/code/artifact/1e577f62-4cae-4ec5-a407-69494dc85f7e)**
 
+## Repository layout
+
+```
+bench_tests/    one sketch per bench, proving the hardware works   (for you)
+tasks/          what students do in the second half                (for them)
+utils/          diagnostics for when a bench misbehaves            (for you)
+docs/           slides, session plan, and the deck build scripts
+```
+
+Structure follows `ktane` (Physical Computing 2023): tiny per-component tests
+kept separate from the real code, plus a utils folder of dumb diagnostics. Every
+sketch sits in a folder of the same name, which the Arduino IDE requires.
+
+Run the bench tests the morning of the session. Hand students the tasks.
+
 ## Slides
 
 `docs/multimodal-actuator-workshop.pptx`: 19 slides in the AU Department of
@@ -79,16 +94,15 @@ without that the PDF exports would lose them.
 
 | # | Bench | Modality | Code |
 |---|---|---|---|
-| 01 | ERM coin motor | vibration | [`01_erm_tacton`](benches/01_erm_tacton) |
-| 02 | LRA + piezo disc | vibration | – |
-| 03 | Solenoid tap | impact | – |
-| 04 | Capacitive touch to servo | touch input | [`04_capacitive_touch`](benches/04_capacitive_touch) |
-| 05 | Peltier warm / cool | thermal | – |
-| 06 | The same signal, twice | audio + touch | – |
+| 01 | ERM coin motor | vibration | [`01_erm_motor`](bench_tests/01_erm_motor) |
+| 02 | LRA + piezo disc | vibration | [`02_lra_piezo`](bench_tests/02_lra_piezo) |
+| 03 | Solenoid tap | impact | [`03_solenoid`](bench_tests/03_solenoid) |
+| 04 | Capacitive touch to servo | touch input | [`04_capacitive_touch`](bench_tests/04_capacitive_touch) |
+| 05 | Peltier warm / cool | thermal | [`05_peltier`](bench_tests/05_peltier) |
+| 06 | The same signal, twice | audio + touch | [`06_transducer`](bench_tests/06_transducer) |
 
-Benches without code here run from library example sketches (`Adafruit_DRV2605`,
-`Servo.h`) with only the pin numbers changed. Bench 1 and 4 are the two worth
-reading, and both are commented for students rather than for you.
+Every bench now has a test sketch. They are deliberately minimal: each proves one
+component works and nothing more. See [`bench_tests/`](bench_tests).
 
 ## The tasks
 
@@ -113,7 +127,7 @@ playing with task 2 beats rushing through everything.
 
 ## The one idea worth stealing: capacitive sensing costs a wire
 
-`benches/04_capacitive_touch` is the bench that reliably surprises people. Touch
+`bench_tests/04_capacitive_touch` is the bench that reliably surprises people. Touch
 input with **no breakout board**. A bare wire on an analogue pin, read through the
 [ADCTouch](https://github.com/martin2250/ADCTouch) library. Tape it behind foil,
 cardboard or fabric and any surface becomes an input.
