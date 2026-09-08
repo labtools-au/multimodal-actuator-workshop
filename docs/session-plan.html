@@ -1,0 +1,682 @@
+<title>Actuator Petting Zoo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;700&display=swap">
+
+<style>
+:root{
+  --paper:#F7F3EC;
+  --paper-2:#EFE9DE;
+  --ink:#12100E;
+  --ink-2:#3E3830;
+  --grey:#8A8378;
+  --rule:#D6CEC0;
+  --vermilion:#B4321E;
+  --teal:#1F5B6B;
+  --ochre:#9A6B12;
+  --shade:rgba(18,16,14,.05);
+
+  --display:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
+  --body:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#14120F;
+    --paper-2:#1D1A16;
+    --ink:#F2EDE4;
+    --ink-2:#C4BCAF;
+    --grey:#8F877A;
+    --rule:#332E27;
+    --vermilion:#E86A4E;
+    --teal:#63AEBF;
+    --ochre:#D2A03C;
+    --shade:rgba(242,237,228,.045);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#14120F;
+  --paper-2:#1D1A16;
+  --ink:#F2EDE4;
+  --ink-2:#C4BCAF;
+  --grey:#8F877A;
+  --rule:#332E27;
+  --vermilion:#E86A4E;
+  --teal:#63AEBF;
+  --ochre:#D2A03C;
+  --shade:rgba(242,237,228,.045);
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:17px;
+  line-height:1.6;
+  margin:0;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px 96px}
+
+h1,h2,h3,h4{font-family:var(--display);text-wrap:balance;margin:0;font-weight:700}
+p{margin:0}
+a{color:var(--vermilion)}
+
+.eyebrow{
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--grey);
+}
+
+/* ---------- masthead ---------- */
+.mast{
+  border-bottom:2px solid var(--ink);
+  padding:44px 0 22px;
+  display:grid;
+  gap:22px;
+}
+.mast h1{
+  font-size:clamp(40px,7.4vw,76px);
+  line-height:.94;
+  letter-spacing:-.03em;
+  font-weight:800;
+}
+.mast h1 em{font-style:normal;color:var(--vermilion)}
+.standfirst{
+  font-size:20px;
+  max-width:60ch;
+  color:var(--ink-2);
+}
+.facts{
+  display:flex;
+  flex-wrap:wrap;
+  gap:0;
+  border-top:1px solid var(--rule);
+  padding-top:14px;
+}
+.fact{
+  padding-right:26px;
+  margin-right:26px;
+  border-right:1px solid var(--rule);
+}
+.fact:last-child{border-right:none}
+.fact dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);margin-bottom:3px}
+.fact dd{margin:0;font-family:var(--display);font-size:16px;font-weight:700}
+
+/* ---------- generic section ---------- */
+.sec{padding-top:56px}
+.sec-head{
+  display:flex;
+  align-items:baseline;
+  gap:14px;
+  border-bottom:1px solid var(--ink);
+  padding-bottom:8px;
+  margin-bottom:26px;
+}
+.sec-head h2{font-size:26px;letter-spacing:-.015em}
+.sec-head .eyebrow{margin-left:auto}
+
+.lede{max-width:66ch;color:var(--ink-2);margin-bottom:26px}
+
+/* ---------- premise ---------- */
+.premise{
+  display:grid;
+  grid-template-columns:1.25fr 1fr;
+  gap:40px;
+  align-items:start;
+}
+.premise p + p{margin-top:14px}
+.pull{
+  border-left:3px solid var(--vermilion);
+  padding:4px 0 4px 18px;
+  font-family:var(--display);
+  font-size:19px;
+  line-height:1.35;
+  font-weight:500;
+}
+.tie{
+  background:var(--paper-2);
+  padding:20px 22px;
+  border-top:2px solid var(--teal);
+}
+.tie h4{font-size:14px;letter-spacing:.02em;margin-bottom:10px}
+.tie ul{margin:0;padding-left:0;list-style:none;display:grid;gap:9px}
+.tie li{font-size:15px;line-height:1.45;display:grid;grid-template-columns:auto 1fr;gap:10px}
+.tie code{
+  font-family:var(--mono);
+  font-size:11px;
+  color:var(--teal);
+  white-space:nowrap;
+  padding-top:2px;
+}
+
+/* ---------- run sheet ---------- */
+.run{border-top:1px solid var(--rule)}
+.leg{
+  display:grid;
+  grid-template-columns:92px 1fr;
+  gap:24px;
+  border-bottom:1px solid var(--rule);
+  padding:16px 0;
+  align-items:start;
+}
+.clock{
+  font-family:var(--mono);
+  font-size:13px;
+  font-weight:700;
+  padding-top:2px;
+  font-variant-numeric:tabular-nums;
+}
+.clock span{display:block;font-weight:400;font-size:11px;color:var(--grey);margin-top:2px}
+.leg h4{font-size:17px;margin-bottom:4px}
+.leg p{font-size:15px;color:var(--ink-2);max-width:62ch}
+.leg--hinge{background:var(--shade)}
+.leg--hinge h4{color:var(--vermilion)}
+
+/* ---------- stations ---------- */
+.stations{display:grid;gap:0;border-top:2px solid var(--ink)}
+.st{
+  display:grid;
+  grid-template-columns:52px 1fr 260px;
+  gap:0;
+  border-bottom:1px solid var(--rule);
+}
+.st-num{
+  font-family:var(--mono);
+  font-size:13px;
+  font-weight:700;
+  padding:22px 0 22px 0;
+  color:var(--paper);
+  background:var(--ink);
+  text-align:center;
+  line-height:1;
+}
+.st--haptic .st-num{background:var(--vermilion)}
+.st--audio .st-num{background:var(--teal)}
+.st--thermal .st-num{background:var(--ochre)}
+.st-body{padding:22px 26px 24px 20px}
+.st-body h3{font-size:20px;letter-spacing:-.01em;margin-bottom:3px}
+.st-tag{
+  font-family:var(--mono);
+  font-size:10.5px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  margin-bottom:10px;
+}
+.st--haptic .st-tag{color:var(--vermilion)}
+.st--audio .st-tag{color:var(--teal)}
+.st--thermal .st-tag{color:var(--ochre)}
+.st-body p{font-size:15.5px;color:var(--ink-2);max-width:56ch}
+.st-body .feel{
+  margin-top:12px;
+  font-family:var(--display);
+  font-weight:500;
+  font-size:15px;
+  color:var(--ink);
+}
+.st-body .feel b{font-weight:700}
+.st-spec{
+  border-left:1px solid var(--rule);
+  padding:22px 20px;
+  background:var(--shade);
+  font-family:var(--mono);
+  font-size:11.5px;
+  line-height:1.55;
+  color:var(--ink-2);
+}
+.st-spec dl{margin:0;display:grid;gap:7px}
+.st-spec .row{display:grid;grid-template-columns:64px 1fr;gap:8px}
+.st-spec dt{color:var(--grey);letter-spacing:.04em}
+.st-spec dd{margin:0;color:var(--ink)}
+.warn{
+  margin-top:12px;
+  padding-top:10px;
+  border-top:1px dashed var(--rule);
+  color:var(--vermilion);
+  font-size:11px;
+}
+
+/* ---------- sensors ---------- */
+.sensors{display:grid;grid-template-columns:repeat(2,1fr);gap:0 34px}
+.sen{
+  padding:16px 0;
+  border-bottom:1px solid var(--rule);
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:6px 16px;
+  align-items:baseline;
+}
+.sen h4{font-size:16px}
+.sen .pin{font-family:var(--mono);font-size:11px;color:var(--grey);white-space:nowrap}
+.sen p{grid-column:1/-1;font-size:14.5px;color:var(--ink-2);max-width:48ch}
+
+/* ---------- prior art ---------- */
+.prior{display:grid;grid-template-columns:1fr 1fr;gap:0 36px;border-top:2px solid var(--ink)}
+.pr{padding:22px 0 26px;display:grid;gap:11px;align-content:start}
+.pr + .pr{border-left:1px solid var(--rule);padding-left:36px;margin-left:-1px}
+.pr-tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--grey)}
+.pr h3{font-size:19px;letter-spacing:-.01em}
+.pr p{font-size:15px;color:var(--ink-2);max-width:52ch}
+.pr code{font-family:var(--mono);font-size:12.5px;color:var(--vermilion)}
+.pr-take{
+  font-family:var(--display);
+  font-size:14.5px;
+  line-height:1.45;
+  background:var(--shade);
+  padding:12px 14px;
+  border-left:2px solid var(--teal);
+}
+@media (max-width:860px){
+  .prior{grid-template-columns:1fr}
+  .pr + .pr{border-left:none;border-top:1px solid var(--rule);padding-left:0;margin-left:0}
+}
+
+/* ---------- code ---------- */
+.code{
+  background:var(--ink);
+  color:var(--paper);
+  font-family:var(--mono);
+  font-size:12.5px;
+  line-height:1.65;
+  padding:20px 22px;
+  overflow-x:auto;
+  margin-top:18px;
+}
+.code .c{color:#8F877A}
+.code .k{color:#E8A24E}
+.code .s{color:#7FB8A0}
+
+/* ---------- brief ---------- */
+.brief{
+  border:2px solid var(--ink);
+  padding:28px 30px;
+  display:grid;
+  gap:18px;
+}
+.brief h3{font-size:22px}
+.brief ol{margin:0;padding-left:20px;display:grid;gap:10px;max-width:64ch}
+.brief li::marker{font-family:var(--mono);font-size:12px;color:var(--vermilion)}
+.constraint{
+  font-family:var(--display);
+  font-weight:700;
+  font-size:16px;
+  border-top:1px solid var(--rule);
+  padding-top:16px;
+}
+
+/* ---------- kit table ---------- */
+.tblwrap{overflow-x:auto;border-top:2px solid var(--ink)}
+table{border-collapse:collapse;width:100%;min-width:560px}
+th,td{text-align:left;padding:11px 14px 11px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+th{
+  font-family:var(--mono);
+  font-size:10.5px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--grey);
+  font-weight:400;
+}
+td{font-size:15px}
+td.qty{font-family:var(--mono);font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap}
+td.part{font-family:var(--mono);font-size:12px;color:var(--ink-2)}
+
+.foot{
+  margin-top:56px;
+  padding-top:18px;
+  border-top:1px solid var(--rule);
+  font-size:14px;
+  color:var(--grey);
+  max-width:62ch;
+}
+
+@media (max-width:860px){
+  .premise{grid-template-columns:1fr;gap:26px}
+  .st{grid-template-columns:44px 1fr}
+  .st-spec{grid-column:1/-1;border-left:none;border-top:1px solid var(--rule)}
+  .sensors{grid-template-columns:1fr}
+  .leg{grid-template-columns:74px 1fr;gap:16px}
+}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <div>
+    <div class="eyebrow">Multimodal Interaction &middot; Week 39 Lab &middot; 2 hours</div>
+    <h1>The Actuator<br><em>Petting Zoo</em></h1>
+  </div>
+  <p class="standfirst">You have sat through the haptic modality and the actuator lecture. You know what an ERM is on a slide. This session is about putting one against your own wrist, deciding it feels cheap, and picking something else — before you commit a project to it.</p>
+  <dl class="facts">
+    <div class="fact"><dt>Format</dt><dd>6 benches, rotating</dd></div>
+    <div class="fact"><dt>Board</dt><dd>Arduino Uno</dd></div>
+    <div class="fact"><dt>Group size</dt><dd>3–4</dd></div>
+    <div class="fact"><dt>Prerequisite</dt><dd>Lectures 5–7</dd></div>
+    <div class="fact"><dt>Output</dt><dd>One working tacton</dd></div>
+  </dl>
+</header>
+
+<section class="sec">
+  <div class="sec-head"><h2>Why this session exists</h2><div class="eyebrow">Premise</div></div>
+  <div class="premise">
+    <div>
+      <p>Every year, projects arrive at the mid-way pitch built entirely on the screen and the speaker — because those are the two output devices a computer scientist already owns. The haptic modality gets designed on paper and then quietly dropped, not because it was the wrong choice, but because nobody knew that a coin motor costs 12 kr and takes two wires.</p>
+      <p>So this is deliberately not a tutorial. There is no circuit to copy correctly. There are six benches, each with an actuator already wired and already running, and your job is to touch all of them and form an opinion about what each one is <em>good at</em>.</p>
+      <div class="pull">A coin motor and a solenoid can both signal “message received.” They are not interchangeable. One of them is a nudge and one of them is a knock, and that difference is a design decision, not a component decision.</div>
+      <p>You leave with a shopping list you actually believe in, and a rough sense of what the lab can lend you for the project weeks.</p>
+    </div>
+    <aside class="tie">
+      <h4>What this hangs off in the course</h4>
+      <ul>
+        <li><code>L5</code><span>Haptics — cutaneous vs. kinesthetic. Benches 1–3 are cutaneous, bench 4 is kinesthetic. You will feel the difference immediately.</span></li>
+        <li><code>L6</code><span>Actuators — ERM, piezo, pneumatic, smart materials, force feedback. Five of the six benches are named in that lecture.</span></li>
+        <li><code>L7</code><span>Designing feedback — the closing brief asks for a tacton, so rhythm and roughness become parameters you set, not terms you define.</span></li>
+        <li><code>L7</code><span>Intramodal feedback — bench 6 exists so that “combine two sub-modalities” stops being abstract.</span></li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head"><h2>Run sheet</h2><div class="eyebrow">120 minutes</div></div>
+  <p class="lede">Times are offsets from the start. The rotation is the spine of the session — keep it moving, groups will want to linger at bench 3 and it will wreck the schedule.</p>
+  <div class="run">
+    <div class="leg">
+      <div class="clock">0:00<span>10 min</span></div>
+      <div>
+        <h4>Framing, and a demo that fails</h4>
+        <p>Show a coin motor buzzing a phone-style notification, then the same message on a solenoid. Ask which one felt more urgent. Nobody needs theory to answer, and that is the point of the whole session.</p>
+      </div>
+    </div>
+    <div class="leg">
+      <div class="clock">0:10<span>60 min</span></div>
+      <div>
+        <h4>Bench rotation — 10 minutes each</h4>
+        <p>Six benches, six groups, everyone starts at a different one and moves on a hard timer. Each bench is pre-wired and running. The card at the bench has one knob to turn and one question to answer.</p>
+      </div>
+    </div>
+    <div class="leg leg--hinge">
+      <div class="clock">1:10<span>10 min</span></div>
+      <div>
+        <h4>Round-the-room: what surprised you</h4>
+        <p>One sentence per group, no slides. This is where the thermal group tells everyone that a Peltier takes eight seconds to register, which reliably kills two bad project ideas before they are proposed.</p>
+      </div>
+    </div>
+    <div class="leg">
+      <div class="clock">1:20<span>30 min</span></div>
+      <div>
+        <h4>Build one tacton</h4>
+        <p>Groups pick any actuator from the rotation and encode three distinguishable messages with it. Brief is below. Thirty minutes is intentionally not enough to be precious about it.</p>
+      </div>
+    </div>
+    <div class="leg">
+      <div class="clock">1:50<span>10 min</span></div>
+      <div>
+        <h4>Blind test and pack down</h4>
+        <p>Swap groups, receive three tactons without looking, guess which is which. Then everything goes back in the box — including the resistors, which it will not.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head"><h2>The six benches</h2><div class="eyebrow">Pre-wired &middot; 10 min each</div></div>
+  <p class="lede">Each bench runs from an Uno with the sketch already flashed and one potentiometer exposed. Students change the parameter, feel the result, and answer the card question. They do not wire anything during the rotation — wiring is what the project weeks are for.</p>
+
+  <div class="stations">
+
+    <article class="st st--haptic">
+      <div class="st-num">01</div>
+      <div class="st-body">
+        <div class="st-tag">Cutaneous &middot; vibration</div>
+        <h3>ERM coin motor</h3>
+        <p>The eccentric rotating mass from the lecture, the same part in every phone and game controller. Turn the pot and notice what you cannot do: frequency and amplitude are welded together, so “gentle and fast” is not available to you.</p>
+        <p class="feel"><b>Card question:</b> at what point does it stop feeling like information and start feeling like a malfunction?</p>
+      </div>
+      <div class="st-spec">
+        <dl>
+          <div class="row"><dt>Part</dt><dd>10mm 3V coin ERM</dd></div>
+          <div class="row"><dt>Drive</dt><dd>2N2222 + 1N4148 flyback</dd></div>
+          <div class="row"><dt>Pin</dt><dd>D9 (PWM)</dd></div>
+          <div class="row"><dt>Draw</dt><dd>~75 mA</dd></div>
+          <div class="row"><dt>Latency</dt><dd>20–40 ms spin-up</dd></div>
+          <div class="row"><dt>Cost</dt><dd>~12 kr</dd></div>
+        </dl>
+        <div class="warn">Never off a bare Arduino pin — 40 mA limit, the motor will exceed it.</div>
+      </div>
+    </article>
+
+    <article class="st st--haptic">
+      <div class="st-num">02</div>
+      <div class="st-body">
+        <div class="st-tag">Cutaneous &middot; vibration</div>
+        <h3>LRA + piezo disc</h3>
+        <p>Two ways out of the ERM's compromise. The linear resonant actuator hits its resonance in ~5 ms and stops just as fast, which is why phone keyboards use it. The piezo disc is the crystal from the lecture: near-instant, almost no power, but shallow — it is a tick, not a thump.</p>
+        <p class="feel"><b>Card question:</b> which of the three vibrators would you actually put on a wrist, and why not the others?</p>
+      </div>
+      <div class="st-spec">
+        <dl>
+          <div class="row"><dt>Parts</dt><dd>LRA 10mm + 27mm piezo</dd></div>
+          <div class="row"><dt>Drive</dt><dd>DRV2605L over I²C</dd></div>
+          <div class="row"><dt>Pin</dt><dd>A4 SDA / A5 SCL</dd></div>
+          <div class="row"><dt>Library</dt><dd>Adafruit_DRV2605</dd></div>
+          <div class="row"><dt>Effects</dt><dd>123 built-in waveforms</dd></div>
+          <div class="row"><dt>Cost</dt><dd>~90 kr w/ driver</dd></div>
+        </dl>
+        <div class="warn">The DRV2605L must be told LRA vs. ERM mode, or the LRA sounds wrong.</div>
+      </div>
+    </article>
+
+    <article class="st st--haptic">
+      <div class="st-num">03</div>
+      <div class="st-body">
+        <div class="st-tag">Cutaneous &middot; impact</div>
+        <h3>Solenoid tap</h3>
+        <p>A push-pull solenoid firing a single 15 ms pulse against a fingertip. This is the bench everyone remembers, because a discrete knock carries urgency that no amount of buzzing does — it reads as somebody tapping you, which is an indexical mapping rather than a symbolic one.</p>
+        <p class="feel"><b>Card question:</b> how many taps before it goes from “alert” to “nagging”?</p>
+      </div>
+      <div class="st-spec">
+        <dl>
+          <div class="row"><dt>Part</dt><dd>5V push-pull, 10mm throw</dd></div>
+          <div class="row"><dt>Drive</dt><dd>MOSFET + flyback, ext. 5V</dd></div>
+          <div class="row"><dt>Pin</dt><dd>D6</dd></div>
+          <div class="row"><dt>Draw</dt><dd>~1.1 A peak</dd></div>
+          <div class="row"><dt>Duty</dt><dd>≤ 25%, it gets hot</dd></div>
+          <div class="row"><dt>Cost</dt><dd>~45 kr</dd></div>
+        </dl>
+        <div class="warn">Separate supply, common ground. USB alone will brown-out and reset the board.</div>
+      </div>
+    </article>
+
+    <article class="st st--haptic">
+      <div class="st-num">04</div>
+      <div class="st-body">
+        <div class="st-tag">Kinesthetic &middot; touch-to-actuate</div>
+        <h3>Capacitive touch &rarr; servo</h3>
+        <p>The bench that closes the loop: touch a surface with a bare finger and the servos react. There is no button and no sensor you can point at — the input <em>is</em> a wire taped to a plate, read through <code>ADCTouch</code> on an analogue pin. This is the SOS rig, running the real sketch, so it also demonstrates the two things that actually make capacitive sensing work in practice.</p>
+        <p class="feel"><b>Card question:</b> put your hand near the plate without touching. When exactly did it decide that was a touch?</p>
+      </div>
+      <div class="st-spec">
+        <dl>
+          <div class="row"><dt>Sense</dt><dd>ADCTouch on A0</dd></div>
+          <div class="row"><dt>Baseline</dt><dd>25-sample rolling</dd></div>
+          <div class="row"><dt>Trigger</dt><dd>1.01&times; the average</dd></div>
+          <div class="row"><dt>Debounce</dt><dd>100 ms</dd></div>
+          <div class="row"><dt>Servos</dt><dd>D4 + D13, mirrored</dd></div>
+          <div class="row"><dt>Cost</dt><dd>~0 kr (a wire)</dd></div>
+        </dl>
+        <div class="warn">Baseline drifts with humidity and mains hum. Never a fixed threshold — always relative to a rolling average.</div>
+      </div>
+    </article>
+
+    <article class="st st--thermal">
+      <div class="st-num">05</div>
+      <div class="st-body">
+        <div class="st-tag">Cutaneous &middot; thermal</div>
+        <h3>Peltier warm / cool</h3>
+        <p>A thermoelectric tile that heats one side and cools the other, and reverses when you flip the current. Sit with it. It takes several seconds before you are sure which direction it went, and the lecture's warning holds up in person: alternating hot and cold just reads as lukewarm.</p>
+        <p class="feel"><b>Card question:</b> time yourself. How long until you would bet money on “warmer” vs. “cooler”?</p>
+      </div>
+      <div class="st-spec">
+        <dl>
+          <div class="row"><dt>Part</dt><dd>TEC1-12706 + heatsink</dd></div>
+          <div class="row"><dt>Drive</dt><dd>L298N H-bridge</dd></div>
+          <div class="row"><dt>Pin</dt><dd>D3 PWM / D4–D5 dir</dd></div>
+          <div class="row"><dt>Draw</dt><dd>2–4 A — bench PSU only</dd></div>
+          <div class="row"><dt>Onset</dt><dd>3–8 s to perceptible</dd></div>
+          <div class="row"><dt>Cost</dt><dd>~70 kr</dd></div>
+        </dl>
+        <div class="warn">Heatsink on the hot side or it cooks itself. Cap at 45 °C in software — skin burns above 50 °C.</div>
+      </div>
+    </article>
+
+    <article class="st st--audio">
+      <div class="st-num">06</div>
+      <div class="st-body">
+        <div class="st-tag">Intramodal &middot; audio + haptic</div>
+        <h3>The same signal, twice</h3>
+        <p>One transducer bolted to a plate, playing a 40 Hz tone you feel and a 400 Hz tone you hear — from the same driver. Toggle between them alone and together. Together is not louder; it is more <em>certain</em>. That is redundancy from Lecture 7, and it is the cheapest reliability win available to your project.</p>
+        <p class="feel"><b>Card question:</b> with ear defenders on, does the tacton still work?</p>
+      </div>
+      <div class="st-spec">
+        <dl>
+          <div class="row"><dt>Part</dt><dd>Bone-conduction exciter</dd></div>
+          <div class="row"><dt>Drive</dt><dd>PAM8403 class-D amp</dd></div>
+          <div class="row"><dt>Pin</dt><dd>D11 (tone) </dd></div>
+          <div class="row"><dt>Band</dt><dd>~40 Hz felt / ~400 Hz heard</dd></div>
+          <div class="row"><dt>Cost</dt><dd>~110 kr</dd></div>
+        </dl>
+        <div class="warn">Ear defenders live at this bench. Without them the comparison is not honest.</div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head"><h2>Inputs worth knowing about</h2><div class="eyebrow">Ten-minute mention</div></div>
+  <p class="lede">Not a rotation — these sit on one table with a sign, for the projects that need to sense a person rather than signal to one. Mention them at the framing and let people wander over during the build.</p>
+  <div class="sensors">
+    <div class="sen">
+      <h4>Heart rate / PPG</h4><div class="pin">MAX30102 &middot; I²C</div>
+      <p>Optical pulse from a fingertip. Honest warning: it is stable at rest and garbage the moment the hand moves, so design around a seated user.</p>
+    </div>
+    <div class="sen">
+      <h4>GSR / skin conductance</h4><div class="pin">Grove GSR &middot; A1</div>
+      <p>Two finger electrodes reading arousal. Drifts constantly — usable as a relative change over seconds, never as an absolute number.</p>
+    </div>
+    <div class="sen">
+      <h4>Flex / bend</h4><div class="pin">2.2" flex &middot; A2 + 10k</div>
+      <p>A resistive strip that changes value as it bends. The cheap route to a data glove, and the obvious pairing with force feedback on bench 4.</p>
+    </div>
+    <div class="sen">
+      <h4>Capacitive touch</h4><div class="pin">ADCTouch &middot; any analogue pin</div>
+      <p>The cheapest input on the table: a wire behind foil, cardboard or fabric, no breakout board. Costs one library and a rolling baseline. See bench 4 — it is genuinely this easy.</p>
+    </div>
+    <div class="sen">
+      <h4>Pressure / force</h4><div class="pin">FSR &middot; analogue + divider</div>
+      <p>A resistive pad that reads how hard, not just whether. Needs a two-point calibration per pad — they vary enough that one constant across six pads will not do.</p>
+    </div>
+    <div class="sen">
+      <h4>Your own phone</h4><div class="pin">already in your pocket</div>
+      <p>Accelerometer, gyro, mic, camera, and a vibration motor. For a lot of projects this beats anything on the table, and needs no soldering at all.</p>
+    </div>
+    <div class="sen">
+      <h4>If it needs to be wireless</h4><div class="pin">ESP32 &middot; Wi-Fi + BLE</div>
+      <p>Swap the Uno for an ESP32 and most of the sketch survives, but you gain networking — the route to anything worn, or anything logging to a server. Worth the extra setup only when the prototype genuinely cannot have a cable.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head"><h2>Two rigs that already exist</h2><div class="eyebrow">Prior art &middot; show, don't slide</div></div>
+  <p class="lede">Both of these were built here, by students at roughly your stage, and both are worth five minutes of screen time during the framing. Not as things to copy — as proof that the gap between "we should use haptics" and "it moves when you touch it" is smaller than it looks.</p>
+
+  <div class="prior">
+    <article class="pr">
+      <div class="pr-tag">SOS 2025 &middot; Arduino Uno &middot; 922 lines</div>
+      <h3>Capacitive sensing + servos + linear actuators</h3>
+      <p>A moving screen that breathes when idle and retreats when you touch it. Worth showing because of what it does <em>between</em> the obvious states: an anticipation move before the big sequence, sine-eased servo travel rather than <code>write()</code> and hope, and an idle breathing loop that makes the object feel alive when nothing is happening.</p>
+      <p>It also ships a browser control panel over the serial port, so you can drive the rig from a laptop during a demo — which is exactly what you will wish you had at the project demonstrations in week 49.</p>
+      <div class="pr-take"><b>The transferable bit:</b> easing and idle motion are what separate "a servo moved" from "it reacted to me." Both are a dozen lines.</div>
+    </article>
+
+    <article class="pr">
+      <div class="pr-tag">Bachelor project &middot; ESP32 &middot; 6 sensors</div>
+      <h3>Instrumented sock — pressure logging</h3>
+      <p>Six force-sensitive resistors under a foot — arch, heel, big toe, and three edges — sampled on an ESP32 and batched over Wi-Fi to a PocketBase collection ten readings at a time. Each sensor carries its own two-point calibration constants, because supposedly identical FSRs were not.</p>
+      <p>Show it when someone proposes a wearable. It is a real answer to "how do I get sensor data off the body and somewhere I can analyse it", and the batching detail is the part people get wrong first.</p>
+      <div class="pr-take"><b>The transferable bit:</b> per-sensor calibration, and batching writes instead of one HTTP request per sample.</div>
+    </article>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head"><h2>Closing brief</h2><div class="eyebrow">30 minutes</div></div>
+  <div class="brief">
+    <h3>Encode three messages in one actuator</h3>
+    <ol>
+      <li>Pick one actuator from the rotation. Any of the six.</li>
+      <li>Choose three messages a real interface would need to send. Suggested set: <strong>message arrived</strong>, <strong>something is wrong</strong>, <strong>task finished</strong>.</li>
+      <li>Encode each one by varying <em>rhythm</em> and <em>roughness</em> only — the two tacton parameters from Lecture 7. No changing actuators between messages.</li>
+      <li>Hand the device to another group with the display turned away. They receive all three in a random order and name them.</li>
+      <li>Write down the confusion: which two got mixed up, and what parameter would have separated them.</li>
+    </ol>
+    <p class="constraint">Constraint that makes it interesting: the recipient cannot look at the device. If your design only works when someone is watching a screen, you built a visual interface with a motor glued to it.</p>
+  </div>
+
+  <div class="code"><span class="c">// Bench 1 — ERM tacton skeleton. Rhythm is yours to change.</span>
+<span class="c">// Roughness = PWM depth. Rhythm = the on/off pattern below.</span>
+
+<span class="k">const int</span> MOTOR = 9;
+
+<span class="k">void</span> pulse(<span class="k">int</span> strength, <span class="k">int</span> ms) {
+  analogWrite(MOTOR, strength);   <span class="c">// 0–255, "roughness"</span>
+  delay(ms);
+  analogWrite(MOTOR, 0);
+}
+
+<span class="k">void</span> messageArrived() { pulse(160, 60); }                       <span class="c">// one soft tap</span>
+<span class="k">void</span> somethingWrong() { <span class="k">for</span> (<span class="k">int</span> i=0;i&lt;3;i++){ pulse(255,90); delay(70);} }
+<span class="k">void</span> taskFinished()  { pulse(120,40); delay(60); pulse(220,220); }
+
+<span class="k">void</span> setup() { pinMode(MOTOR, OUTPUT); }
+<span class="k">void</span> loop()  { <span class="c">/* trigger from the pot or a button */</span> }</div>
+</section>
+
+<section class="sec">
+  <div class="sec-head"><h2>Kit list</h2><div class="eyebrow">Per bench &middot; 6 benches</div></div>
+  <p class="lede">Quantities are for one bench. Order spares of anything that gets handled — coin motors shear their leads and flex sensors crack at the base.</p>
+  <div class="tblwrap">
+    <table>
+      <thead>
+        <tr><th>Bench</th><th>Item</th><th>Part</th><th>Qty</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>All</td><td>Arduino Uno R3 + USB cable</td><td class="part">A000066</td><td class="qty">1</td></tr>
+        <tr><td>All</td><td>Breadboard, jumpers, 10k pot</td><td class="part">—</td><td class="qty">1 set</td></tr>
+        <tr><td>01</td><td>Coin ERM 10mm 3V</td><td class="part">—</td><td class="qty">4 (spares)</td></tr>
+        <tr><td>01, 03</td><td>2N2222 transistor + 1N4148 diode</td><td class="part">—</td><td class="qty">6 ea</td></tr>
+        <tr><td>02</td><td>LRA 10mm + 27mm piezo disc</td><td class="part">—</td><td class="qty">2 + 2</td></tr>
+        <tr><td>02</td><td>Haptic driver breakout</td><td class="part">DRV2605L</td><td class="qty">1</td></tr>
+        <tr><td>03</td><td>Push-pull solenoid 5V</td><td class="part">JF-0530B</td><td class="qty">2</td></tr>
+        <tr><td>03</td><td>Logic-level MOSFET</td><td class="part">IRLZ44N</td><td class="qty">3</td></tr>
+        <tr><td>04</td><td>Micro servo</td><td class="part">SG90</td><td class="qty">2</td></tr>
+        <tr><td>04</td><td>Foil touch plate + hookup wire</td><td class="part">ADCTouch lib</td><td class="qty">1</td></tr>
+        <tr><td>05</td><td>Peltier module + heatsink + paste</td><td class="part">TEC1-12706</td><td class="qty">1</td></tr>
+        <tr><td>05</td><td>H-bridge module</td><td class="part">L298N</td><td class="qty">1</td></tr>
+        <tr><td>05</td><td>Bench PSU, 5V 5A</td><td class="part">—</td><td class="qty">1</td></tr>
+        <tr><td>06</td><td>Bone-conduction exciter + class-D amp</td><td class="part">PAM8403</td><td class="qty">1 + 1</td></tr>
+        <tr><td>06</td><td>Ear defenders</td><td class="part">—</td><td class="qty">2</td></tr>
+        <tr><td>Sensors</td><td>PPG, GSR, flex ×2</td><td class="part">MAX30102 / Grove GSR</td><td class="qty">1 ea</td></tr>
+        <tr><td>Sensors</td><td>Force-sensitive resistor + 10k</td><td class="part">FSR 402</td><td class="qty">2</td></tr>
+        <tr><td>Optional</td><td>ESP32 dev board, for wireless demos</td><td class="part">ESP32-WROOM-32</td><td class="qty">2</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="foot">Prep time is roughly a half day: every bench must be wired, flashed and left running before students arrive. If a bench needs debugging during the session, pull it — five working benches beat six with a mystery. Bench 3 and bench 5 are the two that draw real current; put them nearest the bench supplies and check the heatsink paste the morning of.</p>
+</section>
+
+</div>
