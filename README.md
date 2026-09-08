@@ -11,8 +11,9 @@ write the code. What they lack is any physical sense of what a coin motor, a sol
 or a Peltier tile actually *feels* like. So touch gets designed on paper, then quietly
 dropped from the project, and everything ends up on the screen and the speaker.
 
-**Format:** six pre-wired benches, 10 minutes each on a hard rotation, then one build.
-Nobody wires anything during the rotation. They touch things and form opinions.
+**Format:** two halves. First a 30-minute tour of six pre-wired benches, five minutes
+each, where they touch things and form opinions. Then 50 minutes of tasks, where they
+grab a board and make things actually happen from their own code.
 
 📄 **[Full session plan, run sheet and kit list](https://claude.ai/code/artifact/1e577f62-4cae-4ec5-a407-69494dc85f7e)**
 
@@ -68,10 +69,11 @@ without that the PDF exports would lose them.
 | Offset | Duration | What |
 |---|---|---|
 | 0:00 | 10 min | Two motors, same message. Which felt urgent? |
-| 0:10 | 60 min | Bench rotation, 10 min each |
-| 1:10 | 10 min | Round-the-room: what surprised you |
-| 1:20 | 30 min | Build one signal |
-| 1:50 | 10 min | Blind test and pack down |
+| 0:10 | 30 min | Bench tour: touch all six, five minutes each |
+| 0:40 | 10 min | Round-the-room: what surprised you |
+| 0:50 | 50 min | Tasks. Grab a board, work at your own pace |
+| 1:40 | 15 min | Blind test on task 5 |
+| 1:55 | 5 min | Pack down |
 
 ## The six benches
 
@@ -87,6 +89,27 @@ without that the PDF exports would lose them.
 Benches without code here run from library example sketches (`Adafruit_DRV2605`,
 `Servo.h`) with only the pin numbers changed. Bench 1 and 4 are the two worth
 reading, and both are commented for students rather than for you.
+
+## The tasks
+
+`tasks/` holds five self-contained sketches. Upload one and it runs. Each has a
+**CHANGE ME** block at the top (two or three numbers to edit) and a **THINGS TO TRY**
+list at the bottom (four experiments, easy to hard).
+
+| # | Task | What they learn |
+|---|---|---|
+| 01 | [Make something spin](tasks/01_make_it_spin) | PWM, and that a motor stalls below ~90 |
+| 02 | [Make something tap](tasks/02_make_it_tap) | One tap vs three. Rhythm carries meaning |
+| 03 | [Make something warm](tasks/03_make_it_warm) | H-bridge direction, and how slow skin is |
+| 04 | [Make it notice you](tasks/04_make_it_sense) | Capacitive input from a wire |
+| 05 | [Make it answer back](tasks/05_make_it_answer) | Input driving output. A real interaction |
+
+The arc is deliberate: 1 to 3 are output, 4 is input, 5 is both. By task 5 they have
+built a complete interaction loop, which is the shape of most project work. Task 5's
+last experiment is the closing brief, so it carries straight over.
+
+Nobody is expected to finish all five. Getting task 1 working and then properly
+playing with task 2 beats rushing through everything.
 
 ## The one idea worth stealing: capacitive sensing costs a wire
 

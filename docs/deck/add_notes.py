@@ -53,7 +53,7 @@ If a bench breaks mid-session, pull it and go to five. Five working benches
 beat six with a mystery.""",
 
     # 4: section: the six benches
-    """0:10. Rotation starts. Set a visible timer.
+    """0:10. Tour starts. Five minutes a bench, not ten. Set a visible timer.
 
 You are now a timekeeper, not a lecturer. Call the rotation loudly every ten
 minutes. Circulate, but do not rescue. Let them poke at things.
@@ -136,15 +136,50 @@ projects can buy.
 
 Ear defenders must actually be used or the comparison is dishonest.""",
 
-    # 12: section: inputs and prior art
-    """1:10. Rotation over. Round-the-room now.
+    # 12: section, now make one do something
+    """0:50. Tasks start. This is the half of the session they will remember
+having done, rather than watched.
+
+Hand out boards. One per pair is fine, one each is better. Everything is on
+GitHub, and the repo link is on the next-but-one slide.
+
+Say clearly: you do NOT have to finish all five. Getting task 1 working and
+then properly playing with task 2 beats rushing through all of them.""",
+
+    # 19: five tasks
+    """Walk the list in about ninety seconds, no more.
+
+The arc matters and is worth naming: 1 to 3 are output, 4 is input, 5 is both
+together. By task 5 they have built a complete interaction loop, which is the
+shape of most things they will make in the project weeks.
+
+Point out that task 5's last experiment IS the closing brief, so the work
+carries straight over.""",
+
+    # 20: how the sketches work
+    """The format is the same every time, so say it once here rather than at
+every bench.
+
+CHANGE ME at the top: two or three numbers, already set to something that
+works. THINGS TO TRY at the bottom: four experiments, easy to hard, and the
+last one usually asks them to rewrite a function rather than tweak a value.
+
+Common upload problems, in the order they will hit you:
+  * wrong board or port under Tools
+  * ADCTouch not installed (tasks 4 and 5)
+  * solenoid bench: board resets on fire = the bench supply is off
+
+Write the repo URL on the whiteboard now. It will be asked for six times.""",
+
+    # 21: section: inputs and prior art
+    """0:40. Tour over. Round-the-room now.
 
 One sentence per group: what surprised you. No slides, no laptops. Ten minutes.
 
 Expect the thermal group to report the delay. Let that land, it is more
 persuasive coming from a peer than from you.""",
 
-    # 13: inputs
+    # 19: inputs
     """Mention, don't teach. These sit on one table with a sign. The slide is one
 line each; the caveats below are what actually saves them time.
 
@@ -155,7 +190,7 @@ calibration.
 Push the phone option hard. For a lot of projects it genuinely beats
 everything else on the table and needs no soldering.""",
 
-    # 14: prior art
+    # 20: prior art
     """Five minutes, and show the actual repos on screen if you can. The slide names
 them; you supply the detail.
 
@@ -169,13 +204,13 @@ it" is smaller than it looks.
 Note for you: the sock repo has a hardcoded Wi-Fi password and live patient
 IDs in it. Scrub before showing, or show only the calibration section.""",
 
-    # 15: section: build
-    """1:20. Build starts. Thirty minutes.
+    # 21: section: build
+    """1:40. Blind test. Thirty minutes.
 
 Groups pick any actuator from the rotation. Most will pick bench 1 or 3
 because they are simplest. That is fine, the constraint does the work.""",
 
-    # 16: the brief
+    # 19: the brief
     """Read the brief out once, then get out of the way. Full wording, since the
 slide is only the bones:
 
@@ -189,10 +224,10 @@ The constraint is the exercise. Encoding within one channel is the skill.
 Suggested set is on the slide, but let them choose their own three messages if
 they have a better idea.""",
 
-    # 17: the constraint
+    # 20: the constraint
     """This is the line worth repeating twice.
 
-1:50. Blind test. Swap groups, receiver looks away, guess all three.
+Wrap up. Swap groups, receiver looks away, guess all three.
 
 Then have each group name which two got confused and what would have separated
 them. That confusion is the actual learning, not the successful ones.
@@ -200,7 +235,7 @@ them. That confusion is the actual learning, not the successful ones.
 Pack down: everything back in the box, including the resistors. It will not
 all come back.""",
 
-    # 18: closing
+    # 21: closing
     """Point them at the repo. Bench 01 and 04 sketches are commented for them.
 
 Last thing to say: pick your actuator before you design the interaction, not
