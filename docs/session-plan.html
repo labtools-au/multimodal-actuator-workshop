@@ -106,6 +106,13 @@ a{color:var(--vermilion)}
 .fact dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);margin-bottom:3px}
 .fact dd{margin:0;font-family:var(--display);font-size:16px;font-weight:700}
 
+/* ---------- tldr ---------- */
+.tldr{background:var(--paper-2);border-top:3px solid var(--vermilion);padding:24px 28px}
+.tldr h4{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--vermilion);margin-bottom:12px}
+.tldr > p{font-size:17px;margin-bottom:16px;max-width:66ch}
+.tldr ol{margin:0;padding-left:22px;display:grid;gap:8px}
+.tldr li{font-size:16px;line-height:1.45}
+
 /* ---------- generic section ---------- */
 .sec{padding-top:56px}
 .sec-head{
@@ -239,6 +246,16 @@ a{color:var(--vermilion)}
   font-size:11px;
 }
 
+/* ---------- tasks ---------- */
+.tasks{display:grid;gap:0;border-top:2px solid var(--ink);margin-bottom:26px}
+.tk{display:grid;grid-template-columns:56px 1fr;gap:0;border-bottom:1px solid var(--rule);padding:16px 0}
+.tk-n{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--vermilion)}
+.tk h4{font-size:17px;margin-bottom:3px}
+.tk p{font-size:15px;color:var(--ink-2);max-width:60ch}
+.note{padding:16px 20px;font-size:15.5px;line-height:1.5;margin-bottom:14px}
+.note--go{background:var(--paper-2);border-left:3px solid var(--teal)}
+.note--warn{background:var(--paper-2);border-left:3px solid var(--vermilion)}
+
 /* ---------- sensors ---------- */
 .sensors{display:grid;grid-template-columns:repeat(2,1fr);gap:0 34px}
 .sen{
@@ -273,6 +290,15 @@ a{color:var(--vermilion)}
   .prior{grid-template-columns:1fr}
   .pr + .pr{border-left:none;border-top:1px solid var(--rule);padding-left:0;margin-left:0}
 }
+
+/* ---------- checks + learn ---------- */
+.check{margin:0;padding-left:0;list-style:none;display:grid;gap:10px;max-width:60ch}
+.check li{font-size:16px;padding-left:30px;position:relative}
+.check li::before{content:"";position:absolute;left:0;top:3px;width:15px;height:15px;border:2px solid var(--ink)}
+.learn{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;border-top:2px solid var(--ink);padding-top:22px}
+.learn h4{font-size:16px;margin-bottom:7px}
+.learn p{font-size:15px;color:var(--ink-2);line-height:1.5}
+@media (max-width:860px){.learn{grid-template-columns:1fr;gap:20px}}
 
 /* ---------- code ---------- */
 .code{
@@ -358,6 +384,21 @@ td.part{font-family:var(--mono);font-size:12px;color:var(--ink-2)}
   </dl>
 </header>
 
+
+<section class="sec" style="padding-top:38px">
+  <div class="tldr">
+    <h4>TLDR;</h4>
+    <p>This is how you spend two hours finding out what actuators actually feel like, and leave able to drive one from your own code.</p>
+    <ol>
+      <li>⚡ <b>Get a board and run task 01.</b> Something spins.</li>
+      <li>🔁 <b>Change two numbers, upload again.</b> That loop is the whole workshop.</li>
+      <li>🖐️ <b>Pick up the actuators you are not using.</b> They are on the benches around you.</li>
+      <li>🔌 <b>Work through as many of the five tasks as you get to.</b> Nobody finishes all five.</li>
+      <li>✅ <b>Build one signal someone else can read without looking.</b></li>
+    </ol>
+  </div>
+</section>
+
 <section class="sec">
   <div class="sec-head"><h2>Why this session exists</h2><div class="eyebrow">Premise</div></div>
   <div class="premise">
@@ -387,171 +428,66 @@ td.part{font-family:var(--mono);font-size:12px;color:var(--ink-2)}
       <div class="clock">0:00<span>10 min</span></div>
       <div>
         <h4>Two motors, one message</h4>
-        <p>Show a coin motor buzzing a phone-style notification, then the same message on a solenoid. Ask which felt more urgent. Nobody needs theory to answer, and that is the point of the whole session.</p>
-      </div>
-    </div>
-    <div class="leg">
-      <div class="clock">0:10<span>60 min</span></div>
-      <div>
-        <h4>Bench rotation, 10 minutes each</h4>
-        <p>Six benches, six groups, everyone starts at a different one and moves on a hard timer. Each bench is pre-wired and running. The card at the bench has one knob to turn and one question to answer.</p>
+        <p>Buzz a phone-style notification on a coin motor, then send the same message on a solenoid. Ask which felt more urgent. Nobody needs theory to answer that, which is the point of the whole session.</p>
       </div>
     </div>
     <div class="leg leg--hinge">
-      <div class="clock">1:10<span>10 min</span></div>
+      <div class="clock">0:10<span>15 min</span></div>
+      <div>
+        <h4>Boards out, everyone runs task 01</h4>
+        <p>The only hard checkpoint. Task 01 is short on purpose: it flushes out the wrong board, the wrong port and the missing driver before anyone gets invested.</p>
+      </div>
+    </div>
+    <div class="leg">
+      <div class="clock">0:25<span>60 min</span></div>
+      <div>
+        <h4>Tasks 02 to 05, your own pace</h4>
+        <p>Work in pairs. Pick up the actuators you are not driving. Ask for the ones you want to try.</p>
+      </div>
+    </div>
+    <div class="leg">
+      <div class="clock">1:25<span>10 min</span></div>
       <div>
         <h4>Round-the-room: what surprised you</h4>
-        <p>One sentence per group, no slides. This is where the thermal group tells everyone that a Peltier takes eight seconds to register, which reliably kills two bad project ideas before they are proposed.</p>
+        <p>One sentence per group, no slides. This is where somebody reports that the Peltier takes eight seconds, which reliably kills two bad project ideas before they get proposed.</p>
       </div>
     </div>
     <div class="leg">
-      <div class="clock">1:20<span>30 min</span></div>
+      <div class="clock">1:35<span>20 min</span></div>
       <div>
-        <h4>Build one signal</h4>
-        <p>Groups pick any actuator from the rotation and encode three distinguishable messages with it. Brief is below. Thirty minutes is intentionally not enough to be precious about it.</p>
+        <h4>Blind test</h4>
+        <p>Swap devices, receiver looks away, name all three messages. The confusions are the interesting part, not the successes.</p>
       </div>
     </div>
     <div class="leg">
-      <div class="clock">1:50<span>10 min</span></div>
+      <div class="clock">1:55<span>5 min</span></div>
       <div>
-        <h4>Blind test and pack down</h4>
-        <p>Swap groups, receive three signals without looking, guess which is which. Then everything goes back in the box, including the resistors, which it will not.</p>
+        <h4>Pack down</h4>
+        <p>Everything back in the box, including the resistors. It will not all come back.</p>
       </div>
     </div>
   </div>
 </section>
 
+
 <section class="sec">
-  <div class="sec-head"><h2>The six benches</h2><div class="eyebrow">Pre-wired &middot; 10 min each</div></div>
-  <p class="lede">Each bench runs from an Uno with the sketch already flashed and one potentiometer exposed. Students change the parameter, feel the result, and answer the card question. They do not wire anything during the rotation; wiring is what the project weeks are for.</p>
+  <div class="sec-head"><h2>The five tasks</h2><div class="eyebrow">Upload, tweak, upload</div></div>
+  <p class="lede">Every sketch runs the moment you upload it. Nothing to wire. Each one has a <b>CHANGE ME</b> block at the top with two or three numbers, and a <b>THINGS TO TRY</b> list at the bottom with four experiments.</p>
 
-  <div class="stations">
+  <div class="tasks">
+    <div class="tk"><span class="tk-n">01</span><div><h4>Make something spin</h4><p>A coin motor you control. Find the speed where it gives up and stalls.</p></div></div>
+    <div class="tk"><span class="tk-n">02</span><div><h4>Make something tap</h4><p>A solenoid. One tap, two, three. Same force, completely different message.</p></div></div>
+    <div class="tk"><span class="tk-n">03</span><div><h4>Make something warm</h4><p>A Peltier tile. Time how many seconds before you would bet money on warmer.</p></div></div>
+    <div class="tk"><span class="tk-n">04</span><div><h4>Make it notice you</h4><p>Touch input from a wire and a piece of foil. No sensor, no breakout board.</p></div></div>
+    <div class="tk"><span class="tk-n">05</span><div><h4>Make it answer back</h4><p>Input drives output. The smallest complete interaction, and the shape of most project work.</p></div></div>
+  </div>
 
-    <article class="st st--haptic">
-      <div class="st-num">01</div>
-      <div class="st-body">
-        <div class="st-tag">Vibration</div>
-        <h3>ERM coin motor</h3>
-        <p>An off-centre weight on a motor shaft, the same part in every phone and game controller. Turn the pot and notice what you cannot do: frequency and amplitude are welded together, so “gentle and fast” is not available to you.</p>
-        <p class="feel"><b>Card question:</b> at what point does it stop feeling like information and start feeling like a malfunction?</p>
-      </div>
-      <div class="st-spec">
-        <dl>
-          <div class="row"><dt>Part</dt><dd>10mm 3V coin ERM</dd></div>
-          <div class="row"><dt>Drive</dt><dd>2N2222 + 1N4148 flyback</dd></div>
-          <div class="row"><dt>Pin</dt><dd>D9 (PWM)</dd></div>
-          <div class="row"><dt>Draw</dt><dd>~75 mA</dd></div>
-          <div class="row"><dt>Latency</dt><dd>20–40 ms spin-up</dd></div>
-          <div class="row"><dt>Cost</dt><dd>~12 kr</dd></div>
-        </dl>
-        <div class="warn">Never off a bare Arduino pin. 40 mA limit, the motor will exceed it.</div>
-      </div>
-    </article>
+  <div class="note note--go">
+    <b>Freestyle is encouraged.</b> You do not have to do the tasks in order, and you do not have to finish them. Getting task 01 working and then properly playing with task 02 beats rushing through all five. If you want to drive something that is not on your bench, go and get it.
+  </div>
 
-    <article class="st st--haptic">
-      <div class="st-num">02</div>
-      <div class="st-body">
-        <div class="st-tag">Vibration</div>
-        <h3>LRA + piezo disc</h3>
-        <p>Two ways out of the ERM's compromise. The linear resonant actuator hits its resonance in ~5 ms and stops just as fast, which is why phone keyboards use it. The piezo disc is a crystal that flexes when you put current across it: near-instant, almost no power, but shallow. A tick, not a thump.</p>
-        <p class="feel"><b>Card question:</b> which of the three vibrators would you actually put on a wrist, and why not the others?</p>
-      </div>
-      <div class="st-spec">
-        <dl>
-          <div class="row"><dt>Parts</dt><dd>LRA 10mm + 27mm piezo</dd></div>
-          <div class="row"><dt>Drive</dt><dd>DRV2605L over I²C</dd></div>
-          <div class="row"><dt>Pin</dt><dd>A4 SDA / A5 SCL</dd></div>
-          <div class="row"><dt>Library</dt><dd>Adafruit_DRV2605</dd></div>
-          <div class="row"><dt>Effects</dt><dd>123 built-in waveforms</dd></div>
-          <div class="row"><dt>Cost</dt><dd>~90 kr w/ driver</dd></div>
-        </dl>
-        <div class="warn">The DRV2605L must be told LRA vs. ERM mode, or the LRA sounds wrong.</div>
-      </div>
-    </article>
-
-    <article class="st st--haptic">
-      <div class="st-num">03</div>
-      <div class="st-body">
-        <div class="st-tag">Impact</div>
-        <h3>Solenoid tap</h3>
-        <p>A push-pull solenoid firing a single 15 ms pulse against a fingertip. This is the bench everyone remembers, because a single knock carries urgency that no amount of buzzing does. It reads as a person tapping you rather than a machine signalling.</p>
-        <p class="feel"><b>Card question:</b> how many taps before it goes from “alert” to “nagging”?</p>
-      </div>
-      <div class="st-spec">
-        <dl>
-          <div class="row"><dt>Part</dt><dd>5V push-pull, 10mm throw</dd></div>
-          <div class="row"><dt>Drive</dt><dd>MOSFET + flyback, ext. 5V</dd></div>
-          <div class="row"><dt>Pin</dt><dd>D6</dd></div>
-          <div class="row"><dt>Draw</dt><dd>~1.1 A peak</dd></div>
-          <div class="row"><dt>Duty</dt><dd>≤ 25%, it gets hot</dd></div>
-          <div class="row"><dt>Cost</dt><dd>~45 kr</dd></div>
-        </dl>
-        <div class="warn">Separate supply, common ground. USB alone will brown-out and reset the board.</div>
-      </div>
-    </article>
-
-    <article class="st st--haptic">
-      <div class="st-num">04</div>
-      <div class="st-body">
-        <div class="st-tag">Touch input</div>
-        <h3>Capacitive touch &rarr; servo</h3>
-        <p>The bench that closes the loop: touch a surface with a bare finger and the servos react. There is no button and no sensor you can point at. The input <em>is</em> a wire taped behind a plate, read through <code>ADCTouch</code> on an analogue pin. This is an earlier student rig running its real sketch, so it also shows the two things that actually make capacitive sensing work in practice.</p>
-        <p class="feel"><b>Card question:</b> put your hand near the plate without touching. When exactly did it decide that was a touch?</p>
-      </div>
-      <div class="st-spec">
-        <dl>
-          <div class="row"><dt>Sense</dt><dd>ADCTouch on A0</dd></div>
-          <div class="row"><dt>Baseline</dt><dd>25-sample rolling</dd></div>
-          <div class="row"><dt>Trigger</dt><dd>1.01&times; the average</dd></div>
-          <div class="row"><dt>Debounce</dt><dd>100 ms</dd></div>
-          <div class="row"><dt>Servos</dt><dd>D4 + D13, mirrored</dd></div>
-          <div class="row"><dt>Cost</dt><dd>~0 kr (a wire)</dd></div>
-        </dl>
-        <div class="warn">Baseline drifts with humidity and mains hum. Never a fixed threshold; always relative to a rolling average.</div>
-      </div>
-    </article>
-
-    <article class="st st--thermal">
-      <div class="st-num">05</div>
-      <div class="st-body">
-        <div class="st-tag">Thermal</div>
-        <h3>Peltier warm / cool</h3>
-        <p>A thermoelectric tile that heats one side and cools the other, and reverses when you flip the current. Sit with it. It takes several seconds before you are sure which direction it went. And alternating hot with cold does not read as a pattern, it just reads as lukewarm.</p>
-        <p class="feel"><b>Card question:</b> time yourself. How long until you would bet money on “warmer” vs. “cooler”?</p>
-      </div>
-      <div class="st-spec">
-        <dl>
-          <div class="row"><dt>Part</dt><dd>TEC1-12706 + heatsink</dd></div>
-          <div class="row"><dt>Drive</dt><dd>L298N H-bridge</dd></div>
-          <div class="row"><dt>Pin</dt><dd>D3 PWM / D4–D5 dir</dd></div>
-          <div class="row"><dt>Draw</dt><dd>2-4 A, bench PSU only</dd></div>
-          <div class="row"><dt>Onset</dt><dd>3–8 s to perceptible</dd></div>
-          <div class="row"><dt>Cost</dt><dd>~70 kr</dd></div>
-        </dl>
-        <div class="warn">Heatsink on the hot side or it cooks itself. Cap at 45 °C in software; skin burns above 50 °C.</div>
-      </div>
-    </article>
-
-    <article class="st st--audio">
-      <div class="st-num">06</div>
-      <div class="st-body">
-        <div class="st-tag">Audio + touch</div>
-        <h3>The same signal, twice</h3>
-        <p>One transducer bolted to a plate, playing a 40 Hz tone you feel and a 400 Hz tone you hear, both from the same driver. Toggle between them alone and together. Together is not louder; it is more <em>certain</em>. Sending the same thing down two channels is the cheapest reliability your project can buy.</p>
-        <p class="feel"><b>Card question:</b> with ear defenders on, does the tacton still work?</p>
-      </div>
-      <div class="st-spec">
-        <dl>
-          <div class="row"><dt>Part</dt><dd>Bone-conduction exciter</dd></div>
-          <div class="row"><dt>Drive</dt><dd>PAM8403 class-D amp</dd></div>
-          <div class="row"><dt>Pin</dt><dd>D11 (tone) </dd></div>
-          <div class="row"><dt>Band</dt><dd>~40 Hz felt / ~400 Hz heard</dd></div>
-          <div class="row"><dt>Cost</dt><dd>~110 kr</dd></div>
-        </dl>
-        <div class="warn">Ear defenders live at this bench. Without them the comparison is not honest.</div>
-      </div>
-    </article>
-
+  <div class="note note--warn">
+    <b>Before you power anything:</b> the solenoid and the Peltier tile both pull real current and need their own supply. Ask before you rewire either. The Peltier needs its heatsink on, every time.
   </div>
 </section>
 
@@ -644,6 +580,40 @@ td.part{font-family:var(--mono);font-size:12px;color:var(--ink-2)}
 
 <span class="k">void</span> setup() { pinMode(MOTOR, OUTPUT); }
 <span class="k">void</span> loop()  { <span class="c">/* trigger from the pot or a button */</span> }</div>
+</section>
+
+
+<section class="sec">
+  <div class="sec-head"><h2>Test it</h2><div class="eyebrow">Before you call it done</div></div>
+  <p class="lede">Hand your device to another group with the screen turned away.</p>
+  <ul class="check">
+    <li>They can tell all three messages apart.</li>
+    <li>The device does not fire continuously when held.</li>
+    <li>You know which two got confused, and what would have separated them.</li>
+    <li>It still works when they are not looking at it.</li>
+  </ul>
+</section>
+
+<section class="sec">
+  <div class="sec-head"><h2>What you actually learn</h2><div class="eyebrow">Why it is worth two hours</div></div>
+  <p class="lede">Five small tasks give you three things you cannot get from a datasheet.</p>
+  <div class="learn">
+    <div><h4>⚡ What things feel like</h4><p>A motor is a nudge. A solenoid is a knock. A Peltier is slow. You now know that in your hands rather than in theory.</p></div>
+    <div><h4>🔧 How to drive one</h4><p>PWM, direction, debouncing, and why the motor never goes straight to a pin. Enough to add an actuator to a project without starting from zero.</p></div>
+    <div><h4>🎯 What to pick</h4><p>Choosing the actuator before designing the interaction, rather than discovering in week 46 that the one you picked cannot do it.</p></div>
+  </div>
+  <p style="margin-top:22px;max-width:66ch;color:var(--ink-2)">The important bit is not that your signal is elegant, or that you finish all five tasks. It is that you leave having actually driven something, and with an opinion about what it was good for.</p>
+</section>
+
+<section class="sec">
+  <div class="sec-head"><h2>Still missing from this guide</h2><div class="eyebrow">Honest list</div></div>
+  <p class="lede">A few things get locked once the benches have been built and tested for real.</p>
+  <div class="sensors">
+    <div class="sen"><h4>Final wiring diagrams per task</h4><div class="pin">photo or Fritzing</div></div>
+    <div class="sen"><h4>Confirmed pin numbers</h4><div class="pin">currently provisional</div></div>
+    <div class="sen"><h4>Real prices, checked with the lab</h4><div class="pin">figures are estimates</div></div>
+    <div class="sen"><h4>How many boards Labtools can lend</h4><div class="pin">sets the group size</div></div>
+  </div>
 </section>
 
 <section class="sec">

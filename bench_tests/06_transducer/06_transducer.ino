@@ -1,4 +1,4 @@
-// BENCH TEST 06 — TRANSDUCER
+// BENCH TEST 06: TRANSDUCER
 //
 // Alternates a frequency you FEEL with one you HEAR, from the same driver.
 // Confirms the amp and exciter both work before the session.

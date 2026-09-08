@@ -1,4 +1,4 @@
-// TASK 3 — MAKE SOMETHING WARM
+// TASK 3: MAKE SOMETHING WARM
 //
 // Goal: drive a Peltier tile both directions, and find out how slow your own
 // skin actually is.

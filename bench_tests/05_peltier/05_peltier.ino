@@ -1,4 +1,4 @@
-// BENCH TEST 05 — PELTIER
+// BENCH TEST 05: PELTIER
 //
 // Warms for 10 s, off, cools for 10 s, off. Touch the tile face to confirm
 // both directions work before students arrive.

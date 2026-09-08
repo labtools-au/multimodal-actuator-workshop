@@ -1,4 +1,4 @@
-// BENCH TEST 02 — LRA + PIEZO
+// BENCH TEST 02: LRA + PIEZO
 //
 // Does the haptic driver respond at all? Run this before the session.
 // Cycles through a few of the DRV2605L's built-in effects.

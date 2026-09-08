@@ -1,4 +1,4 @@
-// TASK 1 — MAKE SOMETHING SPIN
+// TASK 1: MAKE SOMETHING SPIN
 //
 // Goal: a motor you control from code, in under five minutes.
 //

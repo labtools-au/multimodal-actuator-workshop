@@ -1,4 +1,4 @@
-// TASK 5 — MAKE IT ANSWER BACK
+// TASK 5: MAKE IT ANSWER BACK
 //
 // Goal: input drives output. This is the smallest complete interaction, and
 // it is the template for most of what you will build in the project weeks.

@@ -2,8 +2,8 @@
 """
 Build the "Feel Before You Build" workshop deck.
 
-Content only. Everything visual — the AU blue, the logos, the footer, the type
-sizes, the rule under each heading — lives in au-template.pptx, on the slide
+Content only. Everything visual. the AU blue, the logos, the footer, the type
+sizes, the rule under each heading. lives in au-template.pptx, on the slide
 master and its four layouts. Run au_template.py to regenerate that.
 
 That split is deliberate, so the deck stays editable later:

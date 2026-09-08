@@ -155,7 +155,7 @@ def build():
     au_signature(lay.shapes, light=False)
     move_to_layout(lay, 5)
 
-    # ---- 3: Two Content — used for the bench slides -----------------------
+    # ---- 3: Two Content. used for the bench slides -----------------------
     lay = layouts[3]
     _clear(lay.shapes)
     lay.background.fill.solid()

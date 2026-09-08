@@ -1,4 +1,4 @@
-// UTIL — I2C SCANNER
+// UTIL: I2C SCANNER
 //
 // Lists every I2C device the board can see. Run this FIRST whenever an I2C
 // part misbehaves: bench 02's DRV2605L haptic driver, or an MPR121 if you add

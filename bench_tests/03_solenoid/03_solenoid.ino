@@ -1,4 +1,4 @@
-// BENCH TEST 03 — SOLENOID
+// BENCH TEST 03: SOLENOID
 //
 // One tap every two seconds. If it does not click, check in this order:
 //   1. bench supply on, and sharing ground with the Arduino

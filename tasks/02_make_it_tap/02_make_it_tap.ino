@@ -1,4 +1,4 @@
-// TASK 2 — MAKE SOMETHING TAP
+// TASK 2: MAKE SOMETHING TAP
 //
 // Goal: a discrete knock instead of a buzz, and a feel for why that changes
 // the message.

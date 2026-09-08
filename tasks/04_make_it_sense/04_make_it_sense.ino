@@ -1,4 +1,4 @@
-// TASK 4 — MAKE IT NOTICE YOU
+// TASK 4: MAKE IT NOTICE YOU
 //
 // Goal: touch input with no sensor. Just a wire.
 //

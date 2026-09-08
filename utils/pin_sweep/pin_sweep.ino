@@ -1,4 +1,4 @@
-// UTIL — PIN SWEEP
+// UTIL: PIN SWEEP
 //
 // "Is it my code or my wiring?" This answers that in ten seconds.
 //

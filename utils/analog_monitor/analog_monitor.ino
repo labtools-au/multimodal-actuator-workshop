@@ -1,4 +1,4 @@
-// UTIL — ANALOG MONITOR
+// UTIL: ANALOG MONITOR
 //
 // Prints one analogue pin continuously, in a format the Serial Plotter draws.
 // Use it on any sensor at the input table before you write real code: flex,
