@@ -403,7 +403,7 @@ td.part{font-family:var(--mono);font-size:12px;color:var(--ink-2)}
   <div class="sec-head"><h2>Why this session exists</h2><div class="eyebrow">Premise</div></div>
   <div class="premise">
     <div>
-      <p>Every year, projects arrive at the pitch built entirely on the screen and the speaker, because those are the two output devices a computer scientist already owns. Touch gets designed on paper and then quietly dropped. Not because it was the wrong choice, but because nobody knew that a coin motor costs 12 kr and takes two wires.</p>
+      <p>Every year, projects arrive at the pitch built entirely on the screen and the speaker, because those are the two output devices a computer scientist already owns. Touch gets designed on paper and then quietly dropped. Not because it was the wrong choice, but because nobody knew that a coin motor is two wires and the lab already has 117 of them.</p>
       <p>So this is deliberately not a tutorial. There is no circuit to copy correctly. Everything is wired already. Your job is to drive it, change the numbers, and form an opinion about what each actuator is <em>good at</em>.</p>
       <div class="pull">A coin motor and a solenoid can both signal “message received.” They are not interchangeable. One is a nudge and one is a knock, and that difference is a design decision, not a component decision.</div>
       <p>You leave with a shopping list you actually believe in, and a rough sense of what the lab can lend you for the project weeks.</p>
@@ -417,6 +417,18 @@ td.part{font-family:var(--mono);font-size:12px;color:var(--ink-2)}
         <li><code>project</code><span>And a shopping list you actually believe in, plus a sense of what the lab can lend you.</span></li>
       </ul>
     </aside>
+  </div>
+</section>
+
+
+<section class="sec">
+  <div class="sec-head"><h2>Who is running this</h2><div class="eyebrow">Chomskylab and Labtools</div></div>
+  <p class="lede">Chomskylab is the department's prototyping lab. Labtools is the team, the tooling and the parts behind it.</p>
+  <div class="sensors">
+    <div class="sen"><h4>A component store you can borrow from</h4><div class="pin">442 tracked parts</div>
+      <p>Everything on the tables today came out of it. Drawer numbers and stock counts on these pages are read live from the lab's database. You can borrow for project work: just ask.</p></div>
+    <div class="sen"><h4>The lab writes its own software</h4><div class="pin">github.com/labtools-au</div>
+      <p>An event bus, a wall display, the signups system, and the sensor site used in this workshop. All open. If you would rather contribute code than borrow a motor, that door is open too.</p></div>
   </div>
 </section>
 
@@ -508,6 +520,31 @@ td.part{font-family:var(--mono);font-size:12px;color:var(--ink-2)}
 
   <div class="note note--warn">
     <b>Before you power anything:</b> the solenoid and the Peltier tile both pull real current and need their own supply. Ask before you rewire either. The Peltier needs its heatsink on, every time.
+  </div>
+</section>
+
+
+<section class="sec">
+  <div class="sec-head"><h2>You already write code. Why come?</h2><div class="eyebrow">Fair question</div></div>
+  <div class="premise">
+    <div>
+      <p>You can already program a motor. That is not what this is for.</p>
+      <p>What you cannot do from a datasheet is know what something <em>feels</em> like. That a Peltier takes eight seconds before you are sure which way it went. That a knock reads as a person tapping you and a buzz reads as a machine. Those are design decisions, and they are only obvious once the thing is in your hand.</p>
+      <div class="pull">The parts are free and already in the building. Borrowing beats ordering: nothing to buy, nothing to wait two weeks for.</div>
+      <p>And the devices you already own are full of sensors you may or may not be able to reach. Finding out which is a two-minute job that saves a project.</p>
+    </div>
+    <aside class="tie">
+      <h4>Reverse engineering what you own</h4>
+      <ul>
+        <li><code>works</code><span><b>Bluetooth heart rate.</b> Web Bluetooth reads the standard Heart Rate GATT service straight from a web page. Chrome and Edge, not Safari or Firefox.</span></li>
+        <li><code>works</code><span><b>Most Garmin watches.</b> Turn on Broadcast Heart Rate, or start a Virtual Run, and the watch behaves as an ordinary strap. No Connect IQ app, no SDK, no API key.</span></li>
+        <li><code>no</code><span><b>Apple Watch, live.</b> HealthKit needs a companion watchOS app in Swift. Third-party apps that re-broadcast over BLE are the practical workaround.</span></li>
+        <li><code>later</code><span><b>Garmin history.</b> Connect IQ for code on the watch, or the Connect API for sessions once they have finished. Fine for analysis, not for reacting.</span></li>
+      </ul>
+    </aside>
+  </div>
+  <div class="note note--go">
+    <b>Project prompt, if you want one.</b> A page that pairs with a heart rate strap over Web Bluetooth and drives an actuator from the live pulse. No native app, no account, no cloud. That is an afternoon, and it is a complete multimodal loop.
   </div>
 </section>
 
@@ -631,7 +668,7 @@ td.part{font-family:var(--mono);font-size:12px;color:var(--ink-2)}
   <div class="sensors">
     <div class="sen"><h4>Final wiring diagrams per task</h4><div class="pin">photo or Fritzing</div></div>
     <div class="sen"><h4>Confirmed pin numbers</h4><div class="pin">currently provisional</div></div>
-    <div class="sen"><h4>Real prices, checked with the lab</h4><div class="pin">figures are estimates</div></div>
+    <div class="sen"><h4>Photos of the benches wired up</h4><div class="pin">easier than a diagram</div></div>
     <div class="sen"><h4>How many boards Labtools can lend</h4><div class="pin">sets the group size</div></div>
   </div>
 </section>

@@ -45,7 +45,19 @@ The actuators they are NOT driving sit on tables around the room. Tell them
 explicitly to go and pick those up between tasks. The comparison still happens,
 just on their own initiative rather than on a timer.""",
 
-    # 3: run sheet
+    # 4: who is running this
+    """Thirty seconds, and worth it: most of the room has never been told what
+Chomskylab actually is, and several of them will need to borrow parts in the
+project weeks.
+
+Two things to land: the component store is real and open to them, and the lab
+writes its own software. The second one matters for this audience, because it
+makes the lab a place they could contribute to rather than only take from.
+
+If anyone asks how the drawer numbers and stock counts on these slides are so
+exact: they come straight out of the lab's component database.""",
+
+    # 5: run sheet
     """Show it, do not narrate it. Fifteen seconds.
 
 The one hard checkpoint is 0:25. Everyone should have task 01 running by then.
@@ -223,6 +235,34 @@ moves, GSR drifts so only relative change works, FSRs need per-pad calibration.
 
 Push the phone option hard. For a lot of projects it beats everything else on
 the table and needs no soldering at all.""",
+
+    # 25: why come
+    """The slide that earns the room's attention, so do not rush it.
+
+This audience can write the code already, and they know it. Saying so out loud
+buys credibility for the rest. The argument is not "you need to learn to
+program a motor", it is "you cannot Google what something feels like".
+
+The second point is practical and lands with everyone: the parts are free and
+already in the building.""",
+
+    # 26: reverse engineer what you own
+    """The slide the tinkerers will care most about, and the one where being
+precise matters, because the internet is full of wrong answers.
+
+The useful surprise: most Garmin watches broadcast heart rate over BLE
+natively. Turn on Broadcast Heart Rate, or start a Virtual Run, and the watch
+appears as an ordinary heart rate strap that Web Bluetooth can read from a web
+page. No Connect IQ app, no SDK, no API key.
+
+Apple Watch will not. HealthKit needs a companion watchOS app in Swift, so
+third-party apps that re-broadcast over BLE are the practical route.
+
+Web Bluetooth is Chrome and Edge only. Not Safari, not Firefox. Same lesson as
+vibration: check the feature before it goes in a plan.
+
+Good project prompt if anyone wants one: a page that pairs with a strap and
+drives an actuator from a live pulse. That is an afternoon.""",
 
     # sensors already in the room
     """Worth five minutes, because it reframes what a prototype can be. Half

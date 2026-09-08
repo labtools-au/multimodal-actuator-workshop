@@ -175,6 +175,41 @@ def actuator_slide(prs, name, photo_name, what, feels, used, spec):
     return s
 
 
+def photo_strip(slide, names, y, box_w=Pt(150), box_h=Pt(112), gap=Pt(14)):
+    """A row of small photos along the bottom of a slide.
+
+    For slides that talk about several parts at once (the base kit, the sensor
+    table) a single big photo would be misleading. A strip shows what each
+    thing physically looks like without pretending one of them is the subject.
+    """
+    x = L
+    for name in names:
+        photo(slide, name, name, x, y, box_w, box_h)
+        x += box_w + gap
+    return slide
+
+
+def caption_strip(slide, labels, y, box_w=Pt(150), gap=Pt(14)):
+    """Small captions under a photo strip, aligned to the same grid."""
+    x = L
+    for text in labels:
+        tb = slide.shapes.add_textbox(x, y, box_w, Pt(26))
+        tf = tb.text_frame
+        tf.word_wrap = True
+        tf.margin_left = tf.margin_right = tf.margin_top = tf.margin_bottom = 0
+        par = tf.paragraphs[0]
+        par.text = text
+        par.line_spacing = 1.15
+        _no_bullet(par)
+        par.alignment = PP_ALIGN.LEFT
+        for r in par.runs:
+            r.font.size = Pt(9)
+            r.font.color.rgb = GREY
+            r.font.name = FONT
+        x += box_w + gap
+    return slide
+
+
 def run_sheet_slide(prs, rows):
     s = prs.slides.add_slide(prs.slide_layouts[CONTENT])
     s.placeholders[0].text_frame.text = "RUN SHEET"
@@ -225,13 +260,13 @@ def photo(slide, name, caption, x, y, w, h):
     from pptx.enum.text import MSO_ANCHOR
     tf.vertical_anchor = MSO_ANCHOR.MIDDLE
     p0 = tf.paragraphs[0]
-    p0.text = "PHOTO"
+    p0.text = "NO PART" if caption.startswith("!") else "PHOTO"
     p0.alignment = PP_ALIGN.CENTER
     for r in p0.runs:
         r.font.size = Pt(9); r.font.bold = True
         r.font.color.rgb = GREY; r.font.name = FONT
     p1 = tf.add_paragraph()
-    p1.text = caption
+    p1.text = caption.lstrip("!")
     p1.alignment = PP_ALIGN.CENTER
     p1.line_spacing = 1.2
     for r in p1.runs:
@@ -314,7 +349,7 @@ def build():
         body=[
             ("Most projects end up on the screen and the speaker", 0, False),
             ("Not because touch was wrong", 1, False),
-            ("Because nobody knew a coin motor costs 12 kr", 1, False),
+            ("Because nobody knew the lab has 117 coin motors", 1, False),
             ("", 0, False),
             ("Today: decide it feels cheap, pick something else", 0, True),
             ("Better now than in week 46", 1, False),
@@ -332,6 +367,20 @@ def build():
             ("", 0, False),
             ("Finish by building one signal", 0, True),
             ("Someone else has to read it", 1, False),
+        ])
+
+    content_slide(
+        prs, "Who is running this",
+        lead="Chomskylab is the department's prototyping lab. Labtools is the "
+             "team, the tooling and the parts behind it.",
+        body=[
+            ("Everything on the tables came from the lab's component store", 0, True),
+            ("442 components, tracked with drawer numbers and live counts", 1, False),
+            ("You borrow parts for project work. Just ask", 1, False),
+            ("", 0, False),
+            ("The lab also builds the software it runs on", 0, True),
+            ("An event bus, a wall display, this workshop's sensor site", 1, False),
+            ("All of it open, at github.com/labtools-au", 1, False),
         ])
 
     run_sheet_slide(prs, [
@@ -374,22 +423,19 @@ def build():
             ("github.com/labtools-au/multimodal-actuator-workshop", 0, True),
         ])
 
-    content_slide(
+    base = content_slide(
         prs, "What you get in the base kit",
-        lead="One set per pair. Collect it before you start task 01.",
+        lead="One set per pair, collected before you start task 01. Below: the three parts people always come back for.",
         body=[
-            ("Board, breadboard, jumper wires, USB cable", 0, True),
-            ("Assorted resistors and a few transistors", 1, False),
-            ("", 0, False),
-            ("Breadboard power supply, drawer 8A", 0, True),
-            ("42 in stock. Use it for anything that is not just an LED.", 1, False),
-            ("", 0, False),
-            ("L9110S H-bridge, drawer 2C", 0, True),
-            ("24 in stock. Needed for the Peltier and for reversing a motor.", 1, False),
-            ("", 0, False),
-            ("PAM8403 amplifier, drawer 11F", 0, True),
-            ("25 in stock. Needed to drive a transducer.", 1, False),
+            ("Board, breadboard, jumper wires, resistors: on the tables.", 0, False),
+            ("Not in the drawers, so take what you need.", 0, False),
         ])
+    photo_strip(base, ["bbpsu", "hbridge", "amp"], Pt(262))
+    caption_strip(base, [
+        "Breadboard supply, 8A. Anything past an LED.",
+        "L9110S H-bridge, 2C. Reversing, and the Peltier.",
+        "PAM8403 amp, 11F. A transducer needs one.",
+    ], Pt(380))
 
     section_slide(prs, "What is on the tables")
 
@@ -418,11 +464,12 @@ def build():
         "Drawer 3E  |  24 in stock  |  5V  |  needs a MOSFET")
 
     actuator_slide(
-        prs, "Capacitive pad", "captouch",
-        "A wire taped behind foil, card or fabric. No sensor, no breakout board.",
+        prs, "Capacitive pad", "!there is nothing to photograph. A wire, and a piece of foil.",
+        "A wire taped behind foil, card or fabric. No sensor and no breakout "
+        "board, which is why the box on the left is empty.",
         "Feels like: nothing. That is the point. The surface stays plain.",
         "Invisible controls in wood or fabric, waterproof panels.",
-        "No part number. A wire, on any analogue pin")
+        "No drawer, no part number, no cost. Any analogue pin")
 
     actuator_slide(
         prs, "Peltier tile", "peltier",
@@ -505,16 +552,48 @@ def build():
 
     section_slide(prs, "Inputs, and prior art")
 
-    content_slide(
+    sensors_slide = content_slide(
         prs, "Inputs worth knowing about",
         lead="One table with a sign. Wander over between tasks.",
         body=[
             ("Capacitive touch. A wire. That is task 04", 1, False),
-            ("Heart rate (PPG). Useless once the hand moves", 1, False),
-            ("Skin conductance (GSR). Relative change only", 1, False),
-            ("Flex sensor. The cheap data glove", 1, False),
-            ("Pressure (FSR). Calibrate every pad", 1, False),
+            ("GSR, drawer 0C5. Exactly one in the lab, so ask first", 1, False),
             ("Your own phone. No soldering at all", 1, False),
+        ])
+    photo_strip(sensors_slide, ["fsr", "flex", "pulse"], Pt(258))
+    caption_strip(sensors_slide, [
+        "Force (FSR), 4A. 46 tiny, 33 square. Calibrate each one.",
+        "Flex, 4B. Only 8 left, so share them.",
+        "Pulse, 9D. 9 in stock. Steady at rest, useless once moving.",
+    ], Pt(376))
+
+    content_slide(
+        prs, "You already write code. Why come?",
+        lead="Fair question. Three honest answers.",
+        body=[
+            ("You cannot Google what something feels like", 0, True),
+            ("A datasheet will not tell you a Peltier takes eight seconds, "
+             "or that a knock reads as a person and a buzz reads as a machine.", 1, False),
+            ("", 0, False),
+            ("The parts are free and already here", 0, True),
+            ("Borrowing beats ordering. Nothing to buy, nothing to wait for.", 1, False),
+            ("", 0, False),
+            ("Your own devices are full of sensors you cannot reach", 0, True),
+            ("Find out today which ones open up, and which are locked.", 1, False),
+        ])
+
+    content_slide(
+        prs, "Reverse engineer what you already own",
+        lead="The trackers in your pocket and on your wrist. What opens up, and what does not.",
+        body=[
+            ("BLE heart rate strap: readable from a web page", 0, True),
+            ("Web Bluetooth, standard GATT. Chrome and Edge only", 1, False),
+            ("Most Garmin watches: the same, with no app", 0, True),
+            ("Turn on Broadcast Heart Rate and it acts as a strap", 1, False),
+            ("Apple Watch: nothing live, whatever you write", 0, True),
+            ("HealthKit needs a watchOS app in Swift", 1, False),
+            ("Garmin history: Connect IQ, or the API afterwards", 0, True),
+            ("Good for analysis. Useless for reacting in real time", 1, False),
         ])
 
     content_slide(
