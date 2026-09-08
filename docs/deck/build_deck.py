@@ -371,7 +371,7 @@ def build():
             ("Four experiments, roughly in order of difficulty", 1, False),
             ("The last one is usually the interesting one", 1, False),
             ("", 0, False),
-            ("github.com/gust1527/multimodal-actuator-workshop", 0, True),
+            ("github.com/labtools-au/multimodal-actuator-workshop", 0, True),
         ])
 
     content_slide(
@@ -614,7 +614,7 @@ def build():
         ])
 
     title_slide(prs, "Go and touch things",
-                "github.com/gust1527/multimodal-actuator-workshop")
+                "github.com/labtools-au/multimodal-actuator-workshop")
 
     prs.save(OUT)
     print(f"wrote {OUT} ({len(prs.slides._sldIdLst)} slides)")
