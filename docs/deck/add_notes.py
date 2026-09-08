@@ -89,7 +89,55 @@ Write the repo URL on the whiteboard now. It gets asked for six times.
 If a task's hardware fails, utils/ has the diagnostics: pin_sweep, i2c_scanner,
 analog_monitor.""",
 
-    # 8: freestyle
+    # 8: section, what is on the tables
+    """Two minutes total for this whole run of slides. It is a menu, not a
+lecture: they are choosing what to go and pick up later.
+
+Hold up the real part as you show each one. The photo is a reminder for people
+reading the deck afterwards; the object in your hand is what lands in the
+room.""",
+
+    # 9: coin motor
+    """The one everybody already owns without knowing it. Every phone has one.
+
+The point worth making: speed and strength are welded together. That single
+constraint is why the other five exist.""",
+
+    # 10: LRA and piezo
+    """Both solve the coin motor's problem, differently. LRA is what a modern
+phone keyboard uses. Piezo is sharp but shallow.
+
+If someone is designing anything that needs to feel responsive rather than
+just present, point them here.""",
+
+    # 11: solenoid
+    """Pass this one around if you can. It is the one people remember, because a
+knock reads as a person rather than a machine.
+
+Warn them now that it needs its own supply, so it does not come as a surprise
+at task 02.""",
+
+    # 12: capacitive pad
+    """Hold up a wire and a piece of foil. That is genuinely the whole sensor.
+
+This is the slide that changes what people think is possible, because it costs
+nothing and hides completely inside a prototype.""",
+
+    # 13: peltier tile
+    """Say the honest limitation out loud: it is slow, and hot alternating with
+cold just reads as lukewarm.
+
+Good for slow ambient state. Wrong for alerts. Saying so here saves a project
+from finding out in week 46.""",
+
+    # 14: transducer
+    """The redundancy argument. Same driver, one frequency you feel and one you
+hear.
+
+Together is not louder, it is more certain. Cheapest reliability a project can
+buy, and it is also the accessibility answer.""",
+
+    # 15: freestyle
     """Say this out loud, do not just show it. Some students will not believe
 they are allowed to skip ahead or stop early unless you tell them.
 

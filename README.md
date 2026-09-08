@@ -51,6 +51,13 @@ Also exported as PDF, for AV systems that won't take a .pptx and for printing:
   speaker notes underneath (38 pages). This is the one to print and run the
   session from.
 
+### Photos
+
+`docs/photos/` holds the actuator photos. Anything missing renders as a dashed
+PHOTO frame on the slide, so it is obvious what still needs shooting. Drop a
+file in, re-run the build, and it lands. Filenames are listed in
+[`docs/photos/README.md`](docs/photos/README.md).
+
 ### Editing it later
 
 The deck is built on a template, `docs/deck/au-template.pptx`, so it stays

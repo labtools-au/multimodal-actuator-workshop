@@ -29,6 +29,8 @@ TEMPLATE = HERE / "au-template.pptx"
 OUT = HERE.parent / "multimodal-actuator-workshop.pptx"
 
 AU_BLUE = RGBColor(0x00, 0x25, 0x46)
+PHOTOS = HERE.parent / "photos"      # drop real photos here, named as below
+L = Pt(72)                           # left margin, matches the layouts
 LIGHT_LAYOUTS = {0}          # blue ground -> white logos
 GREY = RGBColor(0x59, 0x59, 0x59)
 INK = RGBColor(0x00, 0x00, 0x00)
@@ -137,6 +139,42 @@ def bench_slide(prs, num, name, tag, body, question, spec, used=None):
     return s
 
 
+def actuator_slide(prs, name, photo_name, what, feels, used, spec):
+    """One actuator: photo on the left, plain description on the right."""
+    s = prs.slides.add_slide(prs.slide_layouts[CONTENT])
+    s.placeholders[0].text_frame.text = name.upper()
+
+    photo(s, photo_name, name, L, Pt(150), Pt(330), Pt(250))
+
+    tf = s.placeholders[1].text_frame
+    tf.clear()
+    blocks = [
+        (what, 16, False, INK, 12),
+        (feels, 16, True, AU_BLUE, 14),
+        ("USED FOR", 9, True, GREY, 4),
+        (used, 14, False, INK, 14),
+        (spec, 12, False, GREY, 0),
+    ]
+    for i, (text, size, bold, color, after) in enumerate(blocks):
+        par = tf.paragraphs[0] if i == 0 else tf.add_paragraph()
+        par.text = text
+        par.space_after = Pt(after)
+        par.line_spacing = 1.3
+        _no_bullet(par)
+        par.alignment = PP_ALIGN.LEFT
+        for r in par.runs:
+            r.font.size = Pt(size); r.font.bold = bold
+            r.font.color.rgb = color
+            r.font.name = "Consolas" if size == 12 else FONT
+    # narrow the text box so it sits beside the photo
+    ph = s.placeholders[1]
+    ph.left, ph.top, ph.width, ph.height = Pt(430), Pt(150), Pt(432), Pt(260)
+
+    _restyle(s)
+    _stamp_logos(s, False)
+    return s
+
+
 def run_sheet_slide(prs, rows):
     s = prs.slides.add_slide(prs.slide_layouts[CONTENT])
     s.placeholders[0].text_frame.text = "RUN SHEET"
@@ -152,6 +190,53 @@ def run_sheet_slide(prs, rows):
     _restyle(s)
     _stamp_logos(s, False)
     return s
+
+
+def photo(slide, name, caption, x, y, w, h):
+    """Place a photo if it exists, otherwise draw a labelled empty frame.
+
+    Same idea as the PHOTO GOES HERE callouts in the wood workshop guide: the
+    slot is visible and labelled, so it is obvious what is missing and nobody
+    forgets. Drop <name>.jpg (or .png) into docs/photos/ and re-run this
+    script; the frame is replaced by the real thing automatically.
+    """
+    for ext in (".jpg", ".jpeg", ".png"):
+        f = PHOTOS / (name + ext)
+        if f.exists():
+            pic = slide.shapes.add_picture(str(f), x, y, width=w)
+            # keep it inside the box, crop-free: scale down if too tall
+            if pic.height > h:
+                ratio = h / pic.height
+                pic.height = h
+                pic.width = int(pic.width * ratio)
+            return pic
+
+    from pptx.enum.shapes import MSO_SHAPE
+    box = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, x, y, w, h)
+    box.fill.background()
+    box.line.color.rgb = GREY
+    box.line.width = Pt(1)
+    box.line.dash_style = 4          # dashed, reads as "not final"
+    box.shadow.inherit = False
+
+    tf = box.text_frame
+    tf.word_wrap = True
+    tf.margin_left = tf.margin_right = Pt(10)
+    from pptx.enum.text import MSO_ANCHOR
+    tf.vertical_anchor = MSO_ANCHOR.MIDDLE
+    p0 = tf.paragraphs[0]
+    p0.text = "PHOTO"
+    p0.alignment = PP_ALIGN.CENTER
+    for r in p0.runs:
+        r.font.size = Pt(9); r.font.bold = True
+        r.font.color.rgb = GREY; r.font.name = FONT
+    p1 = tf.add_paragraph()
+    p1.text = caption
+    p1.alignment = PP_ALIGN.CENTER
+    p1.line_spacing = 1.2
+    for r in p1.runs:
+        r.font.size = Pt(11); r.font.color.rgb = GREY; r.font.name = FONT
+    return box
 
 
 def _stamp_logos(slide, light):
@@ -242,7 +327,7 @@ def build():
             ("Upload, change two numbers, upload again", 1, False),
             ("You wire nothing today", 1, False),
             ("", 0, False),
-            ("Actuators are on the tables around you", 0, True),
+            ("Actuators are on the tables at the front", 0, True),
             ("Go and feel the ones your task does not use", 1, False),
             ("", 0, False),
             ("Finish by building one signal", 0, True),
@@ -287,6 +372,53 @@ def build():
             ("", 0, False),
             ("github.com/gust1527/multimodal-actuator-workshop", 0, True),
         ])
+
+    section_slide(prs, "What is on the tables")
+
+    actuator_slide(
+        prs, "Coin motor (ERM)", "erm",
+        "An off-centre weight on a motor shaft. The same part as in your phone.",
+        "Feels like: a buzz you cannot make gentle and fast at once.",
+        "Phone notifications, controller rumble, anything worn under clothing.",
+        "10mm 3V  |  D9 PWM  |  ~75 mA  |  ~12 kr")
+
+    actuator_slide(
+        prs, "LRA and piezo disc", "lra_piezo",
+        "Two ways out of the coin motor's compromise. The LRA hits resonance in "
+        "about 5 ms and stops just as fast.",
+        "Feels like: a crisp click. The phone-keyboard feel.",
+        "Keyboard clicks, watch taps, anything where lag would feel broken.",
+        "DRV2605L I2C  |  A4/A5  |  123 effects  |  ~90 kr")
+
+    actuator_slide(
+        prs, "Solenoid", "solenoid",
+        "A coil that yanks a metal rod when you energise it. No half a tap: it "
+        "fires or it does not.",
+        "Feels like: a person tapping you, not a machine signalling.",
+        "Navigation cues on the body, braille cells, alerts in noise.",
+        "5V push-pull  |  D6 + MOSFET  |  ~1.1 A peak  |  ~45 kr")
+
+    actuator_slide(
+        prs, "Capacitive pad", "captouch",
+        "A wire taped behind foil, card or fabric. No sensor, no breakout board.",
+        "Feels like: nothing. That is the point. The surface stays plain.",
+        "Invisible controls in wood or fabric, waterproof panels.",
+        "ADCTouch  |  A0  |  ~0 kr, a wire")
+
+    actuator_slide(
+        prs, "Peltier tile", "peltier",
+        "Heats one face and cools the other. Flip the current and it reverses.",
+        "Feels like: slow. Several seconds before you are sure which way.",
+        "Slow ambient state. Never an alert.",
+        "TEC1-12706  |  D3 + D5  |  2-4 A  |  ~70 kr")
+
+    actuator_slide(
+        prs, "Transducer", "transducer",
+        "Drives a plate so one frequency is felt and another is heard, from the "
+        "same driver.",
+        "Feels like: more certain, rather than louder.",
+        "Noisy or bright environments, and accessibility.",
+        "Bone-conduction  |  D11 + PAM8403  |  ~110 kr")
 
     content_slide(
         prs, "Freestyle is encouraged",
