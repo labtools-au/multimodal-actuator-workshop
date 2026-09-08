@@ -11,9 +11,9 @@ write the code. What they lack is any physical sense of what a coin motor, a sol
 or a Peltier tile actually *feels* like. So touch gets designed on paper, then quietly
 dropped from the project, and everything ends up on the screen and the speaker.
 
-**Format:** two halves. First a 30-minute tour of six pre-wired benches, five minutes
-each, where they touch things and form opinions. Then 50 minutes of tasks, where they
-grab a board and make things actually happen from their own code.
+**Format:** a board each and five tasks. Everything is pre-wired, so they upload,
+change two numbers, upload again. The actuators they are not currently driving sit on
+benches around the room, to pick up and compare between tasks.
 
 📄 **[Full session plan, run sheet and kit list](https://claude.ai/code/artifact/1e577f62-4cae-4ec5-a407-69494dc85f7e)**
 
@@ -84,10 +84,10 @@ without that the PDF exports would lose them.
 | Offset | Duration | What |
 |---|---|---|
 | 0:00 | 10 min | Two motors, same message. Which felt urgent? |
-| 0:10 | 30 min | Bench tour: touch all six, five minutes each |
-| 0:40 | 10 min | Round-the-room: what surprised you |
-| 0:50 | 50 min | Tasks. Grab a board, work at your own pace |
-| 1:40 | 15 min | Blind test on task 5 |
+| 0:10 | 15 min | Boards out, task 01 running for everyone |
+| 0:25 | 60 min | Tasks 02 to 05, at your own pace |
+| 1:25 | 10 min | Round-the-room: what surprised you |
+| 1:35 | 20 min | Blind test on task 05 |
 | 1:55 | 5 min | Pack down |
 
 ## The six benches

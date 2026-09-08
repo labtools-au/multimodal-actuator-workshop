@@ -85,7 +85,7 @@ def content_slide(prs, title, lead=None, body=None):
             blocks.append(("", 8, False, INK, 0))
         else:
             blocks.append((("• " + text) if level else text,
-                           15 if level else 17, bold, INK, 7))
+                           15 if level else 17, bold, INK, 6))
     _fill(s.placeholders[1], blocks)
     _restyle(s)
     _stamp_logos(s, False)
@@ -140,8 +140,8 @@ def bench_slide(prs, num, name, tag, body, question, spec, used=None):
 def run_sheet_slide(prs, rows):
     s = prs.slides.add_slide(prs.slide_layouts[CONTENT])
     s.placeholders[0].text_frame.text = "RUN SHEET"
-    blocks = [("Times are offsets from the start. The rotation is the spine of "
-               "the session, so keep it moving.", 15, False, GREY, 16)]
+    blocks = [("Times are offsets from the start. The only hard checkpoint is "
+               "0:25: everyone has task 01 running.", 15, False, GREY, 16)]
     for clock, dur, what in rows:
         blocks.append((f"{clock}   {dur:>8}    {what}", 16, False, INK, 12))
     tf = _fill(s.placeholders[1], blocks)
@@ -226,139 +226,40 @@ def build():
     content_slide(
         prs, "How today works",
         body=[
-            ("Six benches, already wired and running", 0, True),
-            ("Ten minutes each. Hard timer", 1, False),
-            ("Change one parameter, answer one question", 1, False),
+            ("A board each, five tasks, everything pre-wired", 0, True),
+            ("Upload, change two numbers, upload again", 1, False),
             ("You wire nothing today", 1, False),
             ("", 0, False),
-            ("Then build one signal", 0, True),
+            ("Actuators are on the benches around you", 0, True),
+            ("Go and feel the ones your task does not use", 1, False),
+            ("", 0, False),
+            ("Finish by building one signal", 0, True),
             ("Someone else has to read it", 1, False),
         ])
 
     run_sheet_slide(prs, [
         ("0:00", "10 min", "Two motors, same message. Which felt urgent?"),
-        ("0:10", "30 min", "Bench tour: touch all six, five minutes each"),
-        ("0:40", "10 min", "Round-the-room: what surprised you"),
-        ("0:50", "50 min", "Tasks. Grab a board, work at your own pace"),
-        ("1:40", "15 min", "Blind test on task 5"),
+        ("0:10", "15 min", "Boards out, task 01 running for everyone"),
+        ("0:25", "60 min", "Tasks 02 to 05, at your own pace"),
+        ("1:25", "10 min", "Round-the-room: what surprised you"),
+        ("1:35", "20 min", "Blind test on task 05"),
         ("1:55", "5 min", "Pack down"),
     ])
 
-    section_slide(prs, "The six benches")
-
-    bench_slide(
-        prs, "01", "ERM coin motor", "Vibration",
-        ["An off-centre weight on a motor shaft.",
-         "The same part as in your phone.",
-         "",
-         "Speed and strength are welded together.",
-         "\"Gentle but fast\" is not on offer.",],
-        "At what point does it stop feeling like information and start feeling "
-        "like a malfunction?",
-        [("part", "10mm 3V coin ERM"), ("drive", "2N2222 + 1N4148"),
-         ("pin", "D9 (PWM)"), ("draw", "~75 mA"),
-         ("spin-up", "20-40 ms"), ("cost", "~12 kr")],
-        used="phone notifications, game controller rumble, anything worn under clothing."
-        )
-
-    bench_slide(
-        prs, "02", "LRA + piezo disc", "Vibration",
-        ["Two ways out of bench 01's compromise.",
-         "",
-         "LRA: resonance in 5 ms, stops just as fast.",
-         "Piezo: near-instant, almost no power.",
-         "A tick, not a thump.",],
-        "Which of the three vibrators would you actually put on a wrist, and "
-        "why not the others?",
-        [("parts", "LRA 10mm + piezo"), ("driver", "DRV2605L (I2C)"),
-         ("pin", "A4 SDA / A5 SCL"), ("effects", "123 waveforms"),
-         ("cost", "~90 kr")],
-        used="keyboard clicks, Apple Watch taps, anything where lag would feel broken."
-        )
-
-    bench_slide(
-        prs, "03", "Solenoid tap", "Impact",
-        ["One 15 ms pulse against a fingertip.",
-         "",
-         "A knock reads as a person tapping you.",
-         "Buzzing reads as a machine.",],
-        "How many taps before it goes from alert to nagging?",
-        [("part", "5V push-pull"), ("drive", "MOSFET + flyback"),
-         ("pin", "D6"), ("peak", "~1.1 A"),
-         ("duty", "<= 25%, gets hot"), ("cost", "~45 kr")],
-        used="navigation cues on the body, braille cells, alerts that must cut through noise."
-        )
-
-    bench_slide(
-        prs, "04", "Capacitive touch", "Touch input",
-        ["Bare finger on a surface. Servos react.",
-         "",
-         "No button. No sensor you can point at.",
-         "The input is a wire behind a plate.",],
-        "Put your hand near the plate without touching. When exactly did it "
-        "decide that was a touch?",
-        [("sense", "ADCTouch on A0"), ("baseline", "25-sample roll"),
-         ("trigger", "1.01x average"), ("debounce", "100 ms"),
-         ("servos", "D4 + D13"), ("cost", "~0 kr, a wire")],
-        used="invisible controls in wood or fabric, waterproof panels, touch-sensitive prototypes."
-        )
-
-    content_slide(
-        prs, "Bench 04: the whole trick",
-        lead="Touch input for the price of a wire.",
-        body=[
-            ("reading > baselineAverage() * 1.01", 0, True),
-            ("", 0, False),
-            ("Threshold is relative, never absolute", 0, True),
-            ("Readings drift with humidity and mains hum", 1, False),
-            ("Fixed threshold works at 9am, fails at 1pm", 1, False),
-            ("", 0, False),
-            ("Baseline only learns while untouched", 0, True),
-            ("Or a long press teaches it that a finger is normal", 1, False),
-        ])
-
-    bench_slide(
-        prs, "05", "Peltier warm / cool", "Thermal",
-        ["Heats one side, cools the other.",
-         "Flip the current, it reverses.",
-         "",
-         "Sit with it. Seconds before you are sure.",
-         "Hot alternating with cold reads as lukewarm.",
-         "",
-         "USED FOR: slow ambient state, not alerts.",
-         "\"The room is busy\", never \"you have mail\"."],
-        "Time yourself. How long until you would bet money on warmer vs cooler?",
-        [("part", "TEC1-12706"), ("drive", "L298N H-bridge"),
-         ("pin", "D3 PWM / D4-5"), ("draw", "2-4 A, bench PSU"),
-         ("onset", "3-8 s"), ("cap", "45 C in software")])
-
-    bench_slide(
-        prs, "06", "The same signal, twice", "Audio + touch",
-        ["One driver. 40 Hz you feel, 400 Hz you hear.",
-         "",
-         "Together is not louder. It is more certain.",
-         "Two channels, same message.",],
-        "With ear defenders on, does the signal still work?",
-        [("part", "bone-conduction"), ("amp", "PAM8403 class-D"),
-         ("pin", "D11 (tone)"), ("felt", "~40 Hz"),
-         ("heard", "~400 Hz"), ("cost", "~110 kr")],
-        used="noisy or bright environments, and accessibility. If one channel fails, one lands."
-        )
-
-    section_slide(prs, "Now make one do something")
+    section_slide(prs, "Five tasks")
 
     content_slide(
         prs, "Five tasks, one board each",
         lead="Upload, change two numbers, upload again. That loop is the point.",
         body=[
-            ("01   Make something spin", 0, True),
-            ("02   Make something tap", 0, True),
-            ("03   Make something warm", 0, True),
-            ("04   Make it notice you", 0, True),
-            ("05   Make it answer back", 0, True),
+            ("01   Make something spin        coin motor", 0, True),
+            ("02   Make something tap         solenoid", 0, True),
+            ("03   Make something warm        Peltier tile", 0, True),
+            ("04   Make it notice you         a wire and foil", 0, True),
+            ("05   Make it answer back        both together", 0, True),
             ("", 0, False),
             ("1 to 3 are output. 4 is input. 5 is both.", 0, False),
-            ("You are not expected to finish all five.", 0, False),
+            ("Nobody is expected to finish all five.", 0, False),
         ])
 
     content_slide(
@@ -375,13 +276,27 @@ def build():
             ("github.com/gust1527/multimodal-actuator-workshop", 0, True),
         ])
 
+    content_slide(
+        prs, "The one that surprises people",
+        lead="Touch input for the price of a wire. The thinking is where it costs you.",
+        body=[
+            ("reading > baselineAverage() * 1.01", 0, True),
+            ("", 0, False),
+            ("Threshold is relative, never absolute", 0, True),
+            ("Readings drift with humidity and mains hum", 1, False),
+            ("Fixed threshold works at 9am, fails at 1pm", 1, False),
+            ("", 0, False),
+            ("Baseline only learns while untouched", 0, True),
+            ("Or a long press teaches it that a finger is normal", 1, False),
+        ])
+
     section_slide(prs, "Inputs, and prior art")
 
     content_slide(
         prs, "Inputs worth knowing about",
-        lead="One table, not a rotation. Wander over during the build.",
+        lead="One table with a sign. Wander over between tasks.",
         body=[
-            ("Capacitive touch. A wire. See bench 04", 1, False),
+            ("Capacitive touch. A wire. That is task 04", 1, False),
             ("Heart rate (PPG). Useless once the hand moves", 1, False),
             ("Skin conductance (GSR). Relative change only", 1, False),
             ("Flex sensor. The cheap data glove", 1, False),
