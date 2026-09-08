@@ -1,213 +1,196 @@
 #!/usr/bin/env python3
 """
-Build the "Feel Before You Build" workshop deck in the AU Department of
-Computer Science house style.
+Build the "Feel Before You Build" workshop deck.
 
-Layout rules were reverse-engineered from Eve Hoggan's MultimodalInteraction_2b_
-Visual.pdf: 959.76x540pt canvas, three layouts (blue title / white section
-divider / white content), AU blue #002546 sampled from the file, uppercase heavy
-headings with a short rule, no accent colour anywhere, and a fixed footer on
-every slide (AU wordmark bottom-left, seal bottom-right, course + byline centre).
+Content only. Everything visual — the AU blue, the logos, the footer, the type
+sizes, the rule under each heading — lives in au-template.pptx, on the slide
+master and its four layouts. Run au_template.py to regenerate that.
+
+That split is deliberate, so the deck stays editable later:
+
+  * slides use real TITLE and BODY placeholders, so PowerPoint's outline view
+    works and you can retype content without hunting for text boxes
+  * the AU footer is defined once per layout, not copied onto 19 slides
+  * changing the byline or course line means editing au_template.py, or the
+    slide master in PowerPoint, and every slide follows
+
+Edit the CONTENT list at the bottom to change what the deck says.
 """
 
 from pptx import Presentation
-from pptx.util import Pt, Emu
+from pptx.util import Pt
 from pptx.dml.color import RGBColor
-from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
+from pptx.enum.text import PP_ALIGN
+from pptx.oxml.ns import qn
 from pathlib import Path
 
 HERE = Path(__file__).parent
-ART = HERE
+TEMPLATE = HERE / "au-template.pptx"
 OUT = HERE.parent / "multimodal-actuator-workshop.pptx"
 
-# --- canvas: match the source deck exactly (959.76 x 540 pt) ----------------
-SW, SH = Pt(959.76), Pt(540)
-
-AU_BLUE = RGBColor(0x00, 0x25, 0x46)   # sampled from the PDF
-WHITE   = RGBColor(0xFF, 0xFF, 0xFF)
-INK     = RGBColor(0x00, 0x00, 0x00)
-GREY    = RGBColor(0x59, 0x59, 0x59)
-
-# Arial: what the source deck subsets, and always present on AU machines.
+AU_BLUE = RGBColor(0x00, 0x25, 0x46)
+LIGHT_LAYOUTS = {0}          # blue ground -> white logos
+GREY = RGBColor(0x59, 0x59, 0x59)
+INK = RGBColor(0x00, 0x00, 0x00)
 FONT = "Arial"
 
-L = Pt(72)          # left margin, ~7.5%, matches the source
-CONTENT_W = Pt(816)
+# Layout indices in au-template.pptx
+TITLE, CONTENT, SECTION, BENCH = 0, 1, 2, 3
 
 
-def textbox(slide, x, y, w, h, anchor=MSO_ANCHOR.TOP):
-    tb = slide.shapes.add_textbox(x, y, w, h)
-    tf = tb.text_frame
-    tf.word_wrap = True
-    tf.vertical_anchor = anchor
-    tf.margin_left = tf.margin_right = tf.margin_top = tf.margin_bottom = 0
+def _fill(ph, blocks):
+    """blocks: list of (text, size, bold, color, space_after)."""
+    tf = ph.text_frame
+    tf.clear()
+    for i, (text, size, bold, color, after) in enumerate(blocks):
+        p = tf.paragraphs[0] if i == 0 else tf.add_paragraph()
+        p.text = text
+        p.space_after = Pt(after)
+        p.line_spacing = 1.0 if bold and size > 20 else 1.28
+        _no_bullet(p)
+        p.alignment = PP_ALIGN.LEFT
+        for r in p.runs:
+            r.font.size = Pt(size)
+            r.font.bold = bold
+            r.font.color.rgb = color
+            r.font.name = FONT
     return tf
 
 
-def para(tf, text, size, bold=False, color=INK, space_after=0, level=0,
-         first=False, spacing=1.0):
-    p = tf.paragraphs[0] if first else tf.add_paragraph()
-    p.text = text
-    p.level = level
-    p.space_after = Pt(space_after)
-    p.line_spacing = spacing
-    for r in p.runs:
-        r.font.size = Pt(size)
-        r.font.bold = bold
-        r.font.color.rgb = color
-        r.font.name = FONT
-    return p
-
-
-def rule(slide, x, y, w=Pt(46), color=INK):
-    """The short horizontal rule that sits under every heading."""
-    from pptx.enum.shapes import MSO_SHAPE
-    s = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, x, y, w, Pt(2.5))
-    s.fill.solid()
-    s.fill.fore_color.rgb = color
-    s.line.fill.background()
-    s.shadow.inherit = False
-    return s
-
-
-def blank(prs, bg=None):
-    slide = prs.slides.add_slide(prs.slide_layouts[6])   # 6 = truly blank
-    if bg is not None:
-        slide.background.fill.solid()
-        slide.background.fill.fore_color.rgb = bg
-    return slide
-
-
-def footer(slide, light=False):
-    """AU signature block: wordmark bottom-left, seal bottom-right, course
-    line and byline in the middle. Present on every slide in the source."""
-    wm = ART / ("wordmark_light.png" if light else "wordmark_dark.png")
-    sl = ART / ("seal_light.png" if light else "seal_dark.png")
-    ink = WHITE if light else INK
-
-    # wordmark: same box the source uses, bottom-left
-    slide.shapes.add_picture(str(wm), Pt(27), Pt(487), width=Pt(163))
-    # seal: bottom-right
-    slide.shapes.add_picture(str(sl), Pt(884), Pt(470), height=Pt(56))
-
-    tf = textbox(slide, Pt(360), Pt(492), Pt(200), Pt(40))
-    para(tf, "MULTIMODAL INTERACTION", 7, color=ink, first=True, spacing=1.15)
-    para(tf, "PROTOTYPING WORKSHOP", 7, color=ink, spacing=1.15)
-
-    tf2 = textbox(slide, Pt(600), Pt(492), Pt(220), Pt(40))
-    para(tf2, "GUSTAV SIMONSEN", 7, color=ink, first=True, spacing=1.15)
-    para(tf2, "TEACHING ASSISTANT", 7, color=ink, spacing=1.15)
-
-
-# --- the three layouts ------------------------------------------------------
-
-def title_slide(prs, title, subtitle=None):
-    s = blank(prs, AU_BLUE)
-    tf = textbox(s, L, Pt(200), Pt(820), Pt(140))
-    para(tf, title.upper(), 54, bold=True, color=WHITE, first=True, spacing=0.95)
-    if subtitle:
-        t2 = textbox(s, L, Pt(330), Pt(760), Pt(60))
-        para(t2, subtitle, 20, color=WHITE, first=True, spacing=1.25)
-    footer(s, light=True)
+def title_slide(prs, title, subtitle):
+    s = prs.slides.add_slide(prs.slide_layouts[TITLE])
+    s.placeholders[0].text_frame.text = title.upper()
+    s.placeholders[1].text_frame.text = subtitle
+    _restyle(s)
+    _stamp_logos(s, True)
     return s
 
 
 def section_slide(prs, title):
-    s = blank(prs, WHITE)
-    rule(s, L, Pt(130))
-    tf = textbox(s, L, Pt(230), Pt(820), Pt(150))
-    para(tf, title.upper(), 44, bold=True, color=INK, first=True, spacing=0.98)
-    footer(s)
+    s = prs.slides.add_slide(prs.slide_layouts[SECTION])
+    s.placeholders[0].text_frame.text = title.upper()
+    _restyle(s)
+    _stamp_logos(s, False)
     return s
 
 
-def content_slide(prs, title, body=None, lead=None):
-    """body: list of (text, level, bold). level 0 = top line, 1 = bullet."""
-    s = blank(prs, WHITE)
-    tf = textbox(s, L, Pt(58), Pt(830), Pt(60))
-    para(tf, title.upper(), 32, bold=True, color=INK, first=True, spacing=0.98)
-    rule(s, L, Pt(118))
-
-    y = Pt(150)
+def content_slide(prs, title, lead=None, body=None):
+    s = prs.slides.add_slide(prs.slide_layouts[CONTENT])
+    s.placeholders[0].text_frame.text = title.upper()
+    blocks = []
     if lead:
-        lf = textbox(s, L, y, Pt(700), Pt(40))
-        para(lf, lead, 17, color=GREY, first=True, spacing=1.3)
-        y = Pt(190)
-
-    if body:
-        bf = textbox(s, L, y, Pt(780), Pt(300))
-        for i, (text, level, bold) in enumerate(body):
-            size = 17 if level == 0 else 15
-            para(bf, ("• " + text) if level else text,
-                 size, bold=bold, color=INK, first=(i == 0),
-                 space_after=7 if level == 0 else 3,
-                 level=0, spacing=1.25)
-    footer(s)
+        blocks.append((lead, 17, False, GREY, 14))
+    for text, level, bold in (body or []):
+        if not text:
+            blocks.append(("", 8, False, INK, 0))
+        else:
+            blocks.append((("• " + text) if level else text,
+                           15 if level else 17, bold, INK, 7))
+    _fill(s.placeholders[1], blocks)
+    _restyle(s)
+    _stamp_logos(s, False)
     return s
 
 
 def bench_slide(prs, num, name, tag, body, question, spec):
-    """Two-column: description left, monospace-ish spec block right."""
-    s = blank(prs, WHITE)
+    s = prs.slides.add_slide(prs.slide_layouts[BENCH])
+    s.placeholders[0].text_frame.text = f"{num}   {name}".upper()
 
-    hf = textbox(s, L, Pt(58), Pt(600), Pt(70))
-    para(hf, f"{num}   {name}".upper(), 30, bold=True, color=INK,
-         first=True, spacing=0.98)
-    rule(s, L, Pt(118))
+    blocks = [(tag.upper(), 10, True, GREY, 10)]
+    for line in body:
+        blocks.append((line, 16, False, INK, 9))
+    blocks.append(("", 8, False, INK, 4))
+    blocks.append(("CARD QUESTION", 9, True, GREY, 4))
+    blocks.append((question, 15, True, AU_BLUE, 0))
+    _fill(s.placeholders[1], blocks)
 
-    tf = textbox(s, L, Pt(134), Pt(520), Pt(24))
-    para(tf, tag.upper(), 10, bold=True, color=GREY, first=True)
-
-    bf = textbox(s, L, Pt(168), Pt(520), Pt(180))
-    for i, line in enumerate(body):
-        para(bf, line, 16, color=INK, first=(i == 0), space_after=9, spacing=1.3)
-
-    qf = textbox(s, L, Pt(360), Pt(520), Pt(70))
-    para(qf, "CARD QUESTION", 9, bold=True, color=GREY, first=True,
-         space_after=5)
-    para(qf, question, 15, bold=True, color=AU_BLUE, spacing=1.3)
-
-    # spec block, right column
-    sf = textbox(s, Pt(650), Pt(168), Pt(250), Pt(240))
+    tf = s.placeholders[2].text_frame
+    tf.clear()
     for i, (k, v) in enumerate(spec):
-        p = para(sf, f"{k}   {v}", 12, color=INK, first=(i == 0),
-                 space_after=6, spacing=1.2)
-        p.runs[0].font.name = "Consolas"
-    footer(s)
+        p = tf.paragraphs[0] if i == 0 else tf.add_paragraph()
+        p.text = f"{k}   {v}"
+        p.space_after = Pt(6)
+        p.line_spacing = 1.2
+        _no_bullet(p)
+        for r in p.runs:
+            r.font.size = Pt(12)
+            r.font.color.rgb = INK
+            r.font.name = "Consolas"
+    _restyle(s)
+    _stamp_logos(s, False)
     return s
 
 
 def run_sheet_slide(prs, rows):
-    s = blank(prs, WHITE)
-    tf = textbox(s, L, Pt(58), Pt(830), Pt(60))
-    para(tf, "RUN SHEET", 32, bold=True, color=INK, first=True)
-    rule(s, L, Pt(118))
-
-    lf = textbox(s, L, Pt(150), Pt(700), Pt(30))
-    para(lf, "Times are offsets from the start. The rotation is the spine of it, so "
-             "keep it moving.", 15, color=GREY, first=True)
-
-    y = Pt(196)
+    s = prs.slides.add_slide(prs.slide_layouts[CONTENT])
+    s.placeholders[0].text_frame.text = "RUN SHEET"
+    blocks = [("Times are offsets from the start. The rotation is the spine of "
+               "the session, so keep it moving.", 15, False, GREY, 16)]
     for clock, dur, what in rows:
-        cf = textbox(s, L, y, Pt(90), Pt(30))
-        p = para(cf, clock, 17, bold=True, color=AU_BLUE, first=True)
-        p.runs[0].font.name = "Consolas"
-
-        df = textbox(s, Pt(150), y + Pt(2), Pt(70), Pt(30))
-        para(df, dur, 12, color=GREY, first=True)
-
-        wf = textbox(s, Pt(235), y, Pt(620), Pt(30))
-        para(wf, what, 16, color=INK, first=True)
-        y += Pt(46)
-    footer(s)
+        blocks.append((f"{clock}   {dur:>8}    {what}", 16, False, INK, 12))
+    tf = _fill(s.placeholders[1], blocks)
+    for p in list(tf.paragraphs)[1:]:
+        for r in p.runs:
+            r.font.name = "Consolas"
+            r.font.size = Pt(14)
+    _restyle(s)
+    _stamp_logos(s, False)
     return s
 
 
-# ---------------------------------------------------------------------------
+def _stamp_logos(slide, light):
+    """The AU wordmark and seal are defined on the layouts, which is what makes
+    them editable in one place in PowerPoint. LibreOffice, however, does not
+    render pictures inherited from a layout, so PDF exports would lose them.
+    Stamping a copy onto each slide keeps both paths correct."""
+    wm = HERE / ("wordmark_light.png" if light else "wordmark_dark.png")
+    seal = HERE / ("seal_light.png" if light else "seal_dark.png")
+    slide.shapes.add_picture(str(wm), Pt(27), Pt(487), width=Pt(163))
+    slide.shapes.add_picture(str(seal), Pt(884), Pt(470), height=Pt(56))
+
+
+def _no_bullet(paragraph):
+    """Strip the inherited list bullet. Set on the layout too, but LibreOffice
+    does not resolve that from a layout, so assert it per paragraph as well."""
+    pPr = paragraph._p.get_or_add_pPr()
+    pPr.set("marL", "0")
+    pPr.set("indent", "0")
+    for tag in ("a:buChar", "a:buAutoNum", "a:buNone"):
+        for el in pPr.findall(qn(tag)):
+            pPr.remove(el)
+    pPr.append(pPr.makeelement(qn("a:buNone"), {}))
+
+
+def _restyle(slide):
+    """Placeholders inherit layout styling in PowerPoint, but LibreOffice and
+    some renderers do not resolve that fully. Re-assert the essentials so the
+    exported PDF matches what PowerPoint shows."""
+    lay = {ph.placeholder_format.idx: ph for ph in slide.slide_layout.placeholders}
+    for ph in slide.placeholders:
+        for p in ph.text_frame.paragraphs:
+            _no_bullet(p)
+            p.alignment = PP_ALIGN.LEFT
+        src = lay.get(ph.placeholder_format.idx)
+        if src is None:
+            continue
+        ref = src.text_frame.paragraphs[0].font
+        for p in ph.text_frame.paragraphs:
+            for r in p.runs:
+                if r.font.size is None:
+                    r.font.size = ref.size
+                if r.font.bold is None:
+                    r.font.bold = ref.bold
+                if r.font.name is None:
+                    r.font.name = ref.name or FONT
+                if r.font.color and r.font.color.type is None and ref.color:
+                    try:
+                        r.font.color.rgb = ref.color.rgb
+                    except Exception:
+                        pass
+
 
 def build():
-    prs = Presentation()
-    prs.slide_width, prs.slide_height = SW, SH
+    prs = Presentation(str(TEMPLATE))
 
     title_slide(prs, "Feel Before You Build",
                 "Hands-on prototyping with actuators  ·  2 hours")
@@ -216,8 +199,8 @@ def build():
         prs, "Why we are here",
         lead="You can read a datasheet. You have never held one of these.",
         body=[
-            ("Today you put a vibration motor against your own wrist, decide it feels "
-             "cheap, and pick something else. Better now than in week 46.", 0, False),
+            ("Today you put a vibration motor against your own wrist, decide it "
+             "feels cheap, and pick something else. Better now than in week 46.", 0, False),
             ("", 0, False),
             ("Every year, projects end up built entirely on the screen and the "
              "speaker.", 0, False),
@@ -247,20 +230,20 @@ def build():
     section_slide(prs, "The six benches")
 
     bench_slide(
-        prs, "01", "ERM coin motor", "Cutaneous · vibration",
+        prs, "01", "ERM coin motor", "Vibration",
         ["An off-centre weight on a motor shaft. The same part that is in your "
          "phone and every game controller.",
          "Turn the knob and notice what you cannot do. Speed and strength are "
-         "mechanically welded together, so \"gentle but fast\" is not "
-         "available to you."],
+         "mechanically welded together, so \"gentle but fast\" is not available "
+         "to you."],
         "At what point does it stop feeling like information and start feeling "
         "like a malfunction?",
         [("part", "10mm 3V coin ERM"), ("drive", "2N2222 + 1N4148"),
          ("pin", "D9 (PWM)"), ("draw", "~75 mA"),
-         ("spin-up", "20–40 ms"), ("cost", "~12 kr")])
+         ("spin-up", "20-40 ms"), ("cost", "~12 kr")])
 
     bench_slide(
-        prs, "02", "LRA + piezo disc", "Cutaneous · vibration",
+        prs, "02", "LRA + piezo disc", "Vibration",
         ["Two ways out of the ERM's compromise.",
          "The LRA hits resonance in about 5 ms and stops just as fast, which is "
          "why phone keyboards use it.",
@@ -273,18 +256,18 @@ def build():
          ("cost", "~90 kr")])
 
     bench_slide(
-        prs, "03", "Solenoid tap", "Cutaneous · impact",
+        prs, "03", "Solenoid tap", "Impact",
         ["A push-pull solenoid firing a single 15 ms pulse against a fingertip.",
          "This is the bench everyone remembers. A single knock carries urgency "
-         "that no amount of buzzing does, because it reads as a person "
-         "tapping you rather than a machine signalling."],
+         "that no amount of buzzing does, because it reads as a person tapping "
+         "you rather than a machine signalling."],
         "How many taps before it goes from alert to nagging?",
         [("part", "5V push-pull"), ("drive", "MOSFET + flyback"),
          ("pin", "D6"), ("peak", "~1.1 A"),
          ("duty", "<= 25%, gets hot"), ("cost", "~45 kr")])
 
     bench_slide(
-        prs, "04", "Capacitive touch", "Kinesthetic · touch-to-actuate",
+        prs, "04", "Capacitive touch", "Touch input",
         ["Touch a surface with a bare finger and the servos react.",
          "There is no button and no sensor you can point at. The input is a "
          "wire taped behind a plate, read on an analogue pin.",
@@ -312,7 +295,7 @@ def build():
         ])
 
     bench_slide(
-        prs, "05", "Peltier warm / cool", "Cutaneous · thermal",
+        prs, "05", "Peltier warm / cool", "Thermal",
         ["A thermoelectric tile: heats one side, cools the other, reverses when "
          "you flip the current.",
          "Sit with it. It takes several seconds before you are sure which way "
@@ -321,11 +304,11 @@ def build():
          "reads as lukewarm."],
         "Time yourself. How long until you would bet money on warmer vs cooler?",
         [("part", "TEC1-12706"), ("drive", "L298N H-bridge"),
-         ("pin", "D3 PWM / D4-5"), ("draw", "2–4 A, bench PSU"),
-         ("onset", "3–8 s"), ("cap", "45 C in software")])
+         ("pin", "D3 PWM / D4-5"), ("draw", "2-4 A, bench PSU"),
+         ("onset", "3-8 s"), ("cap", "45 C in software")])
 
     bench_slide(
-        prs, "06", "The same signal, twice", "Intramodal · audio + haptic",
+        prs, "06", "The same signal, twice", "Audio + touch",
         ["One transducer on a plate, playing 40 Hz you feel and 400 Hz you hear, "
          "both from the same driver.",
          "Toggle between them alone and together.",
@@ -356,10 +339,10 @@ def build():
         lead="Built here, by students at roughly your stage.",
         body=[
             ("Capacitive sensing, servos and actuators (Arduino Uno)", 0, True),
-            ("A moving screen that breathes when idle and retreats when you touch "
-             "it, with a browser control panel over the serial port.", 1, False),
-            ("Take away: easing and idle motion are what separate \"a servo moved\" "
-             "from \"it reacted to me\". Both are a dozen lines.", 1, False),
+            ("A moving screen that breathes when idle and retreats when you "
+             "touch it, with a browser control panel over the serial port.", 1, False),
+            ("Take away: easing and idle motion are what separate \"a servo "
+             "moved\" from \"it reacted to me\". Both are a dozen lines.", 1, False),
             ("", 0, False),
             ("Instrumented sock (ESP32, bachelor project)", 0, True),
             ("Six force sensors under a foot, sent to a server over Wi-Fi in "
@@ -375,10 +358,10 @@ def build():
         body=[
             ("Pick one actuator from the rotation.", 0, False),
             ("Encode three messages: arrived, something wrong, finished.", 0, False),
-            ("Vary only two things: the RHYTHM of the pulses, and how STRONG they "
-             "are. No swapping actuators between messages.", 0, False),
-            ("Hand it to another group with the screen turned away. They name all "
-             "three.", 0, False),
+            ("Vary only two things: the RHYTHM of the pulses, and how STRONG "
+             "they are. No swapping actuators between messages.", 0, False),
+            ("Hand it to another group with the screen turned away. They name "
+             "all three.", 0, False),
             ("Write down which two got confused, and what would have separated "
              "them.", 0, False),
         ])
@@ -388,15 +371,15 @@ def build():
         body=[
             ("The recipient cannot look at the device.", 0, True),
             ("", 0, False),
-            ("If your design only works when someone is watching a screen, "
-             "you built a visual interface with a motor glued to it.", 0, False),
+            ("If your design only works when someone is watching a screen, you "
+             "built a visual interface with a motor glued to it.", 0, False),
         ])
 
     title_slide(prs, "Go and touch things",
                 "github.com/gust1527/multimodal-actuator-workshop")
 
     prs.save(OUT)
-    print(f"wrote {OUT}  ({len(prs.slides.__iter__.__self__._sldIdLst)} slides)")
+    print(f"wrote {OUT} ({len(prs.slides._sldIdLst)} slides)")
 
 
 if __name__ == "__main__":

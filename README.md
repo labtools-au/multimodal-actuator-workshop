@@ -35,11 +35,33 @@ Also exported as PDF, for AV systems that won't take a .pptx and for printing:
   speaker notes underneath (38 pages). This is the one to print and run the
   session from.
 
-Rebuild it with:
+### Editing it later
+
+The deck is built on a template, `docs/deck/au-template.pptx`, so it stays
+editable rather than being a pile of loose text boxes:
+
+- Slides use real **title and body placeholders**, so PowerPoint's outline view
+  works (View > Outline) and you can retype content without hunting for boxes.
+- The AU branding lives on the **slide master and its four layouts**, not on
+  each slide. Change the byline or course line once in View > Slide Master and
+  all 19 slides follow.
+- Four layouts: *Title Slide* (blue), *Title and Content*, *Section Header*,
+  *Two Content* (the bench slides).
+
+Small edits: open the .pptx and type. Structural changes: edit
+`docs/deck/build_deck.py` (content), `au_template.py` (branding and layout), or
+`add_notes.py` (speaker notes), then:
 
 ```bash
-cd docs/deck && python3 build_deck.py && python3 add_notes.py
+cd docs/deck
+python3 au_template.py   # only if you changed branding or layouts
+python3 build_deck.py
+python3 add_notes.py
 ```
+
+One caveat: the AU logos are stamped onto each slide as well as sitting on the
+layouts. LibreOffice does not render pictures inherited from a layout, so
+without that the PDF exports would lose them.
 
 ## Run sheet
 
