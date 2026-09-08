@@ -1,5 +1,9 @@
 # Task 06: use what you have
 
+**Hosted version: https://sensors.chomskylab.dk** Open that on a phone and
+everything below just works, because it is served over HTTPS. The local copy in
+this folder is the same idea for reading the source.
+
 No board, no wiring. The phone in your pocket already has an accelerometer, a
 gyroscope, a microphone and a vibration motor. This task finds out which of
 them the browser will actually hand you.

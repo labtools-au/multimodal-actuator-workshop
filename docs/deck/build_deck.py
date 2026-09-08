@@ -354,7 +354,7 @@ def build():
             ("03   Make something warm        Peltier tile", 0, True),
             ("04   Make it notice you         a wire and foil", 0, True),
             ("05   Make it answer back        both together", 0, True),
-            ("06   Use what you have          your own phone", 0, True),
+            ("06   Use what you have          sensors.chomskylab.dk", 0, True),
             ("", 0, False),
             ("1 to 3 are output. 4 is input. 5 is both. 6 needs no board.", 0, False),
             ("Nobody is expected to finish all five.", 0, False),
@@ -522,6 +522,8 @@ def build():
         lead="Every phone here is a multimodal device. Some of it the browser "
              "will hand you, some of it it will not.",
         body=[
+            ("Open sensors.chomskylab.dk on your phone right now", 0, True),
+            ("", 0, False),
             ("Works in a web page today", 0, True),
             ("Accelerometer and gyroscope. Tap to grant, HTTPS only", 1, False),
             ("Microphone. Easiest continuous input there is", 1, False),
