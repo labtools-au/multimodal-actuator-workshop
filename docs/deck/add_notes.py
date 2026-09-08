@@ -19,8 +19,14 @@ solenoid. Ask: which felt more urgent? Let them answer. Nobody needs theory
 for that, and that IS the argument for the whole session.""",
 
     # 1: why we are here
-    """Say the honest version: every year projects end up on the screen and the
-speaker, and touch gets designed on paper then dropped.
+    """Say the full version out loud, the slide only carries the skeleton:
+
+"You can read a datasheet. You have never held one of these. Today you put a
+vibration motor against your own wrist, decide it feels cheap, and pick
+something else. Better now than in week 46 with the demo three days out."
+
+Every year projects end up on the screen and the speaker, and touch gets
+designed on paper then dropped.
 
 Not because it was wrong. Because nobody had held the parts.
 
@@ -67,7 +73,8 @@ Never let anyone rewire this to a bare pin. 40 mA limit, motor pulls 75.""",
 
     # 6: bench 02
     """The escape from bench 1's compromise. LRA is the phone-keyboard feel:
-5 ms on, 5 ms off. Piezo is sharp but shallow.
+5 ms on, 5 ms off. Piezo is a crystal that flexes when you put current across
+it, so it is sharp but shallow.
 
 If the LRA sounds wrong, the DRV2605L is in ERM mode. It must be told which
 type it's driving. That's the failure to expect here.
@@ -78,7 +85,7 @@ design vibration from scratch in their project.""",
     # 7: bench 03
     """The memorable one. A single knock reads as a person tapping you
 rather than a machine signalling. Worth naming out loud, because it is the
-whole reason it feels different.
+whole reason it feels different, and the slide only says the short version.
 
 Watch the duty cycle. Solenoids get hot fast, so if it has been hammering for
 ten minutes, let it rest.
@@ -120,8 +127,8 @@ rather than in week 46.
 Safety: heatsink on the hot side, capped at 45 C. Skin burns above 50.""",
 
     # 11: bench 06
-    """Redundancy, made physical. Same driver, two frequencies: one you feel,
-one you hear.
+    """Redundancy, made physical. One transducer on a plate, two frequencies: 40 Hz
+you feel, 400 Hz you hear, both from the same driver.
 
 The point isn't that together is louder. It's that together is more CERTAIN.
 Sending the same thing down two channels is the cheapest reliability their
@@ -138,7 +145,8 @@ Expect the thermal group to report the delay. Let that land, it is more
 persuasive coming from a peer than from you.""",
 
     # 13: inputs
-    """Mention, don't teach. These sit on one table with a sign.
+    """Mention, don't teach. These sit on one table with a sign. The slide is one
+line each; the caveats below are what actually saves them time.
 
 The honest warnings matter more than the specs: PPG is garbage once the hand
 moves, GSR drifts so only relative change is usable, FSRs need per-pad
@@ -148,7 +156,11 @@ Push the phone option hard. For a lot of projects it genuinely beats
 everything else on the table and needs no soldering.""",
 
     # 14: prior art
-    """Five minutes, and show the actual repos on screen if you can.
+    """Five minutes, and show the actual repos on screen if you can. The slide names
+them; you supply the detail.
+
+The moving screen has a browser control panel over the serial port, which is
+exactly what you want at the project demonstrations.
 
 The argument: this was built by students at your stage, not by a lab with a
 budget. The gap between "we should use haptics" and "it moves when you touch
@@ -164,7 +176,12 @@ Groups pick any actuator from the rotation. Most will pick bench 1 or 3
 because they are simplest. That is fine, the constraint does the work.""",
 
     # 16: the brief
-    """Read the brief out once, then get out of the way.
+    """Read the brief out once, then get out of the way. Full wording, since the
+slide is only the bones:
+
+"Pick one actuator. Encode three messages: arrived, something wrong, finished.
+Vary only the rhythm of the pulses and how strong they are. Then hand it to
+another group with the screen turned away and see if they can name all three."
 
 Rhythm and strength only. If someone asks to add a second actuator, say no.
 The constraint is the exercise. Encoding within one channel is the skill.

@@ -96,10 +96,11 @@ def bench_slide(prs, num, name, tag, body, question, spec):
     s = prs.slides.add_slide(prs.slide_layouts[BENCH])
     s.placeholders[0].text_frame.text = f"{num}   {name}".upper()
 
-    blocks = [(tag.upper(), 10, True, GREY, 10)]
+    blocks = [(tag.upper(), 10, True, GREY, 12)]
     for line in body:
-        blocks.append((line, 16, False, INK, 9))
-    blocks.append(("", 8, False, INK, 4))
+        # blank strings are deliberate breathing room between thoughts
+        blocks.append((line, 16, False, INK, 4 if line else 0))
+    blocks.append(("", 6, False, INK, 10))
     blocks.append(("CARD QUESTION", 9, True, GREY, 4))
     blocks.append((question, 15, True, AU_BLUE, 0))
     _fill(s.placeholders[1], blocks)
@@ -199,24 +200,24 @@ def build():
         prs, "Why we are here",
         lead="You can read a datasheet. You have never held one of these.",
         body=[
-            ("Today you put a vibration motor against your own wrist, decide it "
-             "feels cheap, and pick something else. Better now than in week 46.", 0, False),
+            ("Most projects end up on the screen and the speaker", 0, False),
+            ("Not because touch was wrong", 1, False),
+            ("Because nobody knew a coin motor costs 12 kr", 1, False),
             ("", 0, False),
-            ("Every year, projects end up built entirely on the screen and the "
-             "speaker.", 0, False),
-            ("Not because touch was the wrong choice. Because nobody knew that a "
-             "coin motor costs 12 kr and takes two wires.", 0, False),
+            ("Today: decide it feels cheap, pick something else", 0, True),
+            ("Better now than in week 46", 1, False),
         ])
 
     content_slide(
         prs, "How today works",
         body=[
-            ("Six benches. Already wired. Already running.", 0, True),
-            ("Ten minutes each, on a hard timer.", 1, False),
-            ("You change one parameter and answer one question.", 1, False),
-            ("You wire nothing. That is what the project weeks are for.", 1, False),
+            ("Six benches, already wired and running", 0, True),
+            ("Ten minutes each. Hard timer", 1, False),
+            ("Change one parameter, answer one question", 1, False),
+            ("You wire nothing today", 1, False),
             ("", 0, False),
-            ("Then you build one signal and someone else tries to read it.", 0, True),
+            ("Then build one signal", 0, True),
+            ("Someone else has to read it", 1, False),
         ])
 
     run_sheet_slide(prs, [
@@ -231,11 +232,11 @@ def build():
 
     bench_slide(
         prs, "01", "ERM coin motor", "Vibration",
-        ["An off-centre weight on a motor shaft. The same part that is in your "
-         "phone and every game controller.",
-         "Turn the knob and notice what you cannot do. Speed and strength are "
-         "mechanically welded together, so \"gentle but fast\" is not available "
-         "to you."],
+        ["An off-centre weight on a motor shaft.",
+         "The same part as in your phone.",
+         "",
+         "Speed and strength are welded together.",
+         "\"Gentle but fast\" is not on offer."],
         "At what point does it stop feeling like information and start feeling "
         "like a malfunction?",
         [("part", "10mm 3V coin ERM"), ("drive", "2N2222 + 1N4148"),
@@ -244,11 +245,13 @@ def build():
 
     bench_slide(
         prs, "02", "LRA + piezo disc", "Vibration",
-        ["Two ways out of the ERM's compromise.",
-         "The LRA hits resonance in about 5 ms and stops just as fast, which is "
-         "why phone keyboards use it.",
-         "The piezo is a crystal that flexes when you put current across it. "
-         "Near-instant, almost no power, but shallow. A tick, not a thump."],
+        ["Two ways out of bench 01's compromise.",
+         "",
+         "LRA: resonance in 5 ms, stops just as fast.",
+         "The phone-keyboard feel.",
+         "",
+         "Piezo: near-instant, almost no power.",
+         "A tick, not a thump."],
         "Which of the three vibrators would you actually put on a wrist, and "
         "why not the others?",
         [("parts", "LRA 10mm + piezo"), ("driver", "DRV2605L (I2C)"),
@@ -257,10 +260,11 @@ def build():
 
     bench_slide(
         prs, "03", "Solenoid tap", "Impact",
-        ["A push-pull solenoid firing a single 15 ms pulse against a fingertip.",
-         "This is the bench everyone remembers. A single knock carries urgency "
-         "that no amount of buzzing does, because it reads as a person tapping "
-         "you rather than a machine signalling."],
+        ["One 15 ms pulse against a fingertip.",
+         "",
+         "The bench everyone remembers.",
+         "A knock reads as a person tapping you.",
+         "Buzzing reads as a machine."],
         "How many taps before it goes from alert to nagging?",
         [("part", "5V push-pull"), ("drive", "MOSFET + flyback"),
          ("pin", "D6"), ("peak", "~1.1 A"),
@@ -268,10 +272,12 @@ def build():
 
     bench_slide(
         prs, "04", "Capacitive touch", "Touch input",
-        ["Touch a surface with a bare finger and the servos react.",
-         "There is no button and no sensor you can point at. The input is a "
-         "wire taped behind a plate, read on an analogue pin.",
-         "Any surface can become an input this way: foil, card, fabric."],
+        ["Bare finger on a surface. Servos react.",
+         "",
+         "No button. No sensor you can point at.",
+         "The input is a wire behind a plate.",
+         "",
+         "Foil, card, fabric. Anything works."],
         "Put your hand near the plate without touching. When exactly did it "
         "decide that was a touch?",
         [("sense", "ADCTouch on A0"), ("baseline", "25-sample roll"),
@@ -280,28 +286,26 @@ def build():
 
     content_slide(
         prs, "Bench 04: the whole trick",
-        lead="Touch input for the price of a wire. The thinking is where it costs you.",
+        lead="Touch input for the price of a wire.",
         body=[
             ("reading > baselineAverage() * 1.01", 0, True),
             ("", 0, False),
-            ("The threshold is RELATIVE, never absolute.", 0, True),
-            ("Readings drift with humidity, with mains hum, with how you are "
-             "sitting. A fixed threshold works in the morning and fails after "
-             "lunch.", 1, False),
+            ("Threshold is relative, never absolute", 0, True),
+            ("Readings drift with humidity and mains hum", 1, False),
+            ("Fixed threshold works at 9am, fails at 1pm", 1, False),
             ("", 0, False),
-            ("The baseline only learns while untouched.", 0, True),
-            ("Otherwise a long press slowly teaches it that a finger is normal, "
-             "and the touch quietly stops registering.", 1, False),
+            ("Baseline only learns while untouched", 0, True),
+            ("Or a long press teaches it that a finger is normal", 1, False),
         ])
 
     bench_slide(
         prs, "05", "Peltier warm / cool", "Thermal",
-        ["A thermoelectric tile: heats one side, cools the other, reverses when "
-         "you flip the current.",
-         "Sit with it. It takes several seconds before you are sure which way "
-         "it went.",
-         "And alternating hot with cold does not read as a pattern. It just "
-         "reads as lukewarm."],
+        ["Heats one side, cools the other.",
+         "Flip the current, it reverses.",
+         "",
+         "Sit with it. Seconds before you are sure.",
+         "",
+         "Hot alternating with cold reads as lukewarm."],
         "Time yourself. How long until you would bet money on warmer vs cooler?",
         [("part", "TEC1-12706"), ("drive", "L298N H-bridge"),
          ("pin", "D3 PWM / D4-5"), ("draw", "2-4 A, bench PSU"),
@@ -309,11 +313,12 @@ def build():
 
     bench_slide(
         prs, "06", "The same signal, twice", "Audio + touch",
-        ["One transducer on a plate, playing 40 Hz you feel and 400 Hz you hear, "
-         "both from the same driver.",
-         "Toggle between them alone and together.",
-         "Together is not louder. It is more certain. Sending the same thing "
-         "down two channels is the cheapest reliability your project can buy."],
+        ["One driver. 40 Hz you feel, 400 Hz you hear.",
+         "",
+         "Toggle them alone, then together.",
+         "",
+         "Together is not louder. It is more certain.",
+         "Two channels, same message. Cheap reliability."],
         "With ear defenders on, does the signal still work?",
         [("part", "bone-conduction"), ("amp", "PAM8403 class-D"),
          ("pin", "D11 (tone)"), ("felt", "~40 Hz"),
@@ -325,45 +330,42 @@ def build():
         prs, "Inputs worth knowing about",
         lead="One table, not a rotation. Wander over during the build.",
         body=[
-            ("Capacitive touch. A wire on an analogue pin. See bench 04.", 1, False),
-            ("Heart rate (PPG). Steady at rest, useless once the hand moves.", 1, False),
-            ("Skin conductance (GSR). Drifts constantly, so relative change only.", 1, False),
-            ("Flex sensor. The cheap route to a data glove.", 1, False),
-            ("Pressure (FSR). How hard, not just whether. Calibrate each pad.", 1, False),
-            ("Your own phone. Accelerometer, gyro, mic, camera, vibration motor. "
-             "No soldering at all.", 1, False),
+            ("Capacitive touch. A wire. See bench 04", 1, False),
+            ("Heart rate (PPG). Useless once the hand moves", 1, False),
+            ("Skin conductance (GSR). Relative change only", 1, False),
+            ("Flex sensor. The cheap data glove", 1, False),
+            ("Pressure (FSR). Calibrate every pad", 1, False),
+            ("Your own phone. No soldering at all", 1, False),
         ])
 
     content_slide(
         prs, "Two rigs that already exist",
         lead="Built here, by students at roughly your stage.",
         body=[
-            ("Capacitive sensing, servos and actuators (Arduino Uno)", 0, True),
-            ("A moving screen that breathes when idle and retreats when you "
-             "touch it, with a browser control panel over the serial port.", 1, False),
-            ("Take away: easing and idle motion are what separate \"a servo "
-             "moved\" from \"it reacted to me\". Both are a dozen lines.", 1, False),
+            ("Moving screen, Arduino Uno", 0, True),
+            ("Breathes when idle. Retreats when touched", 1, False),
+            ("Easing and idle motion do the work. A dozen lines", 1, False),
             ("", 0, False),
-            ("Instrumented sock (ESP32, bachelor project)", 0, True),
-            ("Six force sensors under a foot, sent to a server over Wi-Fi in "
-             "batches, each with its own calibration constants.", 1, False),
-            ("Take away: calibrate per sensor, and batch your writes.", 1, False),
+            ("Instrumented sock, ESP32", 0, True),
+            ("Six force sensors under a foot, batched over Wi-Fi", 1, False),
+            ("Calibrate per sensor. Batch your writes", 1, False),
         ])
 
     section_slide(prs, "Build one signal")
 
     content_slide(
         prs, "The brief",
-        lead="30 minutes. Deliberately not long enough to be precious about it.",
+        lead="30 minutes. Not long enough to be precious about it.",
         body=[
-            ("Pick one actuator from the rotation.", 0, False),
-            ("Encode three messages: arrived, something wrong, finished.", 0, False),
-            ("Vary only two things: the RHYTHM of the pulses, and how STRONG "
-             "they are. No swapping actuators between messages.", 0, False),
-            ("Hand it to another group with the screen turned away. They name "
-             "all three.", 0, False),
-            ("Write down which two got confused, and what would have separated "
-             "them.", 0, False),
+            ("One actuator. Three messages", 0, True),
+            ("Arrived. Something wrong. Finished", 1, False),
+            ("", 0, False),
+            ("Vary two things only", 0, True),
+            ("Rhythm of the pulses", 1, False),
+            ("How strong they are", 1, False),
+            ("", 0, False),
+            ("Blind test: they name all three", 0, True),
+            ("Note which two got confused, and why", 1, False),
         ])
 
     content_slide(
@@ -371,8 +373,8 @@ def build():
         body=[
             ("The recipient cannot look at the device.", 0, True),
             ("", 0, False),
-            ("If your design only works when someone is watching a screen, you "
-             "built a visual interface with a motor glued to it.", 0, False),
+            ("If it only works while someone watches a screen,", 0, False),
+            ("you built a visual interface with a motor glued to it.", 0, False),
         ])
 
     title_slide(prs, "Go and touch things",
