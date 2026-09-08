@@ -1,11 +1,11 @@
-// Bench 4 — Capacitive touch -> servo
+// Bench 4: Capacitive touch -> servo
 //
 // Input is a wire. That's it. Tape it behind foil, cardboard or fabric and
 // the Arduino can tell when a finger is near, with no breakout board.
 //
-// Distilled from the SOS 2025 rig (capacitive_sensing_and_servos_and_actuators),
-// which does this alongside four linear actuators and a browser control panel.
-// Everything that isn't the sensing pattern has been stripped out.
+// Distilled from an earlier student rig (capacitive_sensing_and_servos_and_
+// actuators), which does this alongside four linear actuators and a browser
+// control panel. Everything that is not the sensing pattern is stripped out.
 //
 // Library: ADCTouch by martin2250 (Library Manager -> "ADCTouch")
 
@@ -74,7 +74,7 @@ void setup() {
 void loop() {
   int reading = ADCTouch.read(PIN_TOUCH, TOUCH_RESOLUTION);
 
-  // Serial Plotter: raw vs. the line it has to cross. Show students this —
+  // Serial Plotter: raw vs. the line it has to cross. Show students this;
   // seeing the baseline drift explains the whole design in about ten seconds.
   Serial.print(reading);
   Serial.print(' ');
