@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Task 06: use what you have</title>
+
+<!--
+  TASK 06: USE WHAT YOU HAVE
+
+  No wiring. No board. Open this page on your phone and you have an
+  accelerometer, a gyroscope, a microphone and (on Android) a vibration motor.
+
+  HOW TO RUN IT
+    Everything here needs HTTPS or localhost. A file:// page will fail
+    silently, which is the single most common reason "it does not work".
+
+      cd tasks/06_use_what_you_have
+      python3 -m http.server 8000
+
+    Then open http://<your-laptop-ip>:8000 on the phone. If the sensors stay
+    dead, that is the HTTPS rule biting: use a tunnel (ngrok, cloudflared) or
+    Safari/Chrome dev tooling instead.
+
+  WHAT ACTUALLY WORKS, CHECKED RATHER THAN ASSUMED
+    Vibration    Android Chrome yes. iOS Safari NO, at any version. caniuse
+                 lists Safari 3.1-27 as unsupported on desktop and iOS alike.
+                 Do not build a phone-haptics project around iPhones.
+    Motion       Works on both, but iOS 13+ requires
+                 DeviceMotionEvent.requestPermission() called from inside a
+                 real tap. Calling it on page load throws.
+    Microphone   Works on both, behind a permission prompt.
+-->
+
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    font: 16px/1.5 system-ui, sans-serif;
+    margin: 0; padding: 20px;
+    max-width: 620px; margin-inline: auto;
+  }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  .sub { color: #666; margin-bottom: 22px; }
+  section { border-top: 1px solid #ccc; padding: 16px 0; }
+  h2 { font-size: 15px; margin: 0 0 10px; text-transform: uppercase; letter-spacing: .06em; }
+  button {
+    font: inherit; padding: 12px 18px; margin: 0 6px 6px 0;
+    border: 1px solid currentColor; background: none; border-radius: 3px;
+    cursor: pointer;
+  }
+  .val { font: 15px ui-monospace, monospace; margin-top: 10px; }
+  .bar { height: 10px; background: #8883; margin-top: 6px; }
+  .bar > i { display: block; height: 100%; background: currentColor; width: 0; }
+  .status { font-size: 14px; margin-top: 8px; }
+  .ok   { color: #1a7f37; }
+  .bad  { color: #b4321e; }
+</style>
+
+<h1>Task 06: use what you have</h1>
+<p class="sub">Your phone is already a multimodal device. Find out which half of it the browser will actually let you touch.</p>
+
+<section>
+  <h2>Vibration</h2>
+  <button id="buzz">Short buzz</button>
+  <button id="pattern">Pattern</button>
+  <div class="status" id="vibStatus"></div>
+</section>
+
+<section>
+  <h2>Motion</h2>
+  <button id="motion">Enable motion</button>
+  <div class="val" id="accel">waiting</div>
+  <div class="bar"><i id="accelBar"></i></div>
+  <div class="status" id="motionStatus"></div>
+</section>
+
+<section>
+  <h2>Microphone level</h2>
+  <button id="mic">Enable microphone</button>
+  <div class="val" id="level">waiting</div>
+  <div class="bar"><i id="levelBar"></i></div>
+  <div class="status" id="micStatus"></div>
+</section>
+
+<script>
+// ---- vibration -------------------------------------------------------------
+// navigator.vibrate exists on Android. On iOS it is absent entirely, so the
+// feature test below is the honest way to find out rather than assuming.
+const hasVibrate = typeof navigator.vibrate === "function";
+document.getElementById("vibStatus").innerHTML = hasVibrate
+  ? '<span class="ok">navigator.vibrate available.</span>'
+  : '<span class="bad">No navigator.vibrate. You are almost certainly on iOS, ' +
+    'where WebKit has never shipped it. Nothing you write will fix that.</span>';
+
+document.getElementById("buzz").onclick = () => {
+  if (hasVibrate) navigator.vibrate(60);
+};
+document.getElementById("pattern").onclick = () => {
+  // milliseconds: buzz, pause, buzz, pause, buzz
+  if (hasVibrate) navigator.vibrate([90, 70, 90, 70, 90]);
+};
+
+// ---- motion ----------------------------------------------------------------
+// iOS 13+ gates this behind an explicit permission call that MUST happen
+// inside a user gesture. That is why it is on a button and not on load.
+const accelEl = document.getElementById("accel");
+const accelBar = document.getElementById("accelBar");
+const motionStatus = document.getElementById("motionStatus");
+
+function startMotion() {
+  window.addEventListener("devicemotion", (e) => {
+    const a = e.accelerationIncludingGravity;
+    if (!a || a.x === null) {
+      motionStatus.innerHTML = '<span class="bad">Events firing but empty. ' +
+        'Usually means the page is not on HTTPS.</span>';
+      return;
+    }
+    const mag = Math.hypot(a.x, a.y, a.z);
+    accelEl.textContent =
+      `x ${a.x.toFixed(1)}  y ${a.y.toFixed(1)}  z ${a.z.toFixed(1)}   |a| ${mag.toFixed(1)}`;
+    // ~9.8 at rest from gravity alone, so scale around that
+    accelBar.style.width = Math.min(100, (mag / 25) * 100) + "%";
+  });
+  motionStatus.innerHTML = '<span class="ok">Listening. Shake the phone.</span>';
+}
+
+document.getElementById("motion").onclick = async () => {
+  if (typeof DeviceMotionEvent === "undefined") {
+    motionStatus.innerHTML = '<span class="bad">No DeviceMotionEvent at all.</span>';
+    return;
+  }
+  // The iOS branch. Android has no requestPermission and just works.
+  if (typeof DeviceMotionEvent.requestPermission === "function") {
+    try {
+      const res = await DeviceMotionEvent.requestPermission();
+      if (res !== "granted") {
+        motionStatus.innerHTML = '<span class="bad">Permission denied.</span>';
+        return;
+      }
+    } catch (err) {
+      motionStatus.innerHTML = '<span class="bad">requestPermission threw: ' +
+        err.message + '. Almost always: not HTTPS, or not called from a tap.</span>';
+      return;
+    }
+  }
+  startMotion();
+};
+
+// ---- microphone ------------------------------------------------------------
+// Not a "sensor" people think of, but it is the easiest continuous input on
+// the device and needs no hardware at all.
+document.getElementById("mic").onclick = async () => {
+  const levelEl = document.getElementById("level");
+  const levelBar = document.getElementById("levelBar");
+  const micStatus = document.getElementById("micStatus");
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const src = ctx.createMediaStreamSource(stream);
+    const analyser = ctx.createAnalyser();
+    analyser.fftSize = 512;
+    src.connect(analyser);
+    const buf = new Uint8Array(analyser.frequencyBinCount);
+
+    micStatus.innerHTML = '<span class="ok">Listening.</span>';
+    (function tick() {
+      analyser.getByteTimeDomainData(buf);
+      // RMS around the 128 midpoint of an 8-bit waveform
+      let sum = 0;
+      for (const v of buf) sum += (v - 128) ** 2;
+      const rms = Math.sqrt(sum / buf.length);
+      levelEl.textContent = "RMS " + rms.toFixed(1);
+      levelBar.style.width = Math.min(100, rms * 3) + "%";
+      requestAnimationFrame(tick);
+    })();
+  } catch (err) {
+    micStatus.innerHTML = '<span class="bad">' + err.name +
+      '. Needs HTTPS and a permission grant.</span>';
+  }
+};
+</script>
+
+<!--
+  THINGS TO TRY
+
+  1. Open this on an Android phone and an iPhone side by side. The vibration
+     section works on one and is dead on the other. That difference is a
+     platform decision, not a bug in your code, and it is worth knowing before
+     you promise haptics in a project plan.
+
+  2. Put the phone flat on the table and read |a|. It sits near 9.8 because
+     gravity never switches off. Any "is it moving" test has to work relative
+     to that resting value, exactly like the capacitive baseline in task 04.
+
+  3. Use the microphone as a trigger rather than a recorder: fire something
+     when RMS crosses a threshold. Then try it in a noisy room and watch the
+     threshold you picked stop working.
+
+  4. Harder: combine two. Shake to arm, clap to fire. Two cheap signals
+     together are far more reliable than one, which is the same redundancy
+     argument as the transducer on the table.
+-->

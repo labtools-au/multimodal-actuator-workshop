@@ -124,6 +124,7 @@ list at the bottom (four experiments, easy to hard).
 | 03 | [Make something warm](tasks/03_make_it_warm) | H-bridge direction, and how slow skin is |
 | 04 | [Make it notice you](tasks/04_make_it_sense) | Capacitive input from a wire |
 | 05 | [Make it answer back](tasks/05_make_it_answer) | Input driving output. A real interaction |
+| 06 | [Use what you have](tasks/06_use_what_you_have) | Phone sensors in a browser. No board at all |
 
 The arc is deliberate: 1 to 3 are output, 4 is input, 5 is both. By task 5 they have
 built a complete interaction loop, which is the shape of most project work. Task 5's

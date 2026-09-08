@@ -354,8 +354,9 @@ def build():
             ("03   Make something warm        Peltier tile", 0, True),
             ("04   Make it notice you         a wire and foil", 0, True),
             ("05   Make it answer back        both together", 0, True),
+            ("06   Use what you have          your own phone", 0, True),
             ("", 0, False),
-            ("1 to 3 are output. 4 is input. 5 is both.", 0, False),
+            ("1 to 3 are output. 4 is input. 5 is both. 6 needs no board.", 0, False),
             ("Nobody is expected to finish all five.", 0, False),
         ])
 
@@ -514,6 +515,36 @@ def build():
             ("Flex sensor. The cheap data glove", 1, False),
             ("Pressure (FSR). Calibrate every pad", 1, False),
             ("Your own phone. No soldering at all", 1, False),
+        ])
+
+    content_slide(
+        prs, "The sensors already in the room",
+        lead="Every phone here is a multimodal device. Some of it the browser "
+             "will hand you, some of it it will not.",
+        body=[
+            ("Works in a web page today", 0, True),
+            ("Accelerometer and gyroscope. Tap to grant, HTTPS only", 1, False),
+            ("Microphone. Easiest continuous input there is", 1, False),
+            ("Camera. Even reads a pulse off a face, badly", 1, False),
+            ("Trackpad pressure. Pointer Events carry a 0 to 1 force", 1, False),
+            ("", 0, False),
+            ("Does NOT work, whatever the tutorial says", 0, True),
+            ("Phone vibration on iOS. WebKit has never shipped it", 1, False),
+            ("Apple Watch or Garmin, live. Both need a native app", 1, False),
+        ])
+
+    content_slide(
+        prs, "The one to check before you promise it",
+        lead="navigator.vibrate: Android yes, iOS no, at every version to date.",
+        body=[
+            ("caniuse lists Safari 3.1 to 27 as unsupported.", 0, False),
+            ("Chrome and Firefox on iOS are Safari underneath, so they "
+             "inherit the gap.", 0, False),
+            ("", 0, False),
+            ("\"The phone buzzes\" therefore works on some of the room and "
+             "no iPhones.", 0, True),
+            ("", 0, False),
+            ("Check the feature, not the tutorial, before it is in your plan.", 0, False),
         ])
 
     content_slide(

@@ -224,7 +224,30 @@ moves, GSR drifts so only relative change works, FSRs need per-pad calibration.
 Push the phone option hard. For a lot of projects it beats everything else on
 the table and needs no soldering at all.""",
 
-    # 10: prior art
+    # sensors already in the room
+    """Worth five minutes, because it reframes what a prototype can be. Half
+the room assumes multimodal means buying hardware.
+
+Have them open the page on their own phones while you talk. The split between
+what works and what does not lands much harder when it is their device.
+
+The watch line matters for project planning: several groups every year propose
+live Apple Watch or Garmin data, and neither streams to a web page. Both need a
+native companion app. Fine for after-the-fact analysis, not for anything
+reacting in real time inside the project weeks.""",
+
+    # vibrate check
+    """The single most useful fact on the slide, and the one people get wrong
+because a blog post said otherwise.
+
+Say it plainly: iPhones do not vibrate from a web page. Not with a polyfill,
+not with a library, not in Chrome for iOS, which is Safari underneath.
+
+The general lesson is bigger than vibration: check the feature on caniuse
+before it goes in a project plan, not after. Two minutes now against a
+rewrite in week 46.""",
+
+    # prior art
     """Five minutes, and put the actual repos on screen if you can.
 
 The argument: this was built by students at your stage, not by a lab with a
