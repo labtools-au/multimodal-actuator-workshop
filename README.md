@@ -17,6 +17,16 @@ benches around the room, to pick up and compare between tasks.
 
 📄 **[Full session plan, run sheet and kit list](https://claude.ai/code/artifact/1e577f62-4cae-4ec5-a407-69494dc85f7e)**
 
+## Try it before you touch hardware
+
+[`wokwi/`](wokwi) has three of the tasks as runnable browser simulations. They
+show the wiring as a picture rather than a schematic, which matters for an
+audience that has never read one, and they run the same code as the bench.
+
+They do not replace the session: a simulated Peltier does not take eight
+seconds to convince you. See [wokwi/README.md](wokwi/README.md) for what each
+one does and does not show.
+
 ## Pin map
 
 [PINS.md](PINS.md) has every station on one page, which is what you want when

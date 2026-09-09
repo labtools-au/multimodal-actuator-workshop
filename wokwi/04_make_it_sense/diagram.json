@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "author": "Labtools, Aarhus University",
+  "editor": "wokwi",
+  "parts": [
+    { "id": "uno", "type": "wokwi-arduino-uno", "left": 0, "top": 0 },
+    { "id": "btn", "type": "wokwi-pushbutton", "left": -120, "top": -120,
+      "attrs": { "color": "green", "label": "stand-in for the touch pad" } },
+    { "id": "servo", "type": "wokwi-servo", "left": 180, "top": -140 }
+  ],
+  "connections": [
+    [ "btn:1.l", "uno:A0", "blue", [ "v0" ] ],
+    [ "btn:2.l", "uno:GND.1", "black", [ "v0" ] ],
+    [ "servo:PWM", "uno:9", "blue", [ "v0" ] ],
+    [ "servo:V+", "uno:5V", "red", [ "v0" ] ],
+    [ "servo:GND", "uno:GND.2", "black", [ "v0" ] ]
+  ]
+}

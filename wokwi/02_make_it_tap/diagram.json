@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "author": "Labtools, Aarhus University",
+  "editor": "wokwi",
+  "parts": [
+    { "id": "uno", "type": "wokwi-arduino-uno", "left": 0, "top": 0 },
+    { "id": "bb", "type": "wokwi-breadboard-half", "left": -30, "top": -180 },
+    { "id": "q1", "type": "wokwi-mosfet-n", "left": 60, "top": -110 },
+    { "id": "d1", "type": "wokwi-diode", "left": 150, "top": -140 },
+    { "id": "sol", "type": "wokwi-relay-spdt", "left": 250, "top": -150 }
+  ],
+  "connections": [
+    [ "uno:6", "q1:G", "blue", [ "v0" ] ],
+    [ "q1:D", "sol:COIL1", "red", [ "v0" ] ],
+    [ "sol:COIL2", "uno:5V", "red", [ "v0" ] ],
+    [ "q1:S", "uno:GND.1", "black", [ "v0" ] ],
+    [ "d1:A", "q1:D", "green", [ "v0" ] ],
+    [ "d1:C", "uno:5V", "green", [ "v0" ] ]
+  ]
+}

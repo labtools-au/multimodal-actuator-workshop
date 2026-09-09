@@ -396,10 +396,10 @@ def build():
         body=[
             ("A CHANGE ME block at the top", 0, True),
             ("Two or three numbers. Edit, upload, feel the difference", 1, False),
-            ("", 0, False),
             ("A THINGS TO TRY list at the bottom", 0, True),
-            ("Four experiments, roughly in order of difficulty", 1, False),
-            ("The last one is usually the interesting one", 1, False),
+            ("Four experiments. The last is the interesting one", 1, False),
+            ("Three of them also run in the browser", 0, True),
+            ("wokwi/ in the repo. Same code, no hardware", 1, False),
         ])
 
     pin_slide = content_slide(
