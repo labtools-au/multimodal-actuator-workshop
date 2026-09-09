@@ -9,9 +9,13 @@
 //
 // WIRING (already done for you)
 //   D6 -> MOSFET gate, solenoid on its own 5V supply, diode across the coil
-//   Separate supply matters: the coil pulls about 1.1 A on firing. Off USB
-//   alone the board browns out and resets, which looks exactly like a code
-//   bug and is not one.
+//   Separate supply matters: the datasheet gives 1.1 A at 5V into a 4.5 ohm
+//   coil (Adafruit 2776). Off USB alone the board browns out and resets,
+//   which looks exactly like a code bug and is not one. Adafruit say this
+//   explicitly: "be careful of trying to power/activate from a computer's
+//   USB".
+//
+//   Throw is 3mm at 80g of force, so it is a tap, not a punch.
 //
 // HEAT: a solenoid held on will cook itself. Never energise it for more than
 // about 30 ms, and keep the duty cycle low. The code below does both.

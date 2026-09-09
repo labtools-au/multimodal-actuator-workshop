@@ -140,9 +140,14 @@ something to physically move end up here rather than on a vibration motor.
 
     # 17: stepper
     """The precision option. Moves in known steps, so you can position it
-without any feedback sensor at all.
+without any feedback sensor at all. 2048 steps per revolution.
 
-Needs a ULN2003 driver board, drawer 2A, 27 of them.""",
+Needs a ULN2003 driver board, drawer 2A, 27 of them.
+
+If anyone tries one: the Stepper constructor does NOT take the pins in numeric
+order. Wire IN1 to IN4 on pins 8 to 11, then write Stepper(2048, 8, 10, 9, 11).
+Get it wrong and it buzzes and jitters instead of turning, which looks like a
+dead motor. bench_tests/07_stepper has it right, with the note.""",
 
     # 18: electromagnet
     """The one people forget exists. It grabs and lets go, with nothing moving.

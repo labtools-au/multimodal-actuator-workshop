@@ -422,7 +422,7 @@ def build():
         "as in your phone.",
         "Feels like: a buzz you cannot make gentle and fast at once.",
         "Phone notifications, controller rumble, anything worn under clothing.",
-        "Drawer 1E  |  117 in stock  |  2.5-3.8 V  |  PWM pin")
+        "1E  |  117  |  2.5-3.8V rated  |  100 mA at 5V  |  PWM")
 
     actuator_slide(
         prs, "Piezo element", "piezo",
@@ -438,7 +438,7 @@ def build():
         "fires or it does not.",
         "Feels like: a person tapping you, not a machine signalling.",
         "Navigation cues on the body, braille cells, alerts in noise.",
-        "Drawer 3E  |  24 in stock  |  5V  |  needs a MOSFET")
+        "3E  |  24  |  5V, 1.1 A, 4.5 ohm  |  3mm throw, 80g")
 
     actuator_slide(
         prs, "Capacitive pad", "!there is nothing to photograph. A wire, and a piece of foil.",
@@ -477,7 +477,7 @@ def build():
         "where it is without a sensor.",
         "Feels like: precise, and audibly clicky.",
         "Slow accurate motion. Dials, sliders, anything positioned.",
-        "Drawer 2A  |  44 in stock  |  needs a ULN2003 driver")
+        "2A  |  44  |  ULN2003 driver  |  2048 steps/rev")
 
     actuator_slide(
         prs, "Electromagnet", "electromagnet",

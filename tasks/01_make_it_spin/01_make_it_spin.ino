@@ -11,8 +11,14 @@
 //   diode across the motor, striped end to +5V
 //   Set up on the table. You only upload.
 //
-// WHY NOT STRAIGHT TO THE PIN: an Arduino pin gives 40 mA. This motor wants
-// about 75 mA. The transistor lets a small pin current switch a bigger one.
+// WHY NOT STRAIGHT TO THE PIN: an Arduino pin gives 40 mA. This motor draws
+// 100 mA at 5V (80 mA at 4V, 60 mA at 3V, per the Adafruit 1201 datasheet).
+// The transistor lets a small pin current switch a bigger one. Adafruit
+// suggest a PN2222 for full control; a 2N2222 behaves the same here.
+//
+// Rated 2.5 to 3.8V, but it will run from 2V to 5V. Higher voltage means
+// more current AND a stronger buzz, which is the compromise this task is
+// about. 11000 RPM at 5V.
 
 const int MOTOR = 9;      // must be a PWM pin: 3, 5, 6, 9, 10, 11
 

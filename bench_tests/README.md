@@ -15,5 +15,10 @@ five minutes, pull it. Five working benches beat six with a mystery.
 | 04 | [`04_capacitive_touch`](04_capacitive_touch) | Servo reacts to a finger on the pad |
 | 05 | [`05_peltier`](05_peltier) | One face warms, then cools after reversing |
 | 06 | [`06_transducer`](06_transducer) | 40 Hz felt through the plate, 400 Hz heard |
+| 07 | [`07_stepper`](07_stepper) | One full turn each way, smooth, not buzzing |
 
 If something fails, go to [`../utils`](../utils) before you start reading code.
+
+Every electrical figure in these sketches comes from the manufacturer's page
+for the exact part in the drawers. See [DATASHEETS.md](DATASHEETS.md) for the
+sources, and for the three things still unverified.
