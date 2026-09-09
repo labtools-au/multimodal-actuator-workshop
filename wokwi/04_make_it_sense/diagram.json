@@ -3,18 +3,67 @@
   "author": "Labtools, Aarhus University",
   "editor": "wokwi",
   "parts": [
-    { "id": "uno", "type": "wokwi-arduino-uno", "left": 0, "top": 100 },
-    { "id": "btn", "type": "wokwi-pushbutton", "left": -180, "top": 20,
-      "attrs": { "color": "green" } },
-    { "id": "servo", "type": "wokwi-servo", "left": 340, "top": 20 },
-    { "id": "note", "type": "wokwi-text", "left": 0, "top": -80,
-      "attrs": { "text": "The button stands in for the foil pad: Wokwi cannot simulate capacitive sensing. You get the SHAPE of the task, but not the drifting baseline, which is the actual lesson. Do that part on hardware.", "fontSize": 15 } }
+    {
+      "id": "uno",
+      "type": "wokwi-arduino-uno",
+      "left": 0,
+      "top": 120
+    },
+    {
+      "id": "btn",
+      "type": "wokwi-pushbutton",
+      "left": -190,
+      "top": 40,
+      "attrs": {
+        "color": "green"
+      }
+    },
+    {
+      "id": "servo",
+      "type": "wokwi-servo",
+      "left": 360,
+      "top": 40
+    },
+    {
+      "id": "note",
+      "type": "wokwi-text",
+      "left": 0,
+      "top": 20,
+      "attrs": {
+        "text": "The button stands in for the foil pad: Wokwi cannot simulate capacitive sensing. You get the shape of the task, not the drifting baseline, which is the lesson."
+      }
+    }
   ],
   "connections": [
-    [ "btn:1.l", "uno:A0", "blue", [ "v0" ] ],
-    [ "btn:2.l", "uno:GND.1", "black", [ "v0" ] ],
-    [ "servo:PWM", "uno:9", "blue", [ "v0" ] ],
-    [ "servo:V+", "uno:5V", "red", [ "v0" ] ],
-    [ "servo:GND", "uno:GND.2", "black", [ "v0" ] ]
+    [
+      "btn:1.l",
+      "uno:A0",
+      "green",
+      []
+    ],
+    [
+      "btn:2.l",
+      "uno:GND.1",
+      "black",
+      []
+    ],
+    [
+      "servo:PWM",
+      "uno:9",
+      "green",
+      []
+    ],
+    [
+      "servo:V+",
+      "uno:5V",
+      "red",
+      []
+    ],
+    [
+      "servo:GND",
+      "uno:GND.2",
+      "black",
+      []
+    ]
   ]
 }

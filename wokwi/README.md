@@ -3,6 +3,20 @@
 Three tasks as runnable [Wokwi](https://wokwi.com) projects. Free, browser
 based, no install.
 
+## After editing a diagram
+
+```bash
+python3 validate.py
+```
+
+Wokwi fails **silently**: an unknown part type is dropped with no error, and a
+malformed connection can stop the whole canvas rendering. Both happened while
+building these. The validator checks part types, pin names and routing syntax
+against the documented format.
+
+One rule worth knowing: leave the routing array **empty** (`[]`) and let Wokwi
+place the wire. Hand-written hops like `"v0"` are what broke the first version.
+
 ## Opening one
 
 Go to [wokwi.com](https://wokwi.com), start a new Arduino Uno project, then

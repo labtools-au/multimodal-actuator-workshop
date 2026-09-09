@@ -3,23 +3,92 @@
   "author": "Labtools, Aarhus University",
   "editor": "wokwi",
   "parts": [
-    { "id": "uno", "type": "wokwi-arduino-uno", "left": 0, "top": 100 },
-    { "id": "relay", "type": "wokwi-relay-module", "left": 320, "top": -20,
-      "attrs": { "transistor": "npn" } },
-    { "id": "led1", "type": "wokwi-led", "left": 520, "top": 60,
-      "attrs": { "color": "red", "label": "stands in for the motor" } },
-    { "id": "r1", "type": "wokwi-resistor", "left": 520, "top": 160,
-      "attrs": { "value": "220" } },
-    { "id": "note", "type": "wokwi-text", "left": 0, "top": -80,
-      "attrs": { "text": "Wokwi has no DC motor or transistor part. The relay module contains the same driver circuit (transistor + flyback diode) that you build by hand at the bench, and the LED shows when it is on. The CODE is identical.", "fontSize": 15 } }
+    {
+      "id": "uno",
+      "type": "wokwi-arduino-uno",
+      "left": 0,
+      "top": 120
+    },
+    {
+      "id": "relay",
+      "type": "wokwi-relay-module",
+      "left": 330,
+      "top": 0,
+      "attrs": {
+        "transistor": "npn"
+      }
+    },
+    {
+      "id": "led1",
+      "type": "wokwi-led",
+      "left": 570,
+      "top": 40,
+      "attrs": {
+        "color": "red",
+        "label": "stands in for the motor"
+      }
+    },
+    {
+      "id": "r1",
+      "type": "wokwi-resistor",
+      "left": 570,
+      "top": 180,
+      "attrs": {
+        "value": "220"
+      }
+    },
+    {
+      "id": "note",
+      "type": "wokwi-text",
+      "left": 0,
+      "top": 20,
+      "attrs": {
+        "text": "Wokwi has no DC motor or transistor. The relay module contains the same driver circuit you build by hand, and the LED shows when it fires. The code is identical to the bench."
+      }
+    }
   ],
   "connections": [
-    [ "uno:9", "relay:IN", "blue", [ "v0" ] ],
-    [ "uno:5V", "relay:VCC", "red", [ "v0" ] ],
-    [ "uno:GND.1", "relay:GND", "black", [ "v0" ] ],
-    [ "uno:5V", "relay:COM", "red", [ "v30", "h40" ] ],
-    [ "relay:NO", "led1:A", "green", [ "v0" ] ],
-    [ "led1:C", "r1:1", "green", [ "v0" ] ],
-    [ "r1:2", "uno:GND.2", "black", [ "v0" ] ]
+    [
+      "uno:9",
+      "relay:IN",
+      "green",
+      []
+    ],
+    [
+      "uno:5V",
+      "relay:VCC",
+      "red",
+      []
+    ],
+    [
+      "uno:GND.1",
+      "relay:GND",
+      "black",
+      []
+    ],
+    [
+      "uno:5V",
+      "relay:COM",
+      "red",
+      []
+    ],
+    [
+      "relay:NO",
+      "led1:A",
+      "green",
+      []
+    ],
+    [
+      "led1:C",
+      "r1:1",
+      "green",
+      []
+    ],
+    [
+      "r1:2",
+      "uno:GND.2",
+      "black",
+      []
+    ]
   ]
 }
