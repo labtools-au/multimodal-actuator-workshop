@@ -3,7 +3,7 @@
 Every station on one page, for building the room. Each sketch repeats its own
 pins at the top, so a student never has to come back here.
 
-Arduino Uno throughout. **Only D3, D5, D6, D9, D10 and D11 do PWM** — anything
+Arduino Uno throughout. **Only D3, D5, D6, D9, D10 and D11 do PWM.** Anything
 needing a variable level has to sit on one of those.
 
 ## Tasks

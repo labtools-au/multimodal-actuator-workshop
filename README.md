@@ -48,21 +48,30 @@ student never has to look elsewhere.
 Two things catch people: only D3, D5, D6, D9, D10 and D11 do PWM on an Uno,
 and the stepper's pins go into the constructor **out of order** (8, 10, 9, 11).
 
-## Repository layout
+## What is where
 
 ```
-bench_tests/    one sketch per bench, proving the hardware works   (for you)
-tasks/          what students do in the second half                (for them)
-utils/          diagnostics for when a bench misbehaves            (for you)
-docs/           slides, session plan, and the deck build scripts
+BUILD.md          start here when setting the room up. Shop list, drawers,
+                  then each station in build order with a pass criterion
+PINS.md           every pin on one page
+README.md         this file
+
+tasks/            what students do. Five Arduino sketches + one browser task
+bench_tests/      one sketch per station, proving the hardware works    (you)
+utils/            diagnostics for when a station misbehaves             (you)
+wokwi/            four tasks as runnable browser simulations
+scripts/          request the components through the Chomskylab app
+docs/             the deck, the session plan, and the build scripts
+  deck/           build_deck.py, add_notes.py, the AU template, QR codes
+  photos/         part photos, pulled from the component database
 ```
 
 Structure follows `ktane` (Physical Computing 2023): tiny per-component tests
-kept separate from the real code, plus a utils folder of dumb diagnostics. Every
-sketch sits in a folder of the same name, which the Arduino IDE requires.
+kept separate from the real code, plus a utils folder of dumb diagnostics.
+Every sketch sits in a folder of the same name, which the Arduino IDE requires.
 
-Run the bench tests the morning of the session. Hand students the tasks.
-
+**Split by audience.** `tasks/` is written for students and commented for them.
+`bench_tests/` and `utils/` are for you, and assume you know what a MOSFET is.
 ## Slides
 
 `docs/multimodal-actuator-workshop.pptx`: 19 slides in the AU Department of

@@ -51,7 +51,7 @@ All confirmed in stock on 9 September 2026. Re-check anything you depend on.
 | **9D** | Pulse sensor | 4 |
 | **0C5** | GSR sensor | **1, the only one in the lab** |
 
-There is a request script at `../scratchpad/request_components.py` if you want
+There is a request script at `scripts/request_components.py` if you want
 these to go through the app rather than being taken off the shelf.
 
 ---
@@ -74,7 +74,7 @@ before you combine anything.
 
 Flash from `bench_tests/<name>/`, watch the Serial Monitor at 9600 baud.
 
-### 01 motor — start here, it is the template
+### 01 motor: start here, it is the template
 
 ```
 D9 --[ 1k ]-- PN2222 base
@@ -87,7 +87,7 @@ D9 --[ 1k ]-- PN2222 base
 - Passes when the three patterns feel different from each other
 - If it does nothing below PWM 90, that is the motor's stall floor, not a bug
 
-### 02 piezo — the easiest, do it second for a confidence win
+### 02 piezo: the easiest, do it second for a confidence win
 
 ```
 D8 -> piezo, other leg to GND
@@ -96,7 +96,7 @@ D8 -> piezo, other leg to GND
 - [ ] Three audible ticks, then a short tone, repeating
 - No transistor, no resistor. A piezo draws almost nothing
 
-### 07 stepper — do it early, it has the worst trap
+### 07 stepper: do it early, it has the worst trap
 
 ```
 ULN2003:  IN1 -> D8   IN2 -> D9   IN3 -> D10   IN4 -> D11
@@ -107,7 +107,7 @@ ULN2003:  IN1 -> D8   IN2 -> D9   IN3 -> D10   IN4 -> D11
   wiring.** The constructor takes the pins out of order:
   `Stepper(2048, 8, 10, 9, 11)`
 
-### 03 solenoid — the one that needs its own supply
+### 03 solenoid: the one that needs its own supply
 
 ```
 D6 -> MOSFET gate
@@ -122,7 +122,7 @@ D6 -> MOSFET gate
 - A reset means it is drawing from USB. Adafruit warn about this explicitly:
   1.1 A at 5V is too much
 
-### 04 capacitive — the one that will surprise you
+### 04 capacitive: the one that will surprise you
 
 ```
 A0 -> a bare wire -> foil, card or fabric
@@ -133,7 +133,7 @@ D9 -> servo signal
 - [ ] Open the Serial Plotter and watch the baseline drift. That drift is the
       whole lesson, so make sure it is visible before the session
 
-### 05 Peltier — safety first, and slow
+### 05 Peltier: safety first, and slow
 
 ```
 D3 PWM -> H-bridge low side
@@ -187,9 +187,9 @@ working stations beat six with a mystery.
 
 | Symptom | Run |
 |---|---|
-| Nothing happens on a pin | `pin_sweep` — drives every PWM pin in turn |
-| An I2C part is silent | `i2c_scanner` — is the chip even visible? |
-| A sensor reads oddly | `analog_monitor` — what range does it really give? |
+| Nothing happens on a pin | `pin_sweep`, which drives every PWM pin in turn |
+| An I2C part is silent | `i2c_scanner`. Is the chip even visible? |
+| A sensor reads oddly | `analog_monitor`. What range does it really give? |
 
 Do not run `pin_sweep` on the Peltier station. It drives pins to full.
 
