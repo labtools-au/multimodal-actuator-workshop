@@ -175,6 +175,30 @@ def actuator_slide(prs, name, photo_name, what, feels, used, spec):
     return s
 
 
+def qr(slide, name, caption, x, y, size=Pt(126), light=False):
+    """A QR code with its URL underneath.
+
+    Put one wherever the deck asks the room to open something. A URL read from
+    the back of a lecture theatre is a URL nobody opens.
+    """
+    f = HERE / f"{name}.png"
+    if f.exists():
+        slide.shapes.add_picture(str(f), x, y, width=size, height=size)
+    tb = slide.shapes.add_textbox(x - Pt(30), y + size + Pt(6), size + Pt(60), Pt(24))
+    tf = tb.text_frame
+    tf.word_wrap = True
+    tf.margin_left = tf.margin_right = tf.margin_top = tf.margin_bottom = 0
+    par = tf.paragraphs[0]
+    par.text = caption
+    par.alignment = PP_ALIGN.CENTER
+    _no_bullet(par)
+    for r in par.runs:
+        r.font.size = Pt(9)
+        r.font.color.rgb = RGBColor(0xC8, 0xD2, 0xDC) if light else GREY
+        r.font.name = FONT
+    return slide
+
+
 def photo_strip(slide, names, y, box_w=Pt(150), box_h=Pt(112), gap=Pt(14)):
     """A row of small photos along the bottom of a slide.
 
@@ -540,7 +564,6 @@ def build():
         prs, "The one that surprises people",
         lead="Touch input for the price of a wire. The thinking is where it costs you.",
         body=[
-            ("reading > baselineAverage() * 1.01", 0, True),
             ("Threshold is relative, never absolute", 0, True),
             ("Readings drift with humidity and mains hum", 1, False),
             ("Fixed threshold works at 9am, fails at 1pm", 1, False),
@@ -591,7 +614,7 @@ def build():
             ("Good for analysis. Useless for reacting in real time", 1, False),
         ])
 
-    content_slide(
+    phone_slide = content_slide(
         prs, "What a phone will and will not give you",
         lead="Open sensors.chomskylab.dk on your own phone right now.",
         body=[
@@ -605,6 +628,7 @@ def build():
             ("So \"the phone buzzes\" works on no iPhone in this room.", 0, True),
             ("Check the feature, not the tutorial, before it is in a plan.", 1, False),
         ])
+    qr(phone_slide, "qr_sensors", "sensors.chomskylab.dk", Pt(700), Pt(170))
 
     content_slide(
         prs, "Two rigs that already exist",
@@ -654,8 +678,10 @@ def build():
             ("That last one is the expensive mistake this prevents", 1, False),
         ])
 
-    title_slide(prs, "Go and touch things",
-                "github.com/labtools-au/multimodal-actuator-workshop")
+    closing = title_slide(prs, "Go and touch things",
+                          "Everything is open: code, slides and session plan")
+    qr(closing, "qr_repo", "github.com/labtools-au/\nmultimodal-actuator-workshop",
+       Pt(730), Pt(300), size=Pt(118), light=True)
 
     prs.save(OUT)
     print(f"wrote {OUT} ({len(prs.slides._sldIdLst)} slides)")
