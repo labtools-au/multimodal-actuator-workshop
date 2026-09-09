@@ -45,32 +45,12 @@ The actuators they are NOT driving sit on tables around the room. Tell them
 explicitly to go and pick those up between tasks. The comparison still happens,
 just on their own initiative rather than on a timer.""",
 
-    # 4: who is running this
-    """Thirty seconds, and worth it: most of the room has never been told what
-Chomskylab actually is, and several of them will need to borrow parts in the
-project weeks.
-
-Two things to land: the component store is real and open to them, and the lab
-writes its own software. The second one matters for this audience, because it
-makes the lab a place they could contribute to rather than only take from.
-
-If anyone asks how the drawer numbers and stock counts on these slides are so
-exact: they come straight out of the lab's component database.""",
-
     # 5: run sheet
     """Show it, do not narrate it. Fifteen seconds.
 
 The one hard checkpoint is 0:25. Everyone should have task 01 running by then.
 If someone is still fighting drivers at 0:30, pair them with a group that is
 working rather than debugging it alone.""",
-
-    # 4: section, five tasks
-    """0:10. Boards out.
-
-Get EVERYONE through task 01 before anyone races ahead. It is the shortest and
-it flushes out the setup problems: wrong board, wrong port, missing driver.
-
-Once task 01 runs for a pair, they can move at their own pace.""",
 
     # 5: five tasks list
     """Ninety seconds on this slide, no more.
@@ -111,14 +91,6 @@ back and ask for: 8A breadboard supply, 2C H-bridge, 11F amplifier.
 Jumper wires, breadboards and resistors are not tracked in the component
 database, so make sure there are enough on the tables before students
 arrive.""",
-
-    # 9: section, what is on the tables
-    """Two minutes total for this whole run of slides. It is a menu, not a
-lecture: they are choosing what to go and pick up later.
-
-Hold up the real part as you show each one. The photo is a reminder for people
-reading the deck afterwards; the object in your hand is what lands in the
-room.""",
 
     # 9: coin motor
     """The one everybody already owns without knowing it. Every phone has one.
@@ -178,26 +150,20 @@ Needs a ULN2003 driver board, drawer 2A, 27 of them.""",
 Good answer for anything that should hold and then release: a latch, a door, a
 thing that falls when the event happens.""",
 
-    # 19: freestyle
-    """Say this out loud, do not just show it. Some students will not believe
-they are allowed to skip ahead or stop early unless you tell them.
+    # 17: freestyle within three limits
+    """Two messages on one slide, and they pull in opposite directions on
+purpose. Say the permission warmly, then change tone for the limits.
 
-The failure mode is a pair rushing all five tasks badly instead of doing two
-properly. Name that explicitly.""",
+Permission first: some students will not believe they are allowed to skip
+ahead or stop early unless told. The failure mode is a pair rushing all five
+badly instead of doing two properly.
 
-    # 9: before you power anything
-    """The only slide where you should sound firm.
+Then the three hard limits, and here you should sound firm. Say the numbers
+out loud: a pin gives 40 mA, the motor wants about 75. It is not a rule they
+have to take on faith.
 
-Three real hazards:
-  * solenoid and Peltier on their own supply, not USB
-  * Peltier heatsink on before it is switched on, no exceptions
-  * no motor straight from a pin
-
-Say the numbers: a pin gives 40 mA, the motor wants about 75. It is not a rule
-they have to take on faith.
-
-Also mention that a board resetting when the solenoid fires is a POWER problem,
-not a code bug. It will save someone twenty minutes.""",
+Worth adding: a board resetting when the solenoid fires is a POWER problem,
+not a code bug. That saves someone twenty minutes.""",
 
     # 10: the one that surprises people
     """Slow down here. This is the single idea most worth stealing from today, and
@@ -264,21 +230,13 @@ vibration: check the feature before it goes in a plan.
 Good project prompt if anyone wants one: a page that pairs with a strap and
 drives an actuator from a live pulse. That is an afternoon.""",
 
-    # sensors already in the room
-    """Worth five minutes, because it reframes what a prototype can be. Half
-the room assumes multimodal means buying hardware.
+    # 23: what a phone will and will not give you
+    """Have them open sensors.chomskylab.dk on their own phones while you talk.
+The split between what works and what does not lands far harder on their own
+device than on a slide.
 
-Have them open the page on their own phones while you talk. The split between
-what works and what does not lands much harder when it is their device.
-
-The watch line matters for project planning: several groups every year propose
-live Apple Watch or Garmin data, and neither streams to a web page. Both need a
-native companion app. Fine for after-the-fact analysis, not for anything
-reacting in real time inside the project weeks.""",
-
-    # vibrate check
-    """The single most useful fact on the slide, and the one people get wrong
-because a blog post said otherwise.
+The bottom half is the single most useful fact here, and the one people get
+wrong because a blog post said otherwise.
 
 Say it plainly: iPhones do not vibrate from a web page. Not with a polyfill,
 not with a library, not in Chrome for iOS, which is Safari underneath.
@@ -325,19 +283,17 @@ Run the test: swap groups, receiver looks away, guess all three.
 Then have each group name which two got confused and what would have separated
 them. That confusion is the actual learning, not the successful ones.""",
 
-    # 17: test it
-    """Put this up while the blind tests are running so groups can check
-themselves without asking you.
+    # 28: before you call it done
+    """Put this up while the blind tests run, so groups can check themselves
+without asking you.
 
-The second line matters most: a device that fires continuously when held is
-the single most common bug, and it is a debounce problem.""",
+The middle line matters most: a device that fires continuously when held is
+the single most common bug, and it is a debounce problem.
 
-    # 18: what you actually learn
-    """The closing argument. Thirty seconds.
-
-If they leave with only one thing, it should be the third: pick the actuator
-before designing the interaction. Discovering in week 46 that the chosen one
-cannot do the job is the expensive mistake this session exists to prevent.""",
+Then close on the bottom half, thirty seconds. If they leave with one thing,
+make it the last point: pick the actuator before designing the interaction.
+Discovering in week 46 that the chosen one cannot do the job is the expensive
+mistake this session exists to prevent.""",
 
     # 19: closing
     """Point them at the repo. Every task sketch is commented for them, and the

@@ -369,20 +369,6 @@ def build():
             ("Someone else has to read it", 1, False),
         ])
 
-    content_slide(
-        prs, "Who is running this",
-        lead="Chomskylab is the department's prototyping lab. Labtools is the "
-             "team, the tooling and the parts behind it.",
-        body=[
-            ("Everything on the tables came from the lab's component store", 0, True),
-            ("442 components, tracked with drawer numbers and live counts", 1, False),
-            ("You borrow parts for project work. Just ask", 1, False),
-            ("", 0, False),
-            ("The lab also builds the software it runs on", 0, True),
-            ("An event bus, a wall display, this workshop's sensor site", 1, False),
-            ("All of it open, at github.com/labtools-au", 1, False),
-        ])
-
     run_sheet_slide(prs, [
         ("0:00", "10 min", "Two motors, same message. Which felt urgent?"),
         ("0:10", "15 min", "Boards out, task 01 running for everyone"),
@@ -391,8 +377,6 @@ def build():
         ("1:35", "20 min", "Blind test on task 05"),
         ("1:55", "5 min", "Pack down"),
     ])
-
-    section_slide(prs, "Five tasks")
 
     content_slide(
         prs, "Five tasks, one board each",
@@ -436,8 +420,6 @@ def build():
         "L9110S H-bridge, 2C. Reversing, and the Peltier.",
         "PAM8403 amp, 11F. A transducer needs one.",
     ], Pt(380))
-
-    section_slide(prs, "What is on the tables")
 
     actuator_slide(
         prs, "Vibrating mini motor disc", "erm",
@@ -511,29 +493,16 @@ def build():
         "Drawer 3D  |  17 mini, 11 standard  |  needs a MOSFET")
 
     content_slide(
-        prs, "Freestyle is encouraged",
+        prs, "Freestyle, within three limits",
+        lead="You do not have to do the tasks in order, or finish them. "
+             "Playing properly with two beats rushing all five.",
         body=[
-            ("You do not have to do the tasks in order.", 0, True),
-            ("You do not have to finish them.", 0, True),
+            ("If you want to drive something not in front of you, go and get it.", 0, False),
             ("", 0, False),
-            ("Getting task 01 working and then properly playing with task 02 "
-             "beats rushing through all five.", 0, False),
-            ("", 0, False),
-            ("If you want to drive something that is not in front of you, "
-             "go and get it.", 0, False),
-        ])
-
-    content_slide(
-        prs, "Before you power anything",
-        body=[
-            ("The solenoid and the Peltier both pull real current.", 0, True),
-            ("They need their own supply. Ask before you rewire either.", 1, False),
-            ("", 0, False),
-            ("The Peltier needs its heatsink on. Every time.", 0, True),
-            ("Without it the tile cooks itself in about a minute.", 1, False),
-            ("", 0, False),
-            ("Never drive a motor straight from a pin.", 0, True),
-            ("40 mA limit. The motor wants nearly twice that.", 1, False),
+            ("The three things that are not negotiable", 0, True),
+            ("Solenoid and Peltier get their own supply, never USB", 1, False),
+            ("The Peltier heatsink goes on before it is switched on", 1, False),
+            ("No motor straight from a pin. 40 mA limit, it wants 75", 1, False),
         ])
 
     content_slide(
@@ -597,35 +566,18 @@ def build():
         ])
 
     content_slide(
-        prs, "The sensors already in the room",
-        lead="Every phone here is a multimodal device. Some of it the browser "
-             "will hand you, some of it it will not.",
+        prs, "What a phone will and will not give you",
+        lead="Open sensors.chomskylab.dk on your own phone right now.",
         body=[
-            ("Open sensors.chomskylab.dk on your phone right now", 0, True),
+            ("Works in a web page", 0, True),
+            ("Accelerometer and gyroscope, microphone, camera", 1, False),
+            ("Pointer pressure, though a trackpad reports only 0 or 0.5", 1, False),
+            ("Does not, whatever the tutorial says", 0, True),
+            ("Phone vibration on iOS. WebKit has never shipped it, at any "
+             "version, and Chrome on iOS is Safari underneath", 1, False),
             ("", 0, False),
-            ("Works in a web page today", 0, True),
-            ("Accelerometer and gyroscope. Tap to grant, HTTPS only", 1, False),
-            ("Microphone. Easiest continuous input there is", 1, False),
-            ("Camera. Even reads a pulse off a face, badly", 1, False),
-            ("Trackpad pressure. Pointer Events carry a 0 to 1 force", 1, False),
-            ("", 0, False),
-            ("Does NOT work, whatever the tutorial says", 0, True),
-            ("Phone vibration on iOS. WebKit has never shipped it", 1, False),
-            ("Apple Watch or Garmin, live. Both need a native app", 1, False),
-        ])
-
-    content_slide(
-        prs, "The one to check before you promise it",
-        lead="navigator.vibrate: Android yes, iOS no, at every version to date.",
-        body=[
-            ("caniuse lists Safari 3.1 to 27 as unsupported.", 0, False),
-            ("Chrome and Firefox on iOS are Safari underneath, so they "
-             "inherit the gap.", 0, False),
-            ("", 0, False),
-            ("\"The phone buzzes\" therefore works on some of the room and "
-             "no iPhones.", 0, True),
-            ("", 0, False),
-            ("Check the feature, not the tutorial, before it is in your plan.", 0, False),
+            ("So \"the phone buzzes\" works on no iPhone in this room.", 0, True),
+            ("Check the feature, not the tutorial, before it is in a plan.", 1, False),
         ])
 
     content_slide(
@@ -668,30 +620,16 @@ def build():
         ])
 
     content_slide(
-        prs, "Test it",
+        prs, "Before you call it done",
         lead="Hand your device to another group with the screen turned away.",
         body=[
-            ("They can tell all three messages apart.", 1, False),
-            ("It does not fire continuously when held.", 1, False),
-            ("You know which two got confused, and what would have separated "
-             "them.", 1, False),
-            ("It still works when they are not looking at it.", 1, False),
-        ])
-
-    content_slide(
-        prs, "What you actually learn",
-        lead="Three things you cannot get from a datasheet.",
-        body=[
-            ("What things feel like", 0, True),
-            ("A motor is a nudge. A solenoid is a knock. A Peltier is slow.", 1, False),
+            ("They can tell all three messages apart", 1, False),
+            ("It does not fire continuously when held", 1, False),
+            ("You know which two got confused, and why", 1, False),
             ("", 0, False),
-            ("How to drive one", 0, True),
-            ("PWM, direction, debouncing, and why a motor never goes straight "
-             "to a pin.", 1, False),
-            ("", 0, False),
-            ("What to pick", 0, True),
-            ("Choosing the actuator before designing the interaction, not in "
-             "week 46.", 1, False),
+            ("What you actually leave with", 0, True),
+            ("What things feel like, how to drive one, and which to pick", 1, False),
+            ("That last one is the expensive mistake this prevents", 1, False),
         ])
 
     title_slide(prs, "Go and touch things",
