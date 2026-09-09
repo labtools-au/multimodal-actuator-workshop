@@ -38,36 +38,57 @@ designed on paper then dropped. Two minutes, then move.""",
     """Set the shape clearly, because it is not a lecture and they will wait to be
 lectured at.
 
-A board each. Five tasks. Everything pre-wired. They upload, change numbers,
-upload again.
+A board each, and they build the circuits themselves from an empty breadboard.
+Say that plainly, because a room of computer scientists will assume the
+hardware is someone else's problem and wait to be handed a working rig.
 
-The actuators they are NOT driving sit on tables around the room. Tell them
-explicitly to go and pick those up between tasks. The comparison still happens,
-just on their own initiative rather than on a timer.""",
+Two or three stations each, in rising difficulty. Nobody builds all six.
+
+The ladder does the teaching: task 00 is two wires, task 04 is one, task 05
+joins them, and only then does task 01 introduce a transistor. By the time
+they meet a driver circuit they have already had three things work, which is
+what makes them willing to debug the fourth.
+
+The actuators they are NOT building sit on tables at the front. Tell them
+explicitly to go and pick those up between builds.""",
 
     # 5: run sheet
     """Show it, do not narrate it. Fifteen seconds.
 
-The one hard checkpoint is 0:25. Everyone should have task 01 running by then.
-If someone is still fighting drivers at 0:30, pair them with a group that is
-working rather than debugging it alone.""",
+Two hard checkpoints. At 0:20 every single person should have a piezo ticking,
+because that is two wires and if it is not working the problem is the board or
+the IDE, not the circuit. Fix those before anyone meets a transistor.
 
-    # 5: five tasks list
+At 0:40 most people should have task 01 buzzing. If someone is still fighting
+it, pair them with a working group rather than leaving them to debug alone.
+
+Walk the room during the 45 minute block. Look for reversed diodes and
+transistors in backwards; both fail silently and neither is guessable.""",
+
+    # 5: tasks in build order
     """Ninety seconds on this slide, no more.
 
-Name the arc, it is the point: 1 to 3 are output, 4 is input, 5 is both. By
-task 5 they have built a complete interaction loop, which is the shape of most
-project work.
+Read it as a ladder, because that is what it is. The top three need no
+transistor at all: piezo, foil pad, then the two joined together. That is a
+complete sense-and-respond loop built from three wires, and they can have it
+working inside twenty minutes.
 
-Say clearly that nobody is expected to finish all five. Getting 01 working and
-then properly playing with 02 beats rushing all of them.
+The bottom three each add exactly one new idea. Task 01 adds a transistor and
+a flyback diode, because a motor draws 100 mA and a pin gives 40. Task 02 adds
+a separate supply. Task 03 adds an H-bridge for direction.
+
+Say clearly that nobody is expected to do all six, and that two done properly
+beats five rushed.
 
 Task 05's last experiment IS the closing brief, so the work carries over.""",
 
     # 6: how the sketches work
     """Say the format once here rather than repeating it per task.
 
-CHANGE ME at the top: two or three numbers, already set to something that
+PINS at the very top: every leg and every wire. That block is what they build
+from, and it is why nobody needs a schematic. Point at it explicitly.
+
+CHANGE ME below that: two or three numbers, already set to something that
 works. THINGS TO TRY at the bottom: four experiments, easy to hard, and the
 last one usually asks for a rewrite rather than a tweak.
 

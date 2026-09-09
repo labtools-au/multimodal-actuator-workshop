@@ -5,7 +5,7 @@
 // Upload this. The motor pulses. Then change the two numbers marked CHANGE ME
 // and upload again. That loop, edit and re-upload, is the whole workshop.
 //
-// PINS (already wired on the table, you only upload)
+// PINS  build this before you upload
 //
 //   D9  PWM ---[ 1k ]--- PN2222 base
 //                        emitter -> GND

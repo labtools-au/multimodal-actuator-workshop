@@ -7,7 +7,7 @@
 // motor in task 1, there is no "half a tap". It fires or it does not, so the
 // only things you control are WHEN and HOW OFTEN.
 //
-// PINS (already wired on the table, you only upload)
+// PINS  build this before you upload
 //
 //   D6 ---------------- MOSFET gate (logic-level, e.g. IRLZ44N)
 //                       source -> GND

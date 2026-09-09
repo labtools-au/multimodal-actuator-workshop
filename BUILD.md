@@ -13,13 +13,22 @@ discovery. Budget an evening, not an hour.
 Five things are not in the component database and have to come from somewhere
 else. Everything else is in the drawers.
 
-- [ ] **Breadboards**, 15 or so. Half-size is fine.
-- [ ] **Jumper wires**, male-male and male-female. Buy more than you think.
-- [ ] **Resistors**: a mixed kit, but you specifically need 1k and 220R.
-- [ ] **Transistors**: PN2222 or 2N2222 (small NPN), and IRLZ44N or another
-      logic-level MOSFET.
-- [ ] **Diodes**: 1N4148 or 1N4001. **Not optional.** Every motor, solenoid
-      and electromagnet needs one across it or the transistor dies.
+**Quantities assume students build their own circuits**, two or three each.
+That makes transistors and diodes consumables rather than fixtures, and some
+will be destroyed. Buy accordingly.
+
+- [ ] **Breadboards**, one per student plus four spares. Half-size is fine.
+- [ ] **Jumper wires**, male-male and male-female. Buy far more than you think:
+      a student building from scratch uses six to ten per circuit.
+- [ ] **Resistors**: a mixed kit, but you specifically need 1k and 220R. Get
+      at least 40 of the 1k, since every motor circuit uses one.
+- [ ] **Transistors**: PN2222 or 2N2222 (small NPN), **at least 40**, and
+      IRLZ44N or another logic-level MOSFET, at least 15. Expect to lose some
+      to reversed diodes.
+- [ ] **Diodes**: 1N4148 or 1N4001, **at least 40**. **Not optional.** Every
+      motor, solenoid and electromagnet needs one across it or the transistor
+      dies. This is the single most common destructive mistake, so have spares
+      within arm's reach during the session.
 
 Two things to check rather than buy:
 
@@ -34,11 +43,15 @@ Two things to check rather than buy:
 
 All confirmed in stock on 9 September 2026. Re-check anything you depend on.
 
+One board per student, and enough actuators that everyone can build the
+first three tasks at the same time. **The 14 Unos set your class size**: past
+that, students pair up.
+
 | Drawer | Part | Take |
 |---|---|---|
-| **5A** | Arduino Uno | 14 |
+| **5A** | Arduino Uno | 14, one each |
 | **1E** | Vibrating Mini Motor Disc | 16 |
-| **6F** | Piezo Element | 14 |
+| **6F** | Piezo Element | 20, everyone starts here |
 | **3E** | Mini Push-Pull Solenoid 5V | 6 |
 | **4C** | Peltier element / Cooling Pad | 4 |
 | **7F** | Surface Transducer | 4 |
@@ -69,8 +82,13 @@ Nothing else is needed. Bench 02 drives the piezo straight from a pin.
 
 ## Step 3: build one station at a time, and test it
 
-Do these in order. Each one is a bench test that proves a single component
-before you combine anything.
+**Students build their own circuits on the day.** These bench tests are for
+you, beforehand: one working example of each circuit, so that when a student
+is stuck you can put a known-good build next to theirs and compare. Keep them
+assembled and bring them.
+
+Do these in order. Each one proves a single component before you combine
+anything.
 
 Flash from `bench_tests/<name>/`, watch the Serial Monitor at 9600 baud.
 
@@ -187,12 +205,19 @@ amp -> transducer, pressed FLAT against a plate
 
 ---
 
-## Step 4: the input table
+## Step 4: the parts table
 
-No wiring, just laid out with a sign:
+Students take what they need from here, so it has to be self-service.
 
+- [ ] One tray per component type, labelled. Transistors and diodes in their
+      own trays, clearly apart: they look similar and swapping them is the
+      mistake that costs parts
+- [ ] **A diode orientation card** next to the diode tray. One line: band goes
+      to +V. This is the most expensive mistake in the room and a card at the
+      point of use prevents more of it than a slide does
 - [ ] FSR, flex, pulse, GSR on one table
 - [ ] A note saying there is **only one GSR sensor**, so ask before taking it
+- [ ] Your own built benches at the front, working, as reference builds
 
 ---
 
@@ -203,6 +228,8 @@ No wiring, just laid out with a sign:
 - [ ] Write `sensors.chomskylab.dk` next to it
 - [ ] Check the Peltier's heatsink paste
 - [ ] Have the coin motor and solenoid both wired for the opening demo
+- [ ] Lay out the parts trays and the diode orientation card
+- [ ] Put your reference builds where students can walk up to them
 - [ ] **Photograph each station** while it is built and working. Drop them in
       `docs/photos/`, re-run the deck build, and next year is easier
 

@@ -382,48 +382,51 @@ def build():
     content_slide(
         prs, "How today works",
         body=[
-            ("A board each, five tasks, everything pre-wired", 0, True),
-            ("Upload, change two numbers, upload again", 1, False),
-            ("You wire nothing today", 1, False),
+            ("A board each. You build the circuits yourself", 0, True),
+            ("Every part, every wire, from an empty breadboard", 1, False),
+            ("Two or three stations each, getting harder", 0, True),
+            ("Start with two wires. End with a transistor", 1, False),
             ("Actuators are on the tables at the front", 0, True),
-            ("Go and feel the ones your task does not use", 1, False),
+            ("Go and feel the ones you did not build", 1, False),
             ("Finish by building one signal someone else can read", 0, True),
         ])
 
     run_sheet_slide(prs, [
         ("0:00", "10 min", "Two motors, same message. Which felt urgent?"),
-        ("0:10", "15 min", "Boards out, task 01 running for everyone"),
-        ("0:25", "60 min", "Tasks 02 to 05, at your own pace"),
+        ("0:10", "10 min", "Breadboards out. Piezo: two wires, everyone"),
+        ("0:20", "20 min", "Task 01: your first driver circuit, together"),
+        ("0:40", "45 min", "Build on, at your own pace"),
         ("1:25", "10 min", "Round-the-room: what surprised you"),
         ("1:35", "20 min", "Blind test on task 05"),
         ("1:55", "5 min", "Pack down"),
     ])
 
     content_slide(
-        prs, "Five tasks, one board each",
-        lead="Upload, change two numbers, upload again. That loop is the point.",
+        prs, "The tasks, in build order",
+        lead="Each one adds a single new thing to the circuit before it.",
         body=[
-            ("01   Make something spin        coin motor", 0, True),
-            ("02   Make something tap         solenoid", 0, True),
-            ("03   Make something warm        Peltier tile", 0, True),
-            ("04   Make it notice you         a wire and foil", 0, True),
-            ("05   Make it answer back        both together", 0, True),
-            ("06   Use what you have          sensors.chomskylab.dk", 0, True),
+            ("00   Make it tick        piezo             2 wires", 0, True),
+            ("04   Make it notice you  wire and foil     1 wire", 0, True),
+            ("05   Make it answer      both of the above 3 wires", 0, True),
             ("", 0, False),
-            ("1 to 3 output, 4 input, 5 both. Nobody finishes all six.", 0, False),
+            ("01   Make something spin coin motor        + transistor", 0, True),
+            ("02   Make something tap  solenoid          + own supply", 0, True),
+            ("03   Make something warm Peltier tile      + H-bridge", 0, True),
+            ("", 0, False),
+            ("Two or three each. Nobody does all of them.", 0, False),
         ])
 
     content_slide(
         prs, "How the task sketches work",
-        lead="Every sketch runs the moment you upload it. Nothing to wire. "
+        lead="Wire it from the diagram at the top, then upload. "
              "All of them: github.com/labtools-au/multimodal-actuator-workshop",
         body=[
-            ("A CHANGE ME block at the top", 0, True),
+            ("A PINS block at the very top", 0, True),
+            ("Every leg, every wire. Build from that, not from memory", 1, False),
+            ("A CHANGE ME block below it", 0, True),
             ("Two or three numbers. Edit, upload, feel the difference", 1, False),
             ("A THINGS TO TRY list at the bottom", 0, True),
             ("Four experiments. The last is the interesting one", 1, False),
-            ("Three of them also run in the browser", 0, True),
-            ("wokwi/ in the repo. Same code, no hardware", 1, False),
         ])
 
     pin_slide = content_slide(
@@ -648,10 +651,10 @@ def build():
         prs, "The brief",
         lead="30 minutes. Not long enough to be precious about it.",
         body=[
-            ("One actuator. Three messages", 0, True),
-            ("Arrived. Something wrong. Finished", 1, False),
-            ("Vary two things only", 0, True),
-            ("Rhythm of the pulses, and how strong they are", 1, False),
+            ("One actuator, whichever you built", 0, True),
+            ("Three messages: arrived, something wrong, finished", 1, False),
+            ("Vary rhythm above all", 0, True),
+            ("Piezo: rhythm is all you have. Motor: strength too", 1, False),
             ("Blind test: they name all three", 0, True),
             ("Note which two got confused, and why", 1, False),
         ])

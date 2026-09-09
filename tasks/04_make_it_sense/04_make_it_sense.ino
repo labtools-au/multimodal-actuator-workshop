@@ -6,7 +6,7 @@
 // finger is near. This is the cheapest input in the room and the one people
 // are most surprised by.
 //
-// PINS (already wired on the table, you only upload)
+// PINS  build this before you upload
 //
 //   A0 ---- a bare wire ---- foil, card or fabric
 //

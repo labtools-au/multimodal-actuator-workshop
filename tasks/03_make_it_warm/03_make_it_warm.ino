@@ -7,7 +7,7 @@
 // reverses. An H-bridge is what lets you flip that current from code.
 //
 //
-// PINS (already wired on the table, you only upload)
+// PINS  build this before you upload
 //
 //   D3  PWM ---- channel LOW side  \
 //                                    both to the H-bridge, tile across it
