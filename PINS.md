@@ -24,7 +24,7 @@ needing a variable level has to sit on one of those.
 | Bench | Pin | Goes to |
 |---|---|---|
 | 01 ERM | **D9** PWM, **D2** button | as task 01 |
-| 02 LRA/piezo | **A4** SDA, **A5** SCL | DRV2605L, address 0x5A |
+| 02 piezo | **D8** | piezo, other leg to GND |
 | 03 solenoid | **D6** | MOSFET gate |
 | 04 capacitive | **A0**, **D9** | pad, servo signal |
 | 05 Peltier | **D3**, **D5** PWM | H-bridge |

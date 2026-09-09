@@ -17,6 +17,14 @@ benches around the room, to pick up and compare between tasks.
 
 📄 **[Full session plan, run sheet and kit list](https://claude.ai/code/artifact/1e577f62-4cae-4ec5-a407-69494dc85f7e)**
 
+## Building it
+
+[BUILD.md](BUILD.md) is the step-by-step: what to buy, which drawers to raid,
+which library to install, and each station in the order to build and test it,
+with what "working" looks like for each.
+
+Start there if you are setting the room up.
+
 ## Try it before you touch hardware
 
 [`wokwi/`](wokwi) has three tasks as runnable browser simulations, so a student
@@ -125,7 +133,7 @@ without that the PDF exports would lose them.
 | # | Bench | Modality | Code |
 |---|---|---|---|
 | 01 | ERM coin motor | vibration | [`01_erm_motor`](bench_tests/01_erm_motor) |
-| 02 | LRA + piezo disc | vibration | [`02_lra_piezo`](bench_tests/02_lra_piezo) |
+| 02 | Piezo element | vibration | [`02_piezo`](bench_tests/02_piezo) |
 | 03 | Solenoid tap | impact | [`03_solenoid`](bench_tests/03_solenoid) |
 | 04 | Capacitive touch to servo | touch input | [`04_capacitive_touch`](bench_tests/04_capacitive_touch) |
 | 05 | Peltier warm / cool | thermal | [`05_peltier`](bench_tests/05_peltier) |
@@ -243,7 +251,6 @@ Arduino IDE → Library Manager:
 
 - **ADCTouch** (martin2250), bench 4
 - **Servo**, bundled with the IDE
-- **Adafruit DRV2605**, bench 2
 
 ## Where this sits in the course
 

@@ -1,13 +1,12 @@
 // UTIL: I2C SCANNER
 //
 // Lists every I2C device the board can see. Run this FIRST whenever an I2C
-// part misbehaves: bench 02's DRV2605L haptic driver, or an MPR121 if you add
-// one for a project.
+// part misbehaves. Nothing in this workshop uses I2C, so this is here for
+// project work: an MPR121 touch breakout, an MPU6050, an OLED, a DRV2605L
+// haptic driver if you buy one.
 //
 // No address found means the problem is wiring or power, not your code.
 // Wrong address means your library is looking in the wrong place.
-//
-// Expected on bench 02: 0x5A (DRV2605L).
 //
 // The same scanner lives in ktane/utils/. Keeping one around is a habit worth
 // copying: rule out the hardware before you start reading your own code.
