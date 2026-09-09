@@ -3,6 +3,16 @@
 Three tasks as runnable [Wokwi](https://wokwi.com) projects. Free, browser
 based, no install.
 
+## About the breadboard
+
+You cannot add one from `diagram.json`. Wokwi's editor draws the breadboard on
+the canvas itself, so it never appears as a part. Confirmed against
+[wokwi-elements](https://github.com/wokwi/wokwi-elements/tree/main/src): 50
+elements, none of them a breadboard.
+
+If you want one in the picture, add it in the Wokwi editor after pasting the
+diagram, then drag the parts onto it. The connections stay valid.
+
 ## After editing a diagram
 
 ```bash
@@ -34,6 +44,7 @@ as they are built. Every project here substitutes, and says so on the canvas.
 | 01 make it spin | A **relay module** replaces the transistor and motor. The module contains the same driver circuit you build by hand. An LED shows when it is on. | The code is identical. The rhythm and timing are real. |
 | 02 make it tap | Same relay, on D6. | You can **hear** the relay click each pulse, so the rhythm of a tacton is audible. |
 | 04 make it sense | A **button** replaces the foil pad. | The shape of the task: touch causes a response. |
+| 07 stepper | **Nothing.** Wokwi has a real stepper, driven by the same four coil signals the ULN2003 passes through. | The most faithful of the four. Get the constructor pin order wrong and you can watch it jitter instead of turn, without wasting an hour at the bench. |
 
 **What none of them show:** the flyback diode, the base resistor, and where
 each leg physically goes. Those live in the `// PINS` block at the top of every

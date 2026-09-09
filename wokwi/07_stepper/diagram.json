@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "author": "Labtools, Aarhus University",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "id": "uno",
+      "type": "wokwi-arduino-uno",
+      "left": 0,
+      "top": 140
+    },
+    {
+      "id": "st1",
+      "type": "wokwi-stepper-motor",
+      "left": 420,
+      "top": 40,
+      "attrs": {
+        "arrow": "orange",
+        "size": "small"
+      }
+    },
+    {
+      "id": "note",
+      "type": "wokwi-text",
+      "left": 0,
+      "top": 20,
+      "attrs": {
+        "text": "The pins go into the Stepper constructor OUT of order: Stepper(2048, 8, 10, 9, 11). Wire them 8..11 in order, then swap the middle two in code. Sequential order makes it buzz instead of turn."
+      }
+    }
+  ],
+  "connections": [
+    [
+      "uno:8",
+      "st1:A+",
+      "green",
+      []
+    ],
+    [
+      "uno:9",
+      "st1:A-",
+      "blue",
+      []
+    ],
+    [
+      "uno:10",
+      "st1:B+",
+      "purple",
+      []
+    ],
+    [
+      "uno:11",
+      "st1:B-",
+      "orange",
+      []
+    ]
+  ]
+}

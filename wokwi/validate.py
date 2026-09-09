@@ -27,7 +27,17 @@ PINS = {
     "wokwi-servo": {"PWM", "V+", "GND"},
     "wokwi-pushbutton": {"1.l", "1.r", "2.l", "2.r"},
     "wokwi-text": set(),          # decorative, no pins
+    "wokwi-stepper-motor": {"A+", "A-", "B+", "B-"},
+    "wokwi-a4988": {"ENABLE", "MS1", "MS2", "MS3", "RESET", "SLEEP", "STEP",
+                    "DIR", "VMOT", "GND.1", "GND.2", "VDD", "1A", "1B",
+                    "2A", "2B"},
+    "wokwi-buzzer": {"1", "2"},
+    "wokwi-potentiometer": {"GND", "SIG", "VCC"},
 }
+
+# NOTE: there is no breadboard element. Wokwi's editor draws a breadboard on
+# the canvas itself, so it never appears in diagram.json. Confirmed against
+# github.com/wokwi/wokwi-elements/src, which has 50 elements and no breadboard.
 
 ROUTING = re.compile(r"\*|[vh]-?\d+")
 
