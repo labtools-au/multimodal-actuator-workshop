@@ -7,7 +7,11 @@
 //
 //   IN1 -> D8      IN2 -> D9      IN3 -> D10     IN4 -> D11
 //
-//   Board 5V and GND to the Arduino, or its own supply under any load.
+//   POWER THE BOARD SEPARATELY. Each coil pulls about 240 mA and the driver
+//   holds them energised even when still, which is too much through the Uno's
+//   5V pin. Measured here: LEDs lit, motor never turned, then the Mac cut the
+//   USB port and the board vanished from /dev. Use the YwRobot supply at 8A,
+//   and join its ground to the Arduino's.
 //   The power header is FOUR pins: minus on the outside edge, then plus,
 //   then two inner pins bridged by a small MOTOR ON/OFF jumper. No jumper
 //   means no LEDs and no movement, with the logic side still working.

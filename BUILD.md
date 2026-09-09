@@ -55,7 +55,7 @@ that, students pair up.
 | **3E** | Mini Push-Pull Solenoid 5V | 6 |
 | **4C** | Peltier element / Cooling Pad | 4 |
 | **7F** | Surface Transducer | 4 |
-| **8A** | YwRobot breadboard supply | 14 |
+| **8A** | YwRobot breadboard supply | 14, the steppers need these |
 | **2C** | L9110S H-bridge | 6 |
 | **11F** | PAM8403 amplifier | 4 |
 | **2A** | Stepper 28BYJ-48 + ULN2003 | 4 of each, students build these too |
@@ -256,6 +256,7 @@ working stations beat six with a mystery.
 | An I2C part is silent | `i2c_scanner`. Is the chip even visible? |
 | A sensor reads oddly | `analog_monitor`. What range does it really give? |
 | Stepper silent, no LEDs on the driver | The board is unpowered. Check the MOTOR ON/OFF jumper, then the polarity: minus is the OUTSIDE pin. The LEDs are on the output side, so they cannot light without board power however good the input signals are |
+| Stepper LEDs light but shaft does not move | Not enough current. LEDs need a few mA, coils need hundreds. Give the driver its own 5V supply and join the grounds. Running it off the Uno's 5V can also make the host cut the USB port, at which point the board disappears from /dev and needs a cable reconnect |
 | Capacitive touch dead or erratic | Check the board is on **USB from a laptop**. An isolated supply removes the ground reference the sensing depends on. Nothing looks wrong; it just stops working |
 
 Do not run `pin_sweep` on the Peltier station. It drives pins to full.

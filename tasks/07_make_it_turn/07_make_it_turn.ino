@@ -74,10 +74,29 @@
 //   LEDs with known-good input signals means an unpowered board rather than a
 //   broken one.
 //
-// POWER: USB is enough to turn this unloaded. Put a real load on it and the
-// board browns out and resets, which looks like a crash and is not one. The
-// driver also keeps the coils energised when idle, so the motor gets warm
-// sitting still. That is this driver being normal, not a fault.
+// POWER: GIVE THE DRIVER ITS OWN SUPPLY. Do not run it from the Uno's 5V pin.
+//
+//   Each coil pulls roughly 240 mA and the ULN2003 holds coils energised
+//   continuously, including when the motor is standing still. That is far more
+//   than a laptop USB port wants to give through an Arduino. Measured on the
+//   bench: the LEDs lit correctly and the motor never moved, and then the Mac
+//   cut the port entirely and the board disappeared from /dev. Unplugging and
+//   reconnecting the USB cable resets that.
+//
+//   So:
+//     driver +  ->  external 5V (YwRobot breadboard supply, drawer 8A)
+//     driver -  ->  that supply's GND
+//     driver -  ->  ALSO the Uno's GND, or the inputs have no reference
+//     IN1..IN4  ->  D8..D11 as before
+//
+//   The Uno then carries signals only, and the coil current never crosses it.
+//
+//   THE SYMPTOM TO RECOGNISE: LEDs light in sequence but the shaft does not
+//   move. The LEDs need a few mA and the coils need hundreds, so a supply that
+//   is too weak lights one and not the other. That is not a broken motor.
+//
+//   The motor also gets warm sitting still, because the coils stay energised.
+//   That is this driver being normal, not a fault.
 
 #include "logger.h"
 
