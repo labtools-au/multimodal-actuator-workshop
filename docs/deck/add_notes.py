@@ -124,68 +124,63 @@ Jumper wires, breadboards and resistors are not tracked in the component
 database, so make sure there are enough on the tables before students
 arrive.""",
 
-    # 9: coin motor
-    """The one everybody already owns without knowing it. Every phone has one.
+    # piezo, the first thing they build
+    """First actuator and first build, so keep it short and get them moving.
 
-The point worth making: speed and strength are welded together. That single
-constraint is why the other five exist.""",
+A crystal that flexes when you put current across it. Near-instant, almost no
+power, but shallow. A tick, not a thump.
 
-    # 10: LRA and piezo
-    """The escape from the coin motor's compromise. A crystal that flexes when
-you put current across it: near-instant, almost no power, but shallow.
+Two wires and no driver, because a piezo is a capacitor and draws almost
+nothing. That is the honest reason it is first, and it is worth saying: when
+this works, their board, cable, port and IDE are all proven, so every later
+failure is in the circuit they built.
 
-A tick, not a thump. Point anyone here who needs something to feel responsive
-rather than just present. 69 in the drawer, so nobody has to share.""",
+Tell them to press it flat against the table. It gets much louder, because the
+table becomes the diaphragm. Same effect the surface transducer uses.""",
 
-    # 11: solenoid
-    """Pass this one around if you can. It is the one people remember, because a
-knock reads as a person rather than a machine.
-
-Warn them now that it needs its own supply, so it does not come as a surprise
-at task 02.""",
-
-    # 12: capacitive pad
+    # capacitive pad
     """Hold up a wire and a piece of foil. That is genuinely the whole sensor.
 
 This is the slide that changes what people think is possible, because it costs
-nothing and hides completely inside a prototype.""",
+nothing and hides completely inside a prototype.
 
-    # 13: peltier tile
-    """Say the honest limitation out loud: it is slow, and hot alternating with
-cold just reads as lukewarm.
+Two things to say now rather than when it bites. Keep the board on laptop USB:
+the sensing measures your body against the board's ground and that reference
+arrives through the mains earth, so on a charger or a battery it goes unstable
+or dead with nothing visibly wrong. And hands off the pad while it boots, or it
+learns that a finger is the resting state and then nothing ever triggers.""",
 
-Good for slow ambient state. Wrong for alerts. Saying so here saves a project
-from finding out in week 46.""",
+    # stepper
+    """The precision option, and the only actuator here that goes to a POSITION
+rather than a state. 2048 steps per revolution, no feedback sensor needed.
 
-    # 14: transducer
-    """The redundancy argument. Same driver, one frequency you feel and one you
-hear.
+Two things will bite, so say both before they start.
 
-Together is not louder, it is more certain. Cheapest reliability a project can
-buy, and it is also the accessibility answer.""",
+The constructor does NOT take the pins in numeric order. Wire IN1 to IN4 on
+pins 8 to 11, then write Stepper(2048, 8, 10, 9, 11). Get it wrong and it
+buzzes and jitters instead of turning, which looks exactly like a dead motor.
 
-    # 16: servo
-    """Worth showing even though it is not in a task. Most projects that need
-something to physically move end up here rather than on a vibration motor.
+Give the driver its own 5V supply. Each coil pulls about 240 mA and the board
+holds them energised even at rest, which is more than the Uno's 5V pin should
+carry. The symptom is misleading: the driver LEDs light in sequence while the
+shaft never moves, because LEDs need a few mA and coils need hundreds.""",
 
-80 in stock, so nobody has to share.""",
+    # what else the lab has
+    """Ninety seconds, and do not read the list. The purpose is permission, not
+coverage.
 
-    # 17: stepper
-    """The precision option. Moves in known steps, so you can position it
-without any feedback sensor at all. 2048 steps per revolution.
+They are building three things today. This slide says the drawers hold a lot
+more, so nobody designs a project around a coin motor just because it was the
+one on the slide.
 
-Needs a ULN2003 driver board, drawer 2A, 27 of them.
+Point out that tasks 01 to 03 are already in the repo with working code and
+wiring for the motor, the solenoid and the Peltier tile. They can pick those up
+in project weeks without starting from nothing.
 
-If anyone tries one: the Stepper constructor does NOT take the pins in numeric
-order. Wire IN1 to IN4 on pins 8 to 11, then write Stepper(2048, 8, 10, 9, 11).
-Get it wrong and it buzzes and jitters instead of turning, which looks like a
-dead motor. bench_tests/07_stepper has it right, with the note.""",
-
-    # 18: electromagnet
-    """The one people forget exists. It grabs and lets go, with nothing moving.
-
-Good answer for anything that should hold and then release: a latch, a door, a
-thing that falls when the event happens.""",
+If someone asks which to use for a project: the solenoid is the one people
+remember, because a knock reads as a person rather than a machine. The Peltier
+is slow and wrong for alerts, right for ambient state. Say that now and it
+saves someone finding out in week 46.""",
 
     # 17: freestyle within three limits
     """Two messages on one slide, and they pull in opposite directions on

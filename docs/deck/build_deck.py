@@ -384,8 +384,8 @@ def build():
         body=[
             ("A board each. You build the circuits yourself", 0, True),
             ("Every part, every wire, from an empty breadboard", 1, False),
-            ("Two or three stations each, getting harder", 0, True),
-            ("Start with two wires. End with a transistor", 1, False),
+            ("Four tasks, each one wire more than the last", 0, True),
+            ("Piezo, then a touch pad, then both, then a stepper", 1, False),
             ("Actuators are on the tables at the front", 0, True),
             ("Go and feel the ones you did not build", 1, False),
             ("Finish by building one signal someone else can read", 0, True),
@@ -393,9 +393,10 @@ def build():
 
     run_sheet_slide(prs, [
         ("0:00", "10 min", "Two motors, same message. Which felt urgent?"),
-        ("0:10", "10 min", "Breadboards out. Piezo: two wires, everyone"),
-        ("0:20", "20 min", "Task 01: your first driver circuit, together"),
-        ("0:40", "45 min", "Build on, at your own pace"),
+        ("0:10", "15 min", "Task 00: piezo. Two wires, everyone"),
+        ("0:25", "20 min", "Task 04: one wire and foil. Watch the drift"),
+        ("0:45", "20 min", "Task 05: join them. Touch in, tick out"),
+        ("1:05", "20 min", "Task 07: stepper, if you want it"),
         ("1:25", "10 min", "Round-the-room: what surprised you"),
         ("1:35", "20 min", "Blind test on task 05"),
         ("1:55", "5 min", "Pack down"),
@@ -405,16 +406,14 @@ def build():
         prs, "The tasks, in build order",
         lead="Each one adds a single new thing to the circuit before it.",
         body=[
-            ("00   Make it tick        piezo             2 wires", 0, True),
-            ("04   Make it notice you  wire and foil     1 wire", 0, True),
-            ("05   Make it answer      both of the above 3 wires", 0, True),
+            ("00   Make it tick        piezo              2 wires", 0, True),
+            ("04   Make it notice you  a wire and foil    1 wire", 0, True),
+            ("05   Make it answer      both of the above  3 wires", 0, True),
+            ("07   Make it turn        stepper            6 wires", 0, True),
             ("", 0, False),
-            ("07   Make it turn       stepper           6 wires, a trap", 0, True),
-            ("01   Make something spin coin motor        + transistor", 0, True),
-            ("02   Make something tap  solenoid          + own supply", 0, True),
-            ("03   Make something warm Peltier tile      + H-bridge", 0, True),
-            ("", 0, False),
-            ("Two or three each. Nobody does all of them.", 0, False),
+            ("Four tasks, and the first three need no driver at all.", 0, False),
+            ("Tasks 01 to 03 are in the repo if you want the motor,", 0, False),
+            ("the solenoid or the Peltier tile. We will not do them today.", 0, False),
         ])
 
     content_slide(
@@ -481,29 +480,14 @@ def build():
         "PAM8403 amp, 11F. A transducer needs one.",
     ], Pt(380))
 
-    actuator_slide(
-        prs, "Vibrating mini motor disc", "erm",
-        "An off-centre weight on a motor shaft, sealed in a disc. The same part "
-        "as in your phone.",
-        "Feels like: a buzz you cannot make gentle and fast at once.",
-        "Phone notifications, controller rumble, anything worn under clothing.",
-        "1E  |  117  |  2.5-3.8V rated  |  100 mA at 5V  |  PWM")
-
+    # The three they actually build, in the order they build them.
     actuator_slide(
         prs, "Piezo element", "piezo",
         "A crystal that flexes when you put current across it. Near-instant, "
         "almost no power, but shallow.",
         "Feels like: a tick, not a thump.",
         "Clicks and confirmations. Anything where lag would feel broken.",
-        "Drawer 6F  |  69 in stock  |  any digital pin")
-
-    actuator_slide(
-        prs, "Mini push-pull solenoid", "solenoid",
-        "A coil that yanks a metal rod when you energise it. No half a tap: it "
-        "fires or it does not.",
-        "Feels like: a person tapping you, not a machine signalling.",
-        "Navigation cues on the body, braille cells, alerts in noise.",
-        "3E  |  24  |  5V, 1.1 A, 4.5 ohm  |  3mm throw, 80g")
+        "Drawer 6F  |  69 in stock  |  two wires, no driver")
 
     actuator_slide(
         prs, "Capacitive pad", "!there is nothing to photograph. A wire, and a piece of foil.",
@@ -511,30 +495,7 @@ def build():
         "board, which is why the box on the left is empty.",
         "Feels like: nothing. That is the point. The surface stays plain.",
         "Invisible controls in wood or fabric, waterproof panels.",
-        "No drawer, no part number, no cost. Any analogue pin")
-
-    actuator_slide(
-        prs, "Peltier tile", "peltier",
-        "Heats one face and cools the other. Flip the current and it reverses.",
-        "Feels like: slow. Several seconds before you are sure which way.",
-        "Slow ambient state. Never an alert.",
-        "Drawer 4C  |  25 small, 35 big  |  needs an H bridge")
-
-    actuator_slide(
-        prs, "Surface transducer", "transducer",
-        "Turns any surface into a speaker. Drive it so one frequency is felt "
-        "and another is heard, from the same part.",
-        "Feels like: more certain, rather than louder.",
-        "Noisy or bright environments, and accessibility.",
-        "Drawer 7F  |  12 large, 13 medium, 23 bone  |  needs an amp")
-
-    actuator_slide(
-        prs, "Servo", "servo",
-        "A motor that holds a position instead of spinning freely. Tell it an "
-        "angle and it goes there.",
-        "Feels like: something deliberate moving, with force behind it.",
-        "Anything that points, pushes, opens or resists a hand.",
-        "Drawer 2F  |  80 in stock  |  Servo.h  |  needs its own 5V")
+        "No drawer, no part number, no cost  |  one wire  |  keep it on USB")
 
     actuator_slide(
         prs, "Stepper motor", "stepper",
@@ -542,15 +503,28 @@ def build():
         "where it is without a sensor.",
         "Feels like: precise, and audibly clicky.",
         "Slow accurate motion. Dials, sliders, anything positioned.",
-        "2A  |  44  |  ULN2003 driver  |  2048 steps/rev")
+        "2A  |  44  |  ULN2003  |  2048 steps/rev  |  own 5V supply")
 
-    actuator_slide(
-        prs, "Electromagnet", "electromagnet",
-        "Grabs and releases ferrous metal on command. No moving parts of its "
-        "own.",
-        "Feels like: a grip that appears and vanishes.",
-        "Latches, holds, and anything that should let go on cue.",
-        "Drawer 3D  |  17 mini, 11 standard  |  needs a MOSFET")
+    # Everything else the lab has, as one slide. They will not build these
+    # today, but they need to know the range exists before project weeks.
+    content_slide(
+        prs, "What else the lab has",
+        lead="You are not limited to today's three. All of this is in the "
+             "drawers, and the repo has working code for the first three.",
+        body=[
+            ("Coin motor         a buzz you cannot make gentle and fast", 0, True),
+            ("1E  |  117 in stock  |  needs a transistor", 1, False),
+            ("Solenoid           a person tapping you, not a signal", 0, True),
+            ("3E  |  24  |  1.1 A, needs its own supply", 1, False),
+            ("Peltier tile       heat and cold, several seconds to be sure", 0, True),
+            ("4C  |  60  |  needs an H bridge", 1, False),
+            ("Surface transducer turns any surface into a speaker", 0, True),
+            ("7F  |  48  |  needs an amplifier", 1, False),
+            ("Servo              holds an angle, with force behind it", 0, True),
+            ("2F  |  80  |  Servo.h, own 5V", 1, False),
+            ("Electromagnet      a grip that appears and vanishes", 0, True),
+            ("3D  |  28  |  needs a MOSFET", 1, False),
+        ])
 
     content_slide(
         prs, "Freestyle, within three limits",
