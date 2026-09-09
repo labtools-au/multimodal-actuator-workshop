@@ -15,6 +15,8 @@
 //
 // LIBRARY: Sketch > Include Library > Manage Libraries > search "ADCTouch"
 
+#include "logger.h"
+
 #include <ADCTouch.h>
 
 const int PAD = A0;
@@ -35,10 +37,10 @@ int baselineAverage() {
 }
 
 void setup() {
-  Serial.begin(9600);
+  logBegin("TASK 04  make it sense", "A0 -> bare wire -> foil pad");
   // Prime the baseline. Hands OFF the pad while this runs.
   for (int i = 0; i < bufferSize; i++) baseline[i] = ADCTouch.read(PAD, 300);
-  Serial.println("Open Tools > Serial Plotter to watch it work.");
+  logHint("Open Tools > Serial Plotter to watch it work.");
 }
 
 void loop() {

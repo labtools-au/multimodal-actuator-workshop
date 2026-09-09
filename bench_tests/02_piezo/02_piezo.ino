@@ -15,18 +15,19 @@
 // A piezo is sharp and shallow: a tick, not a thump. That contrast against
 // the coin motor is the point of having both on the table.
 
+#include "logger.h"
+
 const int PIEZO = 8;
 
 void setup() {
   pinMode(PIEZO, OUTPUT);
-  Serial.begin(9600);
-  Serial.println("Piezo test. Three ticks, then a short tone, repeating.");
+  logBegin("BENCH 02  piezo", "D8 -> piezo, other leg -> GND");
 }
 
 void loop() {
   // Three sharp ticks. A single edge is enough to hear a piezo click.
   for (int i = 0; i < 3; i++) {
-    Serial.println("tick");
+    logEvent("tick");
     digitalWrite(PIEZO, HIGH);
     delayMicroseconds(150);
     digitalWrite(PIEZO, LOW);
@@ -36,7 +37,7 @@ void loop() {
   delay(600);
 
   // A tone, to prove the same part can also make a sound rather than a click.
-  Serial.println("tone 2 kHz");
+  logEvent("tone 2 kHz");
   tone(PIEZO, 2000);
   delay(400);
   noTone(PIEZO);

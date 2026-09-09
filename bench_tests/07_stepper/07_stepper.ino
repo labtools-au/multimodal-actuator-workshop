@@ -16,6 +16,8 @@
 //
 //   Get it wrong and the motor buzzes and jitters instead of rotating.
 
+#include "logger.h"
+
 #include <Stepper.h>
 
 // 28BYJ-48 is 32 steps per motor revolution through a 1/64 gearbox,
@@ -26,18 +28,17 @@ const int STEPS_PER_REV = 2048;
 Stepper motor(STEPS_PER_REV, 8, 10, 9, 11);
 
 void setup() {
-  Serial.begin(9600);
-  Serial.println("Stepper test. One turn each way, repeating.");
+  logBegin("BENCH 07  stepper", "ULN2003 IN1->D8 IN2->D9 IN3->D10 IN4->D11");
   // The library sets the pins as outputs itself.
 }
 
 void loop() {
-  Serial.println("clockwise, 10 RPM");
+  logEvent("clockwise, 10 RPM");
   motor.setSpeed(10);          // this motor tops out around 15 RPM
   motor.step(STEPS_PER_REV);
   delay(800);
 
-  Serial.println("anticlockwise, 10 RPM");
+  logEvent("anticlockwise, 10 RPM");
   motor.step(-STEPS_PER_REV);
   delay(800);
 }

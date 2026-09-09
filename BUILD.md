@@ -74,7 +74,46 @@ before you combine anything.
 
 Flash from `bench_tests/<name>/`, watch the Serial Monitor at 9600 baud.
 
-### 01 motor: start here, it is the template
+Every sketch prints the same way, because they all share `logger.h`. On reset
+you get a banner naming the sketch and its pins:
+
+```
+========================================
+  BENCH 02  piezo
+  pins: D8 -> piezo, other leg -> GND
+========================================
+1483 ms  tick
+```
+
+That banner is the fastest check that you uploaded the sketch you think you
+did, to the board you think you did. Lines starting `>>>` are instructions to
+act on. Everything else is timestamped, so you can read a rhythm off the
+screen when you cannot hear it clearly.
+
+`logger.h` is copied into each sketch folder rather than installed as a
+library. The IDE compiles every file next to the `.ino`, so there is nothing
+to set up. Edit `bench_tests/01_erm_motor/logger.h` and re-run
+`scripts/sync_logger.py` to push the change to all fifteen.
+
+### 02 piezo: start here, it proves the toolchain
+
+Two wires and no driver, so nothing between the pin and the part can be
+wrong. Do this one first: if it works, your board, cable, port and IDE are
+all good, and any later failure is in the driver circuit rather than the
+setup.
+
+```
+D8 -> piezo, one leg;  GND -> piezo, other leg
+```
+
+- [ ] Three audible ticks, then a short tone, repeating
+- No transistor, no resistor. A piezo draws almost nothing
+- Serial at 9600 prints `tick` and `tone 2 kHz`, which separates "not running"
+  from "running but I cannot hear it"
+- A bare disc is quiet. Press it flat against the table and it gets much
+  louder, because the table becomes the diaphragm. Same effect as bench 06
+
+### 01 motor: the template every driver circuit copies
 
 ```
 D9 --[ 1k ]-- PN2222 base
@@ -86,15 +125,6 @@ D9 --[ 1k ]-- PN2222 base
 - [ ] Motor buzzes on serial input 1, 2 or 3
 - Passes when the three patterns feel different from each other
 - If it does nothing below PWM 90, that is the motor's stall floor, not a bug
-
-### 02 piezo: the easiest, do it second for a confidence win
-
-```
-D8 -> piezo, other leg to GND
-```
-
-- [ ] Three audible ticks, then a short tone, repeating
-- No transistor, no resistor. A piezo draws almost nothing
 
 ### 07 stepper: do it early, it has the worst trap
 
@@ -199,8 +229,10 @@ Do not run `pin_sweep` on the Peltier station. It drives pins to full.
 
 Being straight about this so nothing surprises you:
 
-- **No sketch has ever run on hardware.** They pass a syntax check only. Step 3
-  is the first real test.
+- **No sketch has ever run on hardware.** All fifteen compile clean for the
+  Uno under `arduino-cli` (`arduino:avr@1.8.8`), which catches syntax and
+  missing libraries but proves nothing about wiring. Step 3 is the first real
+  test.
 - The **Peltier's 2 to 4 A** is a generic TEC1-12706 figure. The lab record has
   no datasheet link. Measure it.
 - The **transducer's impedance** is assumed from its name. The supplier page

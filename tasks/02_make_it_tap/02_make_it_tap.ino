@@ -27,6 +27,8 @@
 // HEAT: a solenoid held on will cook itself. Never energise it for more than
 // about 30 ms, and keep the duty cycle low. The code below does both.
 
+#include "logger.h"
+
 const int SOLENOID = 6;
 
 // ---- CHANGE ME ------------------------------------------------------------
@@ -45,8 +47,8 @@ void tap(int ms) {
 void setup() {
   pinMode(SOLENOID, OUTPUT);
   digitalWrite(SOLENOID, LOW);
-  Serial.begin(9600);
-  Serial.println("Tapping. Try tapCount 1, then 2, then 3.");
+  logBegin("TASK 02  make it tap", "D6 -> MOSFET gate;  solenoid on its OWN supply");
+  logHint("Try tapCount 1, then 2, then 3.");
 }
 
 void loop() {

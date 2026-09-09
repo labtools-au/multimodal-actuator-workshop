@@ -18,6 +18,8 @@
 // SAFETY: heatsink on the hot face before power, every time.
 
 
+#include "logger.h"
+
 const int tileLow = 3, tileHigh = 5;
 const int MAX_LEVEL = 200;
 
@@ -35,24 +37,23 @@ void setup() {
   pinMode(tileLow, OUTPUT);
   pinMode(tileHigh, OUTPUT);
   allOff();
-  Serial.begin(9600);
-  Serial.println("Peltier test. Feel the tile face.");
+  logBegin("BENCH 05  peltier", "D3, D5 PWM -> H-bridge;  tile on the BENCH supply");
 }
 
 void loop() {
-  Serial.println("WARM");
+  logEvent("WARM");
   drive(tileLow, tileHigh, 180);
   delay(10000);
 
   allOff();
-  Serial.println("off");
+  logEvent("off");
   delay(4000);
 
-  Serial.println("COOL");
+  logEvent("COOL");
   drive(tileHigh, tileLow, 180);
   delay(10000);
 
   allOff();
-  Serial.println("off");
+  logEvent("off");
   delay(4000);
 }

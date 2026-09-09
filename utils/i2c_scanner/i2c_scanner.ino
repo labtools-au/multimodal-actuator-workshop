@@ -11,13 +11,14 @@
 // The same scanner lives in ktane/utils/. Keeping one around is a habit worth
 // copying: rule out the hardware before you start reading your own code.
 
+#include "logger.h"
+
 #include <Wire.h>
 
 void setup() {
   Wire.begin();
-  Serial.begin(9600);
+  logBegin("UTIL  i2c scanner", "A4 SDA, A5 SCL, plus 5V and GND");
   while (!Serial) delay(10);
-  Serial.println("I2C scanner");
 }
 
 void loop() {
@@ -35,7 +36,7 @@ void loop() {
     }
   }
 
-  if (found == 0) Serial.println("nothing found. Check SDA, SCL and power.");
-  Serial.println("---");
+  if (found == 0)  logEvent("nothing found. Check SDA, SCL and power.");
+  logEvent("scan complete");
   delay(3000);
 }

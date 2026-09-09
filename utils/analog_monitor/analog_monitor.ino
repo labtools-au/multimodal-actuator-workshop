@@ -13,6 +13,8 @@
 // NOT for the capacitive pad: that needs ADCTouch and its own baseline, see
 // bench_tests/04_capacitive_touch.
 
+#include "logger.h"
+
 const int SENSOR = A1;
 
 // ---- CHANGE ME ------------------------------------------------------------
@@ -24,8 +26,7 @@ int seenMin = 1023;
 int seenMax = 0;
 
 void setup() {
-  Serial.begin(9600);
-  Serial.println("Move the sensor through its full range, then read the min/max.");
+  logBegin("UTIL  analog monitor", "A0 -> the sensor you are characterising");
 }
 
 void loop() {

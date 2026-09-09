@@ -17,6 +17,8 @@
 // 100 mA at 5V (Adafruit 1201).
 
 
+#include "logger.h"
+
 const int PIN_MOTOR = 9;      // must be PWM
 const int PIN_BUTTON = 2;
 
@@ -65,8 +67,9 @@ void taskFinished() {
 void setup() {
   pinMode(PIN_MOTOR, OUTPUT);
   pinMode(PIN_BUTTON, INPUT_PULLUP);
-  Serial.begin(9600);
-  Serial.println(F("1 = arrived  2 = wrong  3 = finished"));
+  logBegin("BENCH 01  coin motor", "D9 PWM -> 1k -> PN2222 base;  D2 button -> GND");
+  logHint("Type 1, 2 or 3 into the send box, then press Enter.");
+  logHint("1 = arrived   2 = wrong   3 = finished");
 }
 
 void loop() {
@@ -75,9 +78,9 @@ void loop() {
   // you sent.
   if (Serial.available()) {
     switch (Serial.read()) {
-      case '1': messageArrived();  break;
-      case '2': somethingWrong();  break;
-      case '3': taskFinished();    break;
+      case '1': logEvent("1  arrived");   messageArrived();  break;
+      case '2': logEvent("2  wrong");     somethingWrong();  break;
+      case '3': logEvent("3  finished");  taskFinished();    break;
     }
   }
 }

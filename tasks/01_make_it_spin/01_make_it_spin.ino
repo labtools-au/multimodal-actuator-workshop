@@ -24,6 +24,8 @@
 // more current AND a stronger buzz, which is the compromise this task is
 // about. 11000 RPM at 5V.
 
+#include "logger.h"
+
 const int MOTOR = 9;      // must be a PWM pin: 3, 5, 6, 9, 10, 11
 
 // ---- CHANGE ME ------------------------------------------------------------
@@ -34,8 +36,8 @@ int offTime  = 850;       // ms of silence between buzzes
 
 void setup() {
   pinMode(MOTOR, OUTPUT);
-  Serial.begin(9600);
-  Serial.println("Spinning. Edit strength/onTime/offTime and re-upload.");
+  logBegin("TASK 01  make it spin", "D9 PWM -> 1k -> PN2222 base -> motor");
+  logHint("Edit strength / onTime / offTime, then upload again.");
 }
 
 void loop() {

@@ -12,6 +12,8 @@
 // Runs on a bare board with nothing attached. Safe on any of the benches
 // EXCEPT bench 05: the Peltier tile should not be driven to full blind.
 
+#include "logger.h"
+
 const int PWM_PINS[] = {3, 5, 6, 9, 10, 11};
 const int PIN_COUNT = sizeof(PWM_PINS) / sizeof(PWM_PINS[0]);
 
@@ -21,12 +23,12 @@ int holdMs = 1000;    // how long each pin stays on
 // ---------------------------------------------------------------------------
 
 void setup() {
-  Serial.begin(9600);
+  logBegin("UTIL  pin sweep", "drives D3 D5 D6 D9 D10 D11 in turn");
   for (int i = 0; i < PIN_COUNT; i++) {
     pinMode(PWM_PINS[i], OUTPUT);
     analogWrite(PWM_PINS[i], 0);
   }
-  Serial.println("Pin sweep. Watch which pin makes your thing move.");
+  logHint("Watch which pin makes your thing move.");
 }
 
 void loop() {
@@ -40,6 +42,6 @@ void loop() {
     analogWrite(pin, 0);
     delay(300);
   }
-  Serial.println("--- sweep done, repeating ---");
+  logEvent("sweep done, repeating");
   delay(1000);
 }

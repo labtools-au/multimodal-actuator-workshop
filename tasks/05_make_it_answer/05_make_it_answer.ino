@@ -14,6 +14,8 @@
 //   The respond() function is deliberately the only thing you need to swap
 //   to change what answers back.
 
+#include "logger.h"
+
 #include <ADCTouch.h>
 
 const int PAD   = A0;
@@ -44,9 +46,9 @@ void respond() {
 
 void setup() {
   pinMode(MOTOR, OUTPUT);
-  Serial.begin(9600);
+  logBegin("TASK 05  make it answer", "A0 -> the task 04 pad;  D9 -> your actuator");
   for (int i = 0; i < 25; i++) baseline[i] = ADCTouch.read(PAD, 300);
-  Serial.println("Touch the pad.");
+  logHint("Touch the pad.");
 }
 
 void loop() {
@@ -55,7 +57,7 @@ void loop() {
   if (reading > baselineAverage() * threshold) {
     if (millis() - lastFire > debounceMs) {   // debounce: one touch, one response
       lastFire = millis();
-      Serial.println("touch");
+      logEvent("touch");
       respond();
     }
   } else {

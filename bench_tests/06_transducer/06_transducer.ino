@@ -16,6 +16,8 @@
 // nothing, which is not a fault.
 
 
+#include "logger.h"
+
 const int TRANSDUCER = 11;
 
 const int FELT_HZ  = 40;    // low enough to be vibration, not tone
@@ -23,18 +25,17 @@ const int HEARD_HZ = 400;   // clearly audible
 
 void setup() {
   pinMode(TRANSDUCER, OUTPUT);
-  Serial.begin(9600);
-  Serial.println("40 Hz then 400 Hz, alternating.");
+  logBegin("BENCH 06  transducer", "D11 -> PAM8403 input;  transducer FLAT on a plate");
 }
 
 void loop() {
-  Serial.println("40 Hz  (feel it)");
+  logEvent("40 Hz  (feel it)");
   tone(TRANSDUCER, FELT_HZ);
   delay(2000);
   noTone(TRANSDUCER);
   delay(500);
 
-  Serial.println("400 Hz (hear it)");
+  logEvent("400 Hz (hear it)");
   tone(TRANSDUCER, HEARD_HZ);
   delay(2000);
   noTone(TRANSDUCER);

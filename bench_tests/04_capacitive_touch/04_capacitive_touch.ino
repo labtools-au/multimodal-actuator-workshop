@@ -17,6 +17,8 @@
 // That really is the whole sensor: one wire, no breakout board.
 
 
+#include "logger.h"
+
 #include <ADCTouch.h>
 #include <Servo.h>
 
@@ -66,7 +68,7 @@ bool isTouched(int reading) {
 }
 
 void setup() {
-  Serial.begin(9600);
+  logBegin("BENCH 04  capacitive", "A0 -> bare wire -> foil;  D9 -> servo signal");
   servo.attach(PIN_SERVO);
   servo.write(90);
 
@@ -76,7 +78,7 @@ void setup() {
     baselineBuffer[i] = ADCTouch.read(PIN_TOUCH, TOUCH_RESOLUTION);
   }
 
-  Serial.println(F("Ready. Open the Serial Plotter to watch the signal."));
+  logHint("Ready. Open the Serial Plotter to watch the signal.");
 }
 
 void loop() {

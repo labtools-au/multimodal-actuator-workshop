@@ -60,7 +60,7 @@ tasks/            what students do. Five Arduino sketches + one browser task
 bench_tests/      one sketch per station, proving the hardware works    (you)
 utils/            diagnostics for when a station misbehaves             (you)
 wokwi/            four tasks as runnable browser simulations
-scripts/          request the components through the Chomskylab app
+scripts/          request_components.py, and sync_logger.py
 docs/             the deck, the session plan, and the build scripts
   deck/           build_deck.py, add_notes.py, the AU template, QR codes
   photos/         part photos, pulled from the component database
@@ -69,6 +69,12 @@ docs/             the deck, the session plan, and the build scripts
 Structure follows `ktane` (Physical Computing 2023): tiny per-component tests
 kept separate from the real code, plus a utils folder of dumb diagnostics.
 Every sketch sits in a folder of the same name, which the Arduino IDE requires.
+
+Each of those folders also holds a copy of `logger.h`, so every sketch prints
+the same banner and timestamped events. It is duplicated rather than installed
+as a library, which means there is nothing to install before the first upload.
+`scripts/sync_logger.py` keeps the copies identical, and `--check` fails if one
+has drifted.
 
 **Split by audience.** `tasks/` is written for students and commented for them.
 `bench_tests/` and `utils/` are for you, and assume you know what a MOSFET is.

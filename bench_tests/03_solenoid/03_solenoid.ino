@@ -20,20 +20,21 @@
 // against powering it from USB, and they are right: the board browns out.
 
 
+#include "logger.h"
+
 const int SOLENOID = 6;
 const int PULSE_MS = 15;    // never raise this much. The coil heats fast.
 
 void setup() {
   pinMode(SOLENOID, OUTPUT);
   digitalWrite(SOLENOID, LOW);
-  Serial.begin(9600);
-  Serial.println("Tapping once every 2 s.");
+  logBegin("BENCH 03  solenoid", "D6 -> MOSFET gate;  solenoid on its OWN supply");
 }
 
 void loop() {
   digitalWrite(SOLENOID, HIGH);
   delay(PULSE_MS);
   digitalWrite(SOLENOID, LOW);   // ALWAYS turn it off
-  Serial.println("tap");
+  logEvent("tap");
   delay(2000);                   // long gap keeps the duty cycle low
 }

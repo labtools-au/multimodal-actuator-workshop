@@ -26,6 +26,8 @@
 //     rig. Do not raise it.
 //   * Never leave it running unattended.
 
+#include "logger.h"
+
 const int tileLow = 3, tileHigh = 5;   // both must be PWM pins
 
 // ---- CHANGE ME ------------------------------------------------------------
@@ -53,17 +55,17 @@ void off() {
 void setup() {
   pinMode(tileLow, OUTPUT); pinMode(tileHigh, OUTPUT);
   off();
-  Serial.begin(9600);
-  Serial.println("Finger on the tile. Say out loud when you are SURE.");
+  logBegin("TASK 03  make it warm", "D3, D5 PWM -> H-bridge;  tile on the BENCH supply");
+  logHint("Finger on the tile. Say out loud when you are SURE.");
 }
 
 void loop() {
-  Serial.println("WARM");
+  logEvent("WARM");
   warm(level); delay(holdMs);
 
   off(); delay(3000);          // let it settle, or you feel the old state
 
-  Serial.println("COOL");
+  logEvent("COOL");
   cool(level); delay(holdMs);
 
   off(); delay(3000);
