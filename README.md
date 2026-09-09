@@ -213,8 +213,12 @@ that the gap between "we should use haptics" and "it moves when you touch it" is
 ### `capacitive_sensing_and_servos_and_actuators` (SOS 2025, Arduino Uno)
 A moving screen that breathes when idle and retreats when touched. 922 lines driving
 capacitive sensing, two mirrored servos and four linear actuators, plus a browser
-control panel over the serial port. Bench 4 is this sketch with everything but the
-sensing stripped out.
+control panel over the serial port. Bench 4 and task 04 are this sketch with
+everything but the sensing stripped out, and they keep its constants verbatim:
+`TOUCH_RESOLUTION = 300`, threshold `1.01`, and a 25-sample rolling baseline
+that is only fed while untouched. The 25 is itself a tuned value; the repo's
+own commit says "Reduced touch smoothing buffer size for improved
+responsiveness", down from 50.
 
 **Transferable:** sine-easing and an idle "breathing" loop are what separate *a servo
 moved* from *it reacted to me*. Both are about a dozen lines.

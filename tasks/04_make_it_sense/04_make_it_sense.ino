@@ -10,8 +10,13 @@
 //
 //   A0 ---- a bare wire ---- foil, card or fabric
 //
-//   That is the entire circuit. No breakout board, no resistor, no ground
-//   connection to the pad. Any analogue pin works; A0 is just convention.
+//   That is the entire circuit. ONE wire. No breakout board, no resistor,
+//   and no ground connection to the pad. Any analogue pin works; A0 is just
+//   convention.
+//
+//   Output is the LED already on the board, next to pin 13. Nothing to wire
+//   for it, so if the LED follows your finger, the sensing works and nothing
+//   else can be blamed.
 //
 // LIBRARY: Sketch > Include Library > Manage Libraries > search "ADCTouch"
 
@@ -20,6 +25,7 @@
 #include <ADCTouch.h>
 
 const int PAD = A0;
+const int LED = LED_BUILTIN;   // the one already on the board, no wiring
 
 // ---- CHANGE ME ------------------------------------------------------------
 float threshold = 1.01;   // 1.01 = "1% above normal counts as a touch"
@@ -37,10 +43,12 @@ int baselineAverage() {
 }
 
 void setup() {
+  pinMode(LED, OUTPUT);
   logBegin("TASK 04  make it sense", "A0 -> bare wire -> foil pad");
   // Prime the baseline. Hands OFF the pad while this runs.
   for (int i = 0; i < bufferSize; i++) baseline[i] = ADCTouch.read(PAD, 300);
-  logHint("Open Tools > Serial Plotter to watch it work.");
+  logHint("Touch the pad: the LED by pin 13 lights.");
+  logHint("Then open Tools > Serial Plotter to see WHY.");
 }
 
 void loop() {
@@ -53,8 +61,10 @@ void loop() {
   Serial.println(trigger);
 
   if (reading > trigger) {
+    digitalWrite(LED, HIGH);
     // TOUCHED. Do not feed the baseline here, see note 2 below.
   } else {
+    digitalWrite(LED, LOW);
     baseline[idx] = reading;
     idx = (idx + 1) % bufferSize;
   }
@@ -73,7 +83,11 @@ void loop() {
 //    taught the baseline that a finger is normal. Put it back.
 //
 // 3. Set threshold to 1.001. It fires at nothing. Set it to 1.2 and you have
-//    to press hard. There is no correct value, only one that suits your pad,
+//    to press hard. Do not go far the other way either: much above about 1.02
+//    on a bare wire and the baseline stops being refreshed often enough, so it
+//    goes stale and the whole thing drifts out of range. Measured on an Uno
+//    with a bare jumper: 1.01 sat about 5 counts below the line, 1.03 lost the
+//    baseline entirely. There is no correct value, only one that suits your pad,
 //    your room and the day. Which is why it is relative and not a fixed number.
 //
 //    For what it is worth, the rig this came from went through the same thing.
@@ -83,3 +97,8 @@ void loop() {
 //
 // 4. Swap the foil for a banana, a plant, a door handle. Anything conductive
 //    is an input.
+//
+// 5. Size matters more than you expect. A bare jumper end works but sits close
+//    to the threshold; tape it to a palm-sized piece of foil and the signal
+//    gets much bigger, because you have built a bigger capacitor plate. If
+//    yours is twitchy, make the pad bigger before you touch the numbers.
