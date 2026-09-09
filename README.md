@@ -19,13 +19,17 @@ benches around the room, to pick up and compare between tasks.
 
 ## Try it before you touch hardware
 
-[`wokwi/`](wokwi) has three of the tasks as runnable browser simulations. They
-show the wiring as a picture rather than a schematic, which matters for an
-audience that has never read one, and they run the same code as the bench.
+[`wokwi/`](wokwi) has three tasks as runnable browser simulations, so a student
+can check their code compiles and behaves before touching hardware.
 
-They do not replace the session: a simulated Peltier does not take eight
-seconds to convince you. See [wokwi/README.md](wokwi/README.md) for what each
-one does and does not show.
+Be aware of the limits before showing one to a room: Wokwi has no transistor,
+MOSFET, diode, DC motor or solenoid part, so each project substitutes (a relay
+module for the motor driver, a button for the touch pad) and says so on the
+canvas. The driver circuit you actually build is in the `// PINS` block at the
+top of each sketch and in [PINS.md](PINS.md), not in the simulation.
+
+See [wokwi/README.md](wokwi/README.md) for exactly what each one does and does
+not show.
 
 ## Pin map
 

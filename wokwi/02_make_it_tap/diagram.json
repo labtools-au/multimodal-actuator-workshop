@@ -3,18 +3,23 @@
   "author": "Labtools, Aarhus University",
   "editor": "wokwi",
   "parts": [
-    { "id": "uno", "type": "wokwi-arduino-uno", "left": 0, "top": 0 },
-    { "id": "bb", "type": "wokwi-breadboard-half", "left": -30, "top": -180 },
-    { "id": "q1", "type": "wokwi-mosfet-n", "left": 60, "top": -110 },
-    { "id": "d1", "type": "wokwi-diode", "left": 150, "top": -140 },
-    { "id": "sol", "type": "wokwi-relay-spdt", "left": 250, "top": -150 }
+    { "id": "uno", "type": "wokwi-arduino-uno", "left": 0, "top": 100 },
+    { "id": "relay", "type": "wokwi-relay-module", "left": 320, "top": -20,
+      "attrs": { "transistor": "npn" } },
+    { "id": "led1", "type": "wokwi-led", "left": 520, "top": 60,
+      "attrs": { "color": "yellow", "label": "stands in for the solenoid" } },
+    { "id": "r1", "type": "wokwi-resistor", "left": 520, "top": 160,
+      "attrs": { "value": "220" } },
+    { "id": "note", "type": "wokwi-text", "left": 0, "top": -80,
+      "attrs": { "text": "A relay is a coil switched by a transistor, which is exactly the solenoid circuit. You can HEAR the relay click on each pulse, so the rhythm of the tacton is audible even though there is no solenoid part.", "fontSize": 15 } }
   ],
   "connections": [
-    [ "uno:6", "q1:G", "blue", [ "v0" ] ],
-    [ "q1:D", "sol:COIL1", "red", [ "v0" ] ],
-    [ "sol:COIL2", "uno:5V", "red", [ "v0" ] ],
-    [ "q1:S", "uno:GND.1", "black", [ "v0" ] ],
-    [ "d1:A", "q1:D", "green", [ "v0" ] ],
-    [ "d1:C", "uno:5V", "green", [ "v0" ] ]
+    [ "uno:6", "relay:IN", "blue", [ "v0" ] ],
+    [ "uno:5V", "relay:VCC", "red", [ "v0" ] ],
+    [ "uno:GND.1", "relay:GND", "black", [ "v0" ] ],
+    [ "uno:5V", "relay:COM", "red", [ "v30", "h40" ] ],
+    [ "relay:NO", "led1:A", "green", [ "v0" ] ],
+    [ "led1:C", "r1:1", "green", [ "v0" ] ],
+    [ "r1:2", "uno:GND.2", "black", [ "v0" ] ]
   ]
 }

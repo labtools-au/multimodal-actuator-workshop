@@ -1,8 +1,7 @@
 # 04_make_it_sense on Wokwi
 
-Open [wokwi.com](https://wokwi.com), start a new Arduino Uno project, then
-paste `diagram.json` and `sketch.ino` into the matching tabs.
+Paste `diagram.json` and `sketch.ino` into a new Arduino Uno project at
+[wokwi.com](https://wokwi.com).
 
-The simulation runs the same code you upload at the bench, so you can try the
-task before touching hardware, and see the wiring as a picture rather than a
-schematic.
+Read [../README.md](../README.md) first: this simulation substitutes parts
+Wokwi does not have, and the canvas note says which.
