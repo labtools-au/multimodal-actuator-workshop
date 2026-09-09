@@ -124,13 +124,15 @@ const int STEPS_PER_REV = 2048;
 Stepper motor(STEPS_PER_REV, 8, 10, 9, 11);
 
 // ---- CHANGE ME ------------------------------------------------------------
-int stepsToMove = 512;    // 2048 = a full turn. 512 = a quarter
+int stepsToMove = 2048;   // a FULL turn. Start big so the movement is
+                          // unmissable, then try 512 for a quarter turn
 int speedRpm    = 10;     // this motor stalls somewhere above 15
 int pauseMs     = 800;    // stillness between moves is part of the signal
 // ---------------------------------------------------------------------------
 
 void setup() {
   logBegin("TASK 07  make it turn", "ULN2003 IN1->D8 IN2->D9 IN3->D10 IN4->D11");
+  logHint("Tape a paper flag to the shaft. It turns slowly and is easy to miss.");
   logHint("LEDs light but shaft still? NOT a dead motor. Not enough current.");
   logHint("Give the driver its own 5V, and join its GND to the Arduino's.");
   logHint("Buzzing and jittering instead? Then it IS the pin order in code.");
@@ -149,10 +151,14 @@ void loop() {
 
 // ---- THINGS TO TRY --------------------------------------------------------
 //
-// 1. Set stepsToMove to 2048 and watch a full turn. Then 2048 again, and
-//    again. It ends up exactly where it started every time, with nothing
-//    measuring the position. Compare with the coin motor, where "how far did
-//    it go" is not even a question you can ask.
+// 1. Tape a paper flag to the shaft before you change anything. A geared
+//    28BYJ-48 turns slowly and a bare shaft gives your eye nothing to follow,
+//    so it is easy to think a working motor is dead. The flag settles it.
+//
+//    Then set stepsToMove to 512 and watch a quarter turn, then back to 2048.
+//    It ends up exactly where it started every time, with nothing measuring
+//    the position. Compare with the coin motor, where "how far did it go" is
+//    not even a question you can ask.
 //
 // 2. Set speedRpm to 25. It stalls, buzzes, and loses steps, and now the
 //    position is wrong with no error and no way for the code to know. Open
