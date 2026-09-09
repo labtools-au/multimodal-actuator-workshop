@@ -7,11 +7,18 @@
 // reverses. An H-bridge is what lets you flip that current from code.
 //
 //
-// WIRING (already done for you)
-//   Two PWM pins per channel: one "low", one "high". Drive one and hold the
-//   other at 0 to pick a direction. This is the same pattern the lab's other
-//   actuator rigs use, so it will look familiar if you read that code.
-//   Tile on a bench supply, heatsink glued to the hot face.
+// PINS (already wired on the table, you only upload)
+//
+//   D3  PWM ---- channel LOW side  \
+//                                    both to the H-bridge, tile across it
+//   D5  PWM ---- channel HIGH side /
+//
+//   Drive one and hold the other at 0 to choose direction. Both 0 is off.
+//   Tile runs from a BENCH supply, not the Arduino: it wants 2 to 4 A.
+//   Heatsink on the hot face, always.
+//
+//   Two PWM pins per channel is the same pattern the lab's other actuator
+//   rigs use, so it will look familiar if you read that code.
 //
 // SAFETY, NOT OPTIONAL
 //   * The heatsink must be on. Without it the tile cooks itself in a minute.

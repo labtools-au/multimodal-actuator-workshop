@@ -5,11 +5,15 @@
 // Upload this. The motor pulses. Then change the two numbers marked CHANGE ME
 // and upload again. That loop, edit and re-upload, is the whole workshop.
 //
-// WIRING (already done for you)
-//   D9 -> 1k resistor -> transistor base
-//   motor between transistor collector and +5V
-//   diode across the motor, striped end to +5V
-//   Set up on the table. You only upload.
+// PINS (already wired on the table, you only upload)
+//
+//   D9  PWM ---[ 1k ]--- PN2222 base
+//                        emitter -> GND
+//                        collector -> motor -> +5V
+//                        1N4148 across the motor, BAND to +5V
+//
+//   Only pins 3, 5, 6, 9, 10 and 11 can do PWM on an Uno. The motor needs
+//   one of those, because analogWrite on any other pin only gives on/off.
 //
 // WHY NOT STRAIGHT TO THE PIN: an Arduino pin gives 40 mA. This motor draws
 // 100 mA at 5V (80 mA at 4V, 60 mA at 3V, per the Adafruit 1201 datasheet).

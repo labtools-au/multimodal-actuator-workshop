@@ -7,9 +7,15 @@
 // raise the rate also makes it stronger. Everything below works around that
 // limit rather than pretending it is not there.
 //
-// WIRING: never drive the motor from a bare pin. 40 mA limit, the motor pulls
-// ~75 mA. Pin D9 -> 1k -> 2N2222 base; motor across collector and +5V with a
-// 1N4148 across it (band to +5V) to catch the flyback spike.
+// PINS
+//   D9   PWM   ->  1k  ->  PN2222 base
+//   D2   button to GND (INPUT_PULLUP)
+//   motor:  collector to motor, motor to +5V
+//   diode:  1N4148 across the motor, BAND to +5V
+//
+// Never drive it from a bare pin: the pin gives 40 mA, the motor draws
+// 100 mA at 5V (Adafruit 1201).
+
 
 const int PIN_MOTOR = 9;      // must be PWM
 const int PIN_BUTTON = 2;

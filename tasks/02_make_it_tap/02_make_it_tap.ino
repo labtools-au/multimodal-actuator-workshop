@@ -7,8 +7,15 @@
 // motor in task 1, there is no "half a tap". It fires or it does not, so the
 // only things you control are WHEN and HOW OFTEN.
 //
-// WIRING (already done for you)
-//   D6 -> MOSFET gate, solenoid on its own 5V supply, diode across the coil
+// PINS (already wired on the table, you only upload)
+//
+//   D6 ---------------- MOSFET gate (logic-level, e.g. IRLZ44N)
+//                       source -> GND
+//                       drain  -> solenoid -> +5V on its OWN supply
+//                       1N4148 across the coil, BAND to +5V
+//
+//   The supply GND and the Arduino GND MUST be joined, or the MOSFET never
+//   sees a real gate voltage.
 //   Separate supply matters: the datasheet gives 1.1 A at 5V into a 4.5 ohm
 //   coil (Adafruit 2776). Off USB alone the board browns out and resets,
 //   which looks exactly like a code bug and is not one. Adafruit say this

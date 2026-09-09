@@ -81,6 +81,17 @@ Write the repo URL on the whiteboard now. It gets asked for six times.
 If a task's hardware fails, utils/ has the diagnostics: pin_sweep, i2c_scanner,
 analog_monitor.""",
 
+    # pin map
+    """Reference, not a talking point. Ten seconds, or skip it entirely if the
+stations are already built.
+
+It earns its place two ways: you use it while setting the room up, and it is
+the slide to jump back to when someone asks "which pin was the solenoid".
+
+The bottom line is the one worth reading aloud if anyone touches the stepper:
+the pins go into the constructor OUT of order, 8, 10, 9, 11. Wired in numeric
+order it buzzes instead of turning and looks like a dead motor.""",
+
     # 8: base kit
     """Hand this out before anything else, or you will spend the session
 fetching parts one at a time.

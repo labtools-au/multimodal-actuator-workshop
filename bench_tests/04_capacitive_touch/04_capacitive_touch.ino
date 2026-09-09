@@ -8,6 +8,14 @@
 // control panel. Everything that is not the sensing pattern is stripped out.
 //
 // Library: ADCTouch by martin2250 (Library Manager -> "ADCTouch")
+//
+// PINS
+//   A0         ->  a bare wire  ->  foil, card or fabric
+//   D9          ->  servo signal
+//   servo power  5V and GND, or its own supply if it stalls
+//
+// That really is the whole sensor: one wire, no breakout board.
+
 
 #include <ADCTouch.h>
 #include <Servo.h>

@@ -6,8 +6,12 @@
 // finger is near. This is the cheapest input in the room and the one people
 // are most surprised by.
 //
-// WIRING (already done for you)
-//   A0 -> a wire -> a piece of foil. That is the entire circuit.
+// PINS (already wired on the table, you only upload)
+//
+//   A0 ---- a bare wire ---- foil, card or fabric
+//
+//   That is the entire circuit. No breakout board, no resistor, no ground
+//   connection to the pad. Any analogue pin works; A0 is just convention.
 //
 // LIBRARY: Sketch > Include Library > Manage Libraries > search "ADCTouch"
 

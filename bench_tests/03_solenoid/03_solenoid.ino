@@ -8,6 +8,17 @@
 // If the board RESETS when it fires, the solenoid is drawing from USB. It
 // needs its own supply. That reset looks exactly like a software crash and
 // is not one.
+//
+// PINS
+//   D6         ->  MOSFET gate (IRLZ44N or similar logic-level)
+//   MOSFET      source to GND, drain to the solenoid
+//   solenoid    other leg to +5V on ITS OWN supply
+//   diode       1N4148 across the coil, BAND to +5V
+//   grounds     the supply GND and the Arduino GND must be joined
+//
+// Adafruit 2776: 5V, 1.1 A, 4.5 ohm coil, 3mm throw at 80g. Adafruit warn
+// against powering it from USB, and they are right: the board browns out.
+
 
 const int SOLENOID = 6;
 const int PULSE_MS = 15;    // never raise this much. The coil heats fast.

@@ -402,6 +402,43 @@ def build():
             ("The last one is usually the interesting one", 1, False),
         ])
 
+    pin_slide = content_slide(
+        prs, "Pin map",
+        lead="Every sketch repeats its own pins at the top. This is the whole "
+             "room on one page, for setting up.")
+    tf = pin_slide.placeholders[1].text_frame
+    tf.clear()
+    rows = [
+        ("01  spin",    "D9  PWM",       "1k to PN2222 base, motor on collector"),
+        ("02  tap",     "D6",            "MOSFET gate, own supply, grounds joined"),
+        ("03  warm",    "D3 + D5 PWM",   "H-bridge low and high, bench supply"),
+        ("04  sense",   "A0",            "bare wire to foil. That is all of it"),
+        ("05  answer",  "A0 + D9",       "the pad, plus any actuator"),
+        ("07  stepper", "D8 D9 D10 D11", "ULN2003 IN1 to IN4"),
+    ]
+    for i, (task, pin, note) in enumerate(rows):
+        par = tf.paragraphs[0] if i == 0 else tf.add_paragraph()
+        par.text = f"{task:12}{pin:16}{note}"
+        par.space_after = Pt(7)
+        _no_bullet(par)
+        par.alignment = PP_ALIGN.LEFT
+        for r in par.runs:
+            r.font.size = Pt(13)
+            r.font.color.rgb = INK
+            r.font.name = "Consolas"
+    last = tf.add_paragraph()
+    last.text = ("Only D3, D5, D6, D9, D10, D11 do PWM. Stepper pins go into "
+                 "the constructor OUT of order: 8, 10, 9, 11.")
+    last.space_after = Pt(0)
+    _no_bullet(last)
+    last.alignment = PP_ALIGN.LEFT
+    for r in last.runs:
+        r.font.size = Pt(14)
+        r.font.bold = True
+        r.font.color.rgb = AU_BLUE
+        r.font.name = FONT
+
+
     base = content_slide(
         prs, "What you get in the base kit",
         lead="One set per pair, collected before you start task 01. Below: the three parts people always come back for.",

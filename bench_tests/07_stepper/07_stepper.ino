@@ -3,9 +3,11 @@
 // Turns one full revolution each way. If it hums but does not turn, the pin
 // ORDER is wrong, not the wiring.
 //
-// WIRING, from the ULN2003 board to the Uno:
-//   IN1 -> 8    IN2 -> 9    IN3 -> 10    IN4 -> 11
-//   Board 5V and GND to the Arduino, or its own supply for anything loaded.
+// PINS, from the ULN2003 board to the Uno:
+//
+//   IN1 -> D8      IN2 -> D9      IN3 -> D10     IN4 -> D11
+//
+//   Board 5V and GND to the Arduino, or its own supply under any load.
 //
 // THE GOTCHA THAT COSTS PEOPLE AN HOUR:
 //   the Stepper constructor does NOT take the pins in numeric order. It wants

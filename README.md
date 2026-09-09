@@ -17,6 +17,15 @@ benches around the room, to pick up and compare between tasks.
 
 📄 **[Full session plan, run sheet and kit list](https://claude.ai/code/artifact/1e577f62-4cae-4ec5-a407-69494dc85f7e)**
 
+## Pin map
+
+[PINS.md](PINS.md) has every station on one page, which is what you want when
+building the room. Each sketch also repeats its own pins at the top, so a
+student never has to look elsewhere.
+
+Two things catch people: only D3, D5, D6, D9, D10 and D11 do PWM on an Uno,
+and the stepper's pins go into the constructor **out of order** (8, 10, 9, 11).
+
 ## Repository layout
 
 ```

@@ -6,8 +6,13 @@
 // Everything before this was one half. Task 4 sensed, tasks 1 to 3 acted.
 // Here they are wired together: touch the pad, feel a response.
 //
-// WIRING: the task 04 pad on A0, plus any actuator you like on its own pin.
-// The respond() function is deliberately the only thing you need to swap.
+// PINS
+//
+//   A0 ---- wire ---- foil          the pad from task 04
+//   D9 ---- your actuator           motor as written, or the solenoid on D6
+//
+//   The respond() function is deliberately the only thing you need to swap
+//   to change what answers back.
 
 #include <ADCTouch.h>
 

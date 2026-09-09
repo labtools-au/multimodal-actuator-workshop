@@ -6,6 +6,15 @@
 // If you hear nothing: amp power and volume pot.
 // If you feel nothing: the exciter is not pressed firmly against the plate.
 // It needs contact to couple into a surface.
+//
+// PINS
+//   D11        ->  PAM8403 input (through a series cap if you have one)
+//   amp power   5V and GND
+//   transducer  the amp's speaker output, pressed FLAT against a plate
+//
+// It needs contact with a surface to couple. Held in the air it does almost
+// nothing, which is not a fault.
+
 
 const int TRANSDUCER = 11;
 

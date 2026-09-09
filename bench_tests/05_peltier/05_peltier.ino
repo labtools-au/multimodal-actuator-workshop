@@ -8,6 +8,15 @@
 //
 // SAFETY: heatsink on the hot face, or the tile destroys itself. MAX_LEVEL
 // caps the temperature. Do not raise it. Skin burns above 50 C.
+//
+// PINS
+//   D3   PWM   ->  channel LOW side
+//   D5   PWM   ->  channel HIGH side
+//   Drive one and hold the other at 0 to choose direction. Both to 0 is off.
+//   Tile on a BENCH supply, not the Arduino: it wants 2 to 4 A.
+//
+// SAFETY: heatsink on the hot face before power, every time.
+
 
 const int tileLow = 3, tileHigh = 5;
 const int MAX_LEVEL = 200;

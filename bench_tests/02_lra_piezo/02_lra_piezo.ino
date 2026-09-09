@@ -6,6 +6,15 @@
 // If nothing happens: check the I2C wiring with utils/i2c_scanner first.
 // If it buzzes but sounds wrong: the driver is in the wrong mode. An LRA
 // driven as an ERM feels weak and rough. See setup() below.
+//
+// PINS
+//   A4   SDA   ->  DRV2605L SDA
+//   A5   SCL   ->  DRV2605L SCL
+//   5V, GND    ->  DRV2605L
+//   actuator    ->  the driver's two output pads
+//
+// I2C address 0x5A. If nothing happens, run utils/i2c_scanner first.
+
 
 #include <Wire.h>
 #include <Adafruit_DRV2605.h>
