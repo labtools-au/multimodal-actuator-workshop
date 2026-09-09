@@ -81,13 +81,13 @@ def content_slide(prs, title, lead=None, body=None):
     s.placeholders[0].text_frame.text = title.upper()
     blocks = []
     if lead:
-        blocks.append((lead, 17, False, GREY, 14))
+        blocks.append((lead, 17, False, GREY, 12))
     for text, level, bold in (body or []):
         if not text:
             blocks.append(("", 8, False, INK, 0))
         else:
             blocks.append((("• " + text) if level else text,
-                           15 if level else 17, bold, INK, 6))
+                           15 if level else 17, bold, INK, 4))
     _fill(s.placeholders[1], blocks)
     _restyle(s)
     _stamp_logos(s, False)
@@ -361,12 +361,9 @@ def build():
             ("A board each, five tasks, everything pre-wired", 0, True),
             ("Upload, change two numbers, upload again", 1, False),
             ("You wire nothing today", 1, False),
-            ("", 0, False),
             ("Actuators are on the tables at the front", 0, True),
             ("Go and feel the ones your task does not use", 1, False),
-            ("", 0, False),
-            ("Finish by building one signal", 0, True),
-            ("Someone else has to read it", 1, False),
+            ("Finish by building one signal someone else can read", 0, True),
         ])
 
     run_sheet_slide(prs, [
@@ -389,13 +386,13 @@ def build():
             ("05   Make it answer back        both together", 0, True),
             ("06   Use what you have          sensors.chomskylab.dk", 0, True),
             ("", 0, False),
-            ("1 to 3 are output. 4 is input. 5 is both. 6 needs no board.", 0, False),
-            ("Nobody is expected to finish all five.", 0, False),
+            ("1 to 3 output, 4 input, 5 both. Nobody finishes all six.", 0, False),
         ])
 
     content_slide(
         prs, "How the task sketches work",
-        lead="Every sketch runs the moment you upload it. Nothing to wire.",
+        lead="Every sketch runs the moment you upload it. Nothing to wire. "
+             "All of them: github.com/labtools-au/multimodal-actuator-workshop",
         body=[
             ("A CHANGE ME block at the top", 0, True),
             ("Two or three numbers. Edit, upload, feel the difference", 1, False),
@@ -403,8 +400,6 @@ def build():
             ("A THINGS TO TRY list at the bottom", 0, True),
             ("Four experiments, roughly in order of difficulty", 1, False),
             ("The last one is usually the interesting one", 1, False),
-            ("", 0, False),
-            ("github.com/labtools-au/multimodal-actuator-workshop", 0, True),
         ])
 
     base = content_slide(
@@ -497,8 +492,7 @@ def build():
         lead="You do not have to do the tasks in order, or finish them. "
              "Playing properly with two beats rushing all five.",
         body=[
-            ("If you want to drive something not in front of you, go and get it.", 0, False),
-            ("", 0, False),
+            ("If you want to drive something not in front of you, go get it.", 0, False),
             ("The three things that are not negotiable", 0, True),
             ("Solenoid and Peltier get their own supply, never USB", 1, False),
             ("The Peltier heatsink goes on before it is switched on", 1, False),
@@ -510,11 +504,9 @@ def build():
         lead="Touch input for the price of a wire. The thinking is where it costs you.",
         body=[
             ("reading > baselineAverage() * 1.01", 0, True),
-            ("", 0, False),
             ("Threshold is relative, never absolute", 0, True),
             ("Readings drift with humidity and mains hum", 1, False),
             ("Fixed threshold works at 9am, fails at 1pm", 1, False),
-            ("", 0, False),
             ("Baseline only learns while untouched", 0, True),
             ("Or a long press teaches it that a finger is normal", 1, False),
         ])
@@ -541,14 +533,11 @@ def build():
         lead="Fair question. Three honest answers.",
         body=[
             ("You cannot Google what something feels like", 0, True),
-            ("A datasheet will not tell you a Peltier takes eight seconds, "
-             "or that a knock reads as a person and a buzz reads as a machine.", 1, False),
-            ("", 0, False),
+            ("No datasheet says a knock reads as a person, a buzz as a machine", 1, False),
             ("The parts are free and already here", 0, True),
-            ("Borrowing beats ordering. Nothing to buy, nothing to wait for.", 1, False),
-            ("", 0, False),
-            ("Your own devices are full of sensors you cannot reach", 0, True),
-            ("Find out today which ones open up, and which are locked.", 1, False),
+            ("Borrowing beats ordering. Nothing to buy, nothing to wait for", 1, False),
+            ("Your devices hide sensors you may not be able to reach", 0, True),
+            ("Find out today which open up, and which are locked", 1, False),
         ])
 
     content_slide(
@@ -587,7 +576,6 @@ def build():
             ("Moving screen, Arduino Uno", 0, True),
             ("Breathes when idle. Retreats when touched", 1, False),
             ("Easing and idle motion do the work. A dozen lines", 1, False),
-            ("", 0, False),
             ("Instrumented sock, ESP32", 0, True),
             ("Six force sensors under a foot, batched over Wi-Fi", 1, False),
             ("Calibrate per sensor. Batch your writes", 1, False),
@@ -601,11 +589,8 @@ def build():
         body=[
             ("One actuator. Three messages", 0, True),
             ("Arrived. Something wrong. Finished", 1, False),
-            ("", 0, False),
             ("Vary two things only", 0, True),
-            ("Rhythm of the pulses", 1, False),
-            ("How strong they are", 1, False),
-            ("", 0, False),
+            ("Rhythm of the pulses, and how strong they are", 1, False),
             ("Blind test: they name all three", 0, True),
             ("Note which two got confused, and why", 1, False),
         ])

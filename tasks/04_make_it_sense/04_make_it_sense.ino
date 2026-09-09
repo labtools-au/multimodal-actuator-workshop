@@ -6,7 +6,7 @@
 // finger is near. This is the cheapest input in the room and the one people
 // are most surprised by.
 //
-// WIRING (bench 04)
+// WIRING (already done for you)
 //   A0 -> a wire -> a piece of foil. That is the entire circuit.
 //
 // LIBRARY: Sketch > Include Library > Manage Libraries > search "ADCTouch"

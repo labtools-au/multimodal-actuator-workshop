@@ -5,11 +5,11 @@
 // Upload this. The motor pulses. Then change the two numbers marked CHANGE ME
 // and upload again. That loop, edit and re-upload, is the whole workshop.
 //
-// WIRING (bench 01)
+// WIRING (already done for you)
 //   D9 -> 1k resistor -> transistor base
 //   motor between transistor collector and +5V
 //   diode across the motor, striped end to +5V
-//   Already wired at the bench. You only upload.
+//   Set up on the table. You only upload.
 //
 // WHY NOT STRAIGHT TO THE PIN: an Arduino pin gives 40 mA. This motor wants
 // about 75 mA. The transistor lets a small pin current switch a bigger one.

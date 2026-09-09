@@ -7,7 +7,7 @@
 // motor in task 1, there is no "half a tap". It fires or it does not, so the
 // only things you control are WHEN and HOW OFTEN.
 //
-// WIRING (bench 03)
+// WIRING (already done for you)
 //   D6 -> MOSFET gate, solenoid on its own 5V supply, diode across the coil
 //   Separate supply matters: the coil pulls about 1.1 A on firing. Off USB
 //   alone the board browns out and resets, which looks exactly like a code

@@ -7,7 +7,7 @@
 // reverses. An H-bridge is what lets you flip that current from code.
 //
 //
-// WIRING (bench 05)
+// WIRING (already done for you)
 //   Two PWM pins per channel: one "low", one "high". Drive one and hold the
 //   other at 0 to pick a direction. This is the same pattern the lab's other
 //   actuator rigs use, so it will look familiar if you read that code.
