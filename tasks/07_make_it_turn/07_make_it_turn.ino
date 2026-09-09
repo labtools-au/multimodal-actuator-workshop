@@ -55,6 +55,20 @@
 //
 // IF NOTHING HAPPENS AT ALL, in this order:
 //
+//   0. HOW MANY LEDs LIGHT? This splits the problem in one look.
+//        two at a time, chasing  -> signals fine, it is a power problem
+//        exactly one, ever       -> only one jumper is landing. The other
+//                                   three are in the wrong holes or loose
+//        none at all             -> the board is unpowered, go to step 1
+//
+//      Two is correct: the Stepper library energises two coils per step
+//      (1010, 0110, 0101, 1001), so two LEDs are lit at every moment. One
+//      lonely LED is always a wiring fault and never a power fault, because
+//      weak power dims all four together rather than leaving one.
+//
+//      utils/pin_debug drives D8..D11 one at a time so you can see exactly
+//      which jumpers land and which do nothing.
+//
 //   1. Is the JP jumper fitted, across BOTH inner pins? Most likely cause.
 //   2. Are + and - swapped? Negative is the outside pin.
 //   3. Is the board's - actually on the Uno's GND? Without a shared ground

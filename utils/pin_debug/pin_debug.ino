@@ -22,6 +22,17 @@
 //   a pin reads LOW while being driven HIGH
 //       -> that pin is shorted to ground, usually a jumper in the wrong hole
 //          or a bridged pair. The line is flagged SHORT.
+//
+// FOR A ULN2003 STEPPER, WHAT THE LEDs SHOULD DO
+//   Running this, exactly ONE LED lights at a time, D8 then D9 then D10 then
+//   D11, in a slow chase. If only one LED ever lights no matter which pin is
+//   being driven, then only that one jumper is landing and the other three
+//   are in the wrong holes, loose, or on the wrong header.
+//
+//   Running the real stepper sketch, TWO LEDs are lit at every moment. The
+//   Stepper library energises two coils per step (1010, 0110, 0101, 1001).
+//   So one lonely LED during the stepper sketch is a wiring fault, never a
+//   power fault: power would dim all four together, not leave one.
 
 #include "logger.h"
 
