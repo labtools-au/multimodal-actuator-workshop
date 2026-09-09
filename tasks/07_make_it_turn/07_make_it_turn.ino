@@ -21,6 +21,26 @@
 //   Six wires, no transistor, no diode, nothing you can destroy. The hard
 //   part of this task is not the wiring.
 //
+//   The motor's own five wires, if you ever need them: blue, pink, yellow and
+//   orange are the four coils, red is the common. They are already in the
+//   right order inside the plug, so you never separate them.
+//
+// THE POWER HEADER, WHICH IS FOUR PINS AND NOT TWO
+//
+//     -    +    [ JP ]
+//     |    |     \__ jumper bridges the two inner pins
+//     |    +------->  Uno 5V
+//     +------------>  Uno GND
+//
+//   The negative is on the OUTSIDE edge. The silkscreen reads minus then
+//   plus, which is the opposite of what most people assume.
+//
+//   That small black jumper is labelled MOTOR ON/OFF. It gates power to the
+//   LEDs and the motor. Knock it off and you get no LEDs and no movement,
+//   while the logic side keeps working perfectly, so everything you can
+//   measure looks fine. This is the most common reason one of these boards
+//   appears dead.
+//
 // THE TRAP, AND IT IS A GOOD ONE
 //   You wired IN1..IN4 to D8..D11 in order. The library does NOT want them in
 //   that order. It wants IN1, IN3, IN2, IN4, which reads 8, 10, 9, 11.
@@ -32,6 +52,27 @@
 //   Worth trying deliberately: change it to (2048, 8, 9, 10, 11), upload,
 //   listen, then change it back. Knowing what that failure SOUNDS like is
 //   worth more than being told about it.
+//
+// IF NOTHING HAPPENS AT ALL, in this order:
+//
+//   1. Is the JP jumper fitted, across BOTH inner pins? Most likely cause.
+//   2. Are + and - swapped? Negative is the outside pin.
+//   3. Is the board's - actually on the Uno's GND? Without a shared ground
+//      the driver has no reference and never switches.
+//   4. Unplug the motor and jumper any IN pin straight to the board's own -
+//      terminal. That LED should light, with the Arduino out of the loop.
+//      It lights: board is fine, the fault is between Uno and driver.
+//      It stays dark: the board or its power.
+//   5. Only then suspect the Arduino. utils/pin_debug drives D8..D11 one at a
+//      time and reads each back, so it tells you whether the pins are really
+//      going high.
+//
+//   Worth knowing WHY step 4 works: the LEDs sit on the output side, anode to
+//   VCC through a resistor, cathode to the driver output. The ULN2003 only
+//   sinks current, never sources it. So a lit LED proves three things at once:
+//   power present, jumper fitted, and that channel actually switching. And no
+//   LEDs with known-good input signals means an unpowered board rather than a
+//   broken one.
 //
 // POWER: USB is enough to turn this unloaded. Put a real load on it and the
 // board browns out and resets, which looks like a crash and is not one. The

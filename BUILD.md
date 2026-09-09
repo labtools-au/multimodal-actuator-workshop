@@ -150,6 +150,10 @@ D9 --[ 1k ]-- PN2222 base
 ULN2003:  IN1 -> D8   IN2 -> D9   IN3 -> D10   IN4 -> D11
 ```
 
+- [ ] **Check the MOTOR ON/OFF jumper on the power header first.** Four pins,
+      not two: minus outside, plus, then two inner pins the jumper bridges.
+      Without it you get no LEDs and no movement while everything measurable
+      looks fine
 - [ ] One full turn each way, smoothly
 - **If it buzzes and jitters instead of turning, the code is wrong, not the
   wiring.** The constructor takes the pins out of order:
@@ -248,8 +252,10 @@ working stations beat six with a mystery.
 | Symptom | Run |
 |---|---|
 | Nothing happens on a pin | `pin_sweep`, which drives every PWM pin in turn |
+| Is the Arduino even driving it? | `pin_debug`. Drives D8..D11 one at a time, reads each back, and mirrors to the onboard LED. Separates "board not driving" from "thing on the end not responding" |
 | An I2C part is silent | `i2c_scanner`. Is the chip even visible? |
 | A sensor reads oddly | `analog_monitor`. What range does it really give? |
+| Stepper silent, no LEDs on the driver | The board is unpowered. Check the MOTOR ON/OFF jumper, then the polarity: minus is the OUTSIDE pin. The LEDs are on the output side, so they cannot light without board power however good the input signals are |
 | Capacitive touch dead or erratic | Check the board is on **USB from a laptop**. An isolated supply removes the ground reference the sensing depends on. Nothing looks wrong; it just stops working |
 
 Do not run `pin_sweep` on the Peltier station. It drives pins to full.

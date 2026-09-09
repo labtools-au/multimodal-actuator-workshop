@@ -8,6 +8,9 @@
 //   IN1 -> D8      IN2 -> D9      IN3 -> D10     IN4 -> D11
 //
 //   Board 5V and GND to the Arduino, or its own supply under any load.
+//   The power header is FOUR pins: minus on the outside edge, then plus,
+//   then two inner pins bridged by a small MOTOR ON/OFF jumper. No jumper
+//   means no LEDs and no movement, with the logic side still working.
 //
 // THE GOTCHA THAT COSTS PEOPLE AN HOUR:
 //   the Stepper constructor does NOT take the pins in numeric order. It wants
