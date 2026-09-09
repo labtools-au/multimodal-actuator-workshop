@@ -58,7 +58,7 @@ that, students pair up.
 | **8A** | YwRobot breadboard supply | 14 |
 | **2C** | L9110S H-bridge | 6 |
 | **11F** | PAM8403 amplifier | 4 |
-| **2A** | Stepper 28BYJ-48 + ULN2003 | 4 of each |
+| **2A** | Stepper 28BYJ-48 + ULN2003 | 4 of each, students build these too |
 | **4A** | FSR | 8 |
 | **4B** | Flex sensor | 4 |
 | **9D** | Pulse sensor | 4 |
@@ -180,6 +180,9 @@ D9 -> servo signal
 - [ ] Servo reacts to a finger on the pad
 - [ ] Open the Serial Plotter and watch the baseline drift. That drift is the
       whole lesson, so make sure it is visible before the session
+- [ ] **Leave this station on laptop USB.** Verified on the bench: an isolated
+      supply kills the ground reference and the sensing goes unstable or dead.
+      If you tidy cables on the morning, do not "fix" this one onto a charger
 
 ### 05 Peltier: safety first, and slow
 
@@ -247,6 +250,7 @@ working stations beat six with a mystery.
 | Nothing happens on a pin | `pin_sweep`, which drives every PWM pin in turn |
 | An I2C part is silent | `i2c_scanner`. Is the chip even visible? |
 | A sensor reads oddly | `analog_monitor`. What range does it really give? |
+| Capacitive touch dead or erratic | Check the board is on **USB from a laptop**. An isolated supply removes the ground reference the sensing depends on. Nothing looks wrong; it just stops working |
 
 Do not run `pin_sweep` on the Peltier station. It drives pins to full.
 

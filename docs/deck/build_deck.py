@@ -409,6 +409,7 @@ def build():
             ("04   Make it notice you  wire and foil     1 wire", 0, True),
             ("05   Make it answer      both of the above 3 wires", 0, True),
             ("", 0, False),
+            ("07   Make it turn       stepper           6 wires, a trap", 0, True),
             ("01   Make something spin coin motor        + transistor", 0, True),
             ("02   Make something tap  solenoid          + own supply", 0, True),
             ("03   Make something warm Peltier tile      + H-bridge", 0, True),

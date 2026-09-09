@@ -18,6 +18,27 @@
 //   for it, so if the LED follows your finger, the sensing works and nothing
 //   else can be blamed.
 //
+// KEEP IT ON USB. Capacitive sensing measures your body against the board's
+// ground, and on a laptop that reference comes through the mains earth. Run
+// the Uno from an isolated supply instead (a phone charger, a battery, a
+// bench PSU) and the shared reference disappears: readings go unstable or
+// stop responding altogether, with nothing visibly wrong. Verified on the
+// bench. If it worked and then stopped, check what is powering the board
+// before you touch the code.
+//
+//   IF YOU MUST run it off USB power, a charger or a battery: give it back a
+//   reference by hand. An alligator clip from the Arduino's GND to something
+//   you are touching (foil under your wrist, a metal chair frame, a metal
+//   enclosure) puts you and the board on the same ground again and the
+//   sensing returns.
+//
+//   Two rules for that clip. Do NOT clip GND to the sense wire, that shorts
+//   out the thing you are measuring. And do not reach for mains earth while
+//   the board floats on its own supply; keep it to a local object.
+//
+//   This is also why commercial capacitive panels tend to live in metal
+//   housings. The housing is doing this job for free.
+//
 // LIBRARY: Sketch > Include Library > Manage Libraries > search "ADCTouch"
 
 #include "logger.h"

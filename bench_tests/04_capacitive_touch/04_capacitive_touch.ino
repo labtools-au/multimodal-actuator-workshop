@@ -9,6 +9,11 @@
 //
 // Library: ADCTouch by martin2250 (Library Manager -> "ADCTouch")
 //
+// POWER: keep this on USB from a laptop. Capacitive sensing needs your body
+// and the board to share a ground reference, which on USB comes through the
+// mains earth. On an isolated supply (charger, battery, bench PSU) the
+// readings go unstable or dead for no visible reason. Verified on the bench.
+//
 // PINS
 //   A0         ->  a bare wire  ->  foil, card or fabric
 //   D9          ->  servo signal

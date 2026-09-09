@@ -18,6 +18,7 @@ needing a variable level has to sit on one of those.
 | 05 answer | **A0** | the task 04 pad | |
 | | **D9** | your actuator | or D6 for the solenoid |
 | 06 phone | none | sensors.chomskylab.dk | no board at all |
+| 07 turn | **D8, D9, D10, D11** | ULN2003 IN1..IN4 | plus 5V and GND |
 
 ## Bench tests
 
@@ -46,6 +47,12 @@ exactly like a dead motor.
 **Grounds.** Anything on its own supply (solenoid, Peltier) needs that supply's
 ground joined to the Arduino's, or the transistor never sees a real gate
 voltage and nothing happens.
+
+**Capacitive touch needs laptop USB.** Tasks 04 and 05 sense your body against
+the board's ground, and that reference arrives through the mains earth. On a
+charger or a battery the sensing goes unstable or dead with nothing visibly
+wrong. If you must run it isolated, clip the Arduino GND to something the user
+is touching. Never to the sense wire.
 
 ## Conflicts to avoid
 
