@@ -117,7 +117,9 @@ int pauseMs     = 800;    // stillness between moves is part of the signal
 
 void setup() {
   logBegin("TASK 07  make it turn", "ULN2003 IN1->D8 IN2->D9 IN3->D10 IN4->D11");
-  logHint("Buzzing but not turning? The pin ORDER in the code, not the wiring.");
+  logHint("LEDs light but shaft still? NOT a dead motor. Not enough current.");
+  logHint("Give the driver its own 5V, and join its GND to the Arduino's.");
+  logHint("Buzzing and jittering instead? Then it IS the pin order in code.");
   motor.setSpeed(speedRpm);
 }
 
